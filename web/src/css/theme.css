@@ -3,7 +3,7 @@
 	/*
 		The fonts and font colours the site will use
 	*/
-	--fonts: 'Roboto';
+	--fonts: "Roboto", "Open Sans", sans-serif;
 	--light-font-colour: #ECE3BB;
 	--dark-font-colour: #000F3D;
 
