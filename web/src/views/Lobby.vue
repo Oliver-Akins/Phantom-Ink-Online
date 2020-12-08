@@ -1,10 +1,10 @@
 <template>
-	<div></div>
+	<div id="GameLobby" class="maximize view"></div>
 </template>
 
 <script>
 export default {
-	name: ``,
+	name: `GameLobby`,
 	components: {},
 	computed: {},
 	methods: {},
