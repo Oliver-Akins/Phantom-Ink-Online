@@ -1,0 +1,61 @@
+:root {
+
+	/*
+		The fonts and font colours the site will use
+	*/
+	--fonts: 'Roboto';
+	--light-font-colour: #ECE3BB;
+	--dark-font-colour: #000F3D;
+
+	/*
+		The darkest colour in the trio for backgrounds, this is used for the
+		site-wide background and modal content.
+	*/
+	--background1: #001233;
+	--background1-text: var(--light-font-colour);
+
+	/*
+		The middle colour in the trio for backgrounds.
+		Used for hand background, buttons, regions, etc.
+	*/
+	--background2: #24356E;
+	--background2-text: var(--light-font-colour);
+
+	/*
+		The colours used for the lightest shades of the background regions.
+		Used almost exclusively for the
+	*/
+	--background3: #4A5081;
+	--background3-text: var(--light-font-colour);
+
+	/*
+		The colours for the cards in the hands of the players
+	*/
+	--card-background: #000;
+	--card-text: #FFF;
+
+	/*
+		The colours used for the main game board. While playing, the alt colour
+		is used for the text input backgrounds, as well as the question toggle
+		button, then used as the main background of the past questions insert,
+		with the primary background being the text input background.
+	*/
+	--board-background: #ACA885;
+	--board-background-alt: #E1D098;
+	--board-background-text: var(--dark-font-colour);
+	--board-background-alt-text: var(--dark-font-colour);
+
+	/* The fill colour of the eyes on the game board */
+	--eye-colour: #000000;
+
+	/* The colour that is used to bring focus towards the modal */
+	--modal-background-blur: #000;
+	--modal-content-background: var(--background1);
+	--modal-content-text: var(--background1-text);
+
+	/* The colours used for the buttons in the discard hand modal */
+	--confirm-background: #00aa00;
+	--confirm-text: white;
+	--cancel-background: #aa0000;
+	--cancel-text: white;
+}
