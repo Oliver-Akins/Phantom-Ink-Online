@@ -10,14 +10,22 @@
 			:show="modal"
 			@closed="modal = false"
 		>
-			<h2 class="centre">Site Attributions:</h2>
+			<h2 class="centre">Attributions:</h2>
+			<p class="centre">
+				Made By: Oliver Akins
+			</p>
 			<hr>
-			<h3>Site Made By: Oliver Akins</h3>
-			<hr>
-			<h3>Open Source Libraries:</h3>
-			<ul>
-				<li>Potatoes</li>
-			</ul>
+			<p>
+				Open Source Libraries:
+				<ul>
+					<li
+						v-for="(link, name) in os_libs"
+						:key="name"
+					>
+						<a :href="link">{{ name }}</a>
+					</li>
+				</ul>
+			</p>
 		</ModalAnimation>
 	</div>
 </template>
@@ -32,6 +40,7 @@ export default {
 	},
 	data() {return {
 		modal: false,
+		os_libs: {}
 	}},
 	computed: {},
 	methods: {},
