@@ -17,3 +17,11 @@ pnpm run build
 ```
 pnpm run lint
 ```
+
+
+## How To Configure
+
+### Role Names:
+File: `src/components/TeamRoleSelect.vue`
+Change: `writer_name` and `guesser_name`
+Type: String
