@@ -1,1 +1,22 @@
+#=============================================================================#
+# The files added manually by Oliver
 node_modules
+.vscode
+
+#=============================================================================#
+# The files that were auto-generated into a .gitignore by Vue-cli
+/web/.DS_Store
+/web/node_modules
+/web/dist
+
+
+# local env files
+/web/.env.local
+/web/.env.*.local
+
+# Log files
+/web/npm-debug.log*
+/web/yarn-debug.log*
+/web/yarn-error.log*
+/web/pnpm-debug.log*
+#=============================================================================#
