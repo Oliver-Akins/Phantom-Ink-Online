@@ -2,11 +2,11 @@
 	<transition name="fade" @after-enter="content = true">
 		<div
 			v-if="show"
-			class="modal-container"
+			class="modal-container clickable"
 			@click.self.stop="content = false"
 		>
 			<transition name="burst" @after-leave="$emit('closed')">
-				<div v-if="content" class="modal">
+				<div v-if="content" class="modal unclickable">
 					<slot />
 				</div>
 			</transition>
