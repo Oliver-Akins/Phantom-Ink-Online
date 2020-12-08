@@ -48,7 +48,7 @@
 	/* The fill colour of the eyes on the game board */
 	--eye-colour: #000000;
 
-	/* The colour that is used to bring focus towards the modal */
+	/* The colours for the modals */
 	--modal-background-blur: #000;
 	--modal-content-background: var(--background1);
 	--modal-content-text: var(--background1-text);
