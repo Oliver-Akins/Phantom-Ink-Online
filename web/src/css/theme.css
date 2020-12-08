@@ -12,6 +12,8 @@
 		site-wide background and modal content.
 	*/
 	--background1: #001233;
+	--background1-darken: #000c24;
+	--background1-lighten: #001a49;
 	--background1-text: var(--light-font-colour);
 
 	/*
@@ -19,13 +21,14 @@
 		Used for hand background, buttons, regions, etc.
 	*/
 	--background2: #24356E;
+	--background2-darken: #19295e;
+	--background2-lighten: #364a8d;
 	--background2-text: var(--light-font-colour);
 
-	/*
-		The colours used for the lightest shades of the background regions.
-		Used almost exclusively for the
-	*/
+	/* The colours used for the lightest shades of the background regions. */
 	--background3: #4A5081;
+	--background3-darken: #5a6192;
+	--background3-lighten: #353b69;
 	--background3-text: var(--light-font-colour);
 
 	/*
