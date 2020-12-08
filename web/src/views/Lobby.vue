@@ -12,6 +12,6 @@ export default {
 </script>
 
 <style>
-@import "css/theme.css";
-@import "css/style.css";
+@import "../css/theme.css";
+@import "../css/style.css";
 </style>
