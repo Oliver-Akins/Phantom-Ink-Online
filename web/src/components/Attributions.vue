@@ -2,7 +2,7 @@
 	<div id="attributions-bar">
 		<div
 			class="bottom-bar clickable"
-			@click="modal = true"
+			@click.stop="modal = true"
 		>
 			Made By: Oliver Akins
 		</div>
