@@ -5,7 +5,7 @@
 			class="modal-container"
 			@click.self.stop="content = false"
 		>
-			<transition name="burst" @after-leave="$emit('close')">
+			<transition name="burst" @after-leave="$emit('closed')">
 				<div v-if="content" class="modal">
 					<slot />
 				</div>
@@ -30,16 +30,31 @@ export default {
 </script>
 
 <style>
-@import "css/theme.css";
-@import "css/style.css";
-@import "css/transitions.css";
+@import "../css/theme.css";
+@import "../css/style.css";
+@import "../css/transitions.css";
 
 .modal-container {
 	background-color: var(--modal-background-blur);
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+	z-index: 10;
+	left: 0;
+	top: 0;
 }
 
 .modal {
 	background-color: var(--modal-content-background);
 	color: var(--modal-content-text);
+	border-radius: 20px;
+	overflow-y: auto;
+	max-height: 75%;
+	padding: 15px;
+	z-index: 11;
+	width: 40%
 }
 </style>

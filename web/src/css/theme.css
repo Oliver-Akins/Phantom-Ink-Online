@@ -49,7 +49,7 @@
 	--eye-colour: #000000;
 
 	/* The colours for the modals */
-	--modal-background-blur: #000;
+	--modal-background-blur: #000000a6;
 	--modal-content-background: var(--background1);
 	--modal-content-text: var(--background1-text);
 
