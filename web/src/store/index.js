@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
 	state: {
-		view: `login`,
+		view: `lobby`,
 		role: null,
 		id: null,
 	},
