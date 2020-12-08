@@ -1,0 +1,62 @@
+/* Transition for modal background appearing/disappearing */
+.fade-enter-active, .fade-leave-active {
+	transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+}
+
+
+
+/* Transition for modal card appearing disappearing */
+.burst-enter-active {
+	animation: burst-in .5s;
+}
+.burst-leave-active { animation: burst-out .5s; }
+
+@keyframes burst-in {
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes burst-out {
+	0% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(0);
+	}
+}
+
+
+
+@media only screen and (min-width: 768px) {
+	@keyframes burst-in {
+		0% {
+			transform: scale(0);
+		}
+		50% {
+			transform: scale(1.25);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+
+	@keyframes burst-out {
+		0% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.25);
+		}
+		100% {
+			transform: scale(0);
+		}
+	}
+}
