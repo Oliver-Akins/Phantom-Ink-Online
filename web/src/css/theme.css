@@ -27,8 +27,8 @@
 
 	/* The colours used for the lightest shades of the background regions. */
 	--background3: #4A5081;
-	--background3-darken: #5a6192;
-	--background3-lighten: #353b69;
+	--background3-darken: #454b7e;
+	--background3-lighten: #5a6192;
 	--background3-text: var(--light-font-colour);
 
 	/*
