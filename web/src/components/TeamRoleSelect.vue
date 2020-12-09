@@ -2,11 +2,13 @@
 	<div :id="`${team_name}-role-select`" class="team-select">
 		<h2 class="centre">{{ team_name }} Team</h2>
 		<button
+			class="clickable"
 			@click.stop="joinWriterRole"
 		>
 			{{ writer_name }}
 		</button>
 		<button
+			class="clickable"
 			@click.stop="joinGuesserRole"
 		>
 			{{ guesser_name }}
