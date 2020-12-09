@@ -7,6 +7,7 @@ export default new Vuex.Store({
 	state: {
 		view: `lobby`,
 		role: null,
+		name: ``,
 		id: null,
 	},
 	mutations: {
