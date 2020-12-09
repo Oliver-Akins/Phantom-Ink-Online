@@ -5,13 +5,13 @@
 			class="clickable"
 			@click.stop="joinWriterRole"
 		>
-			{{ writer_name }}
+			{{ $store.state.writer_name }}
 		</button>
 		<button
 			class="clickable"
 			@click.stop="joinGuesserRole"
 		>
-			{{ guesser_name }}
+			{{ $store.state.guesser_name }}
 		</button>
 	</div>
 </template>
@@ -30,10 +30,6 @@ export default {
 			required: true,
 		},
 	},
-	data() {return {
-		writer_name: `Spirit`,
-		guesser_name: `Medium`,
-	}},
 	computed: {},
 	methods: {
 		joinWriterRole() {},
