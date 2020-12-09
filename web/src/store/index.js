@@ -9,6 +9,14 @@ export default new Vuex.Store({
 		role: null,
 		name: ``,
 		id: null,
+		team_1: {
+			name: `Sun`,
+		},
+		team_2: {
+			name: `Moon`,
+		},
+		writer_name: `Spirit`,
+		guesser_name: `Medium`,
 	},
 	mutations: {
 	},
