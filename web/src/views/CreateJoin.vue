@@ -45,7 +45,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import "../css/theme.css";
 @import "../css/style.css";
 
