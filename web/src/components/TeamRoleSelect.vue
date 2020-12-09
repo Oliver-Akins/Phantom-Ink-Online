@@ -1,6 +1,6 @@
 <template>
-	<div :id="`${team_name}-role-select`">
-		<h2 class="centre">{{ team_name }}</h2>
+	<div :id="`${team_name}-role-select`" class="team-select">
+		<h2 class="centre">{{ team_name }} Team</h2>
 		<button
 			@click.stop="joinWriterRole"
 		>
@@ -40,7 +40,30 @@ export default {
 }
 </script>
 
-<style>
-@import "css/theme.css";
-@import "css/style.css";
+<style scoped>
+@import "../css/theme.css";
+@import "../css/style.css";
+
+.team-select {
+	background-color: var(--background2);
+	color: var(--background2-text);
+	flex-direction: column;
+	border-radius: 20px;
+	align-items: center;
+	padding: 0 0 10px 0;
+	display: flex;
+	margin: 5px;
+	width: 25%;
+}
+
+button {
+	background-color: var(--background3);
+	color: var(--background3-text);
+	border-radius: 50px;
+	outline: none;
+	padding: 10px;
+	width: 85%;
+}
+button:hover { background-color: var(--background3-darken); }
+button:focus { background-color: var(--background3-lighten); }
 </style>
