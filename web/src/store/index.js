@@ -33,6 +33,7 @@ export default new Vuex.Store({
 		// DO NOT EDIT ANYTHING BELOW THIS COMMENT
 		view: `lobby`,
 		role: null,
+		team: 0,
 		name: ``,
 		id: null,
 		players: [],
