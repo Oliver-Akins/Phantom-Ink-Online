@@ -34,7 +34,7 @@
 import Modal from "./Modal";
 
 export default {
-	name: ``,
+	name: `AttributionsBar`,
 	components: {
 		"ModalAnimation": Modal,
 	},
