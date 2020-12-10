@@ -22,20 +22,7 @@ export default {
 			return false;
 		},
 		players() {
-			return [
-				{
-					name: `Oliver`,
-					role: `Developer`
-				},
-				{
-					name: `Max`,
-					role: `Designer`
-				},
-				{
-					name: `Ray`,
-				}
-			]
-			//return this.$store.state.players;
+			return this.$store.state.players;
 		}
 	},
 	methods: {},
