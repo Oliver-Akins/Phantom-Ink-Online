@@ -42,6 +42,10 @@
 		is used for the text input backgrounds, as well as the question toggle
 		button, then used as the main background of the past questions insert,
 		with the primary background being the text input background.
+
+		The text colours are also used for the SVG eyes, if you change the
+		"--board-background-text" variable, also change the fill value in the
+		/public/assets/eye.svg file to match it
 	*/
 	--board-background: #ACA885;
 	--board-background-alt: #E1D098;
