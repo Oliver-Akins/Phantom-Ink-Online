@@ -36,6 +36,20 @@ export default new Vuex.Store({
 		id: null,
 		players: [],
 	},
+	getters: {
+		teamName(state) {
+			if (state.team > 0) {
+				return state[`team_${state.team}`].name;
+			};
+			return ``;
+		},
+		otherTeamName(state) {
+			if (state.team > 0) {
+				return state[`team_${3 - state.team}`].name;
+			};
+			return ``;
+		}
+	},
 	mutations: {
 	},
 	actions: {
