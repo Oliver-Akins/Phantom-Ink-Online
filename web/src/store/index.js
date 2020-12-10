@@ -5,12 +5,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
 	state: {
-		view: `lobby`,
-		role: null,
-		name: ``,
-		id: null,
 		team_1: {
 			name: `Sun`,
+			icon: ``,
 			moons: {
 				1: 0,	2: 0,
 				3: 0,	4: 0,
@@ -20,6 +17,7 @@ export default new Vuex.Store({
 		},
 		team_2: {
 			name: `Moon`,
+			icon: ``,
 			moons: {
 				1: 0,	2: 0,
 				3: 0,	4: 0,
@@ -29,6 +27,13 @@ export default new Vuex.Store({
 		},
 		writer_name: `Spirit`,
 		guesser_name: `Medium`,
+
+//===========================================================================//
+		// DO NOT EDIT ANYTHING BELOW THIS COMMENT
+		view: `lobby`,
+		role: null,
+		name: ``,
+		id: null,
 	},
 	mutations: {
 	},
