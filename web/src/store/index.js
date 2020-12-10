@@ -27,6 +27,7 @@ export default new Vuex.Store({
 		},
 		writer_name: `Spirit`,
 		guesser_name: `Medium`,
+		eye_icon: `eye.svg`,
 
 //===========================================================================//
 		// DO NOT EDIT ANYTHING BELOW THIS COMMENT
