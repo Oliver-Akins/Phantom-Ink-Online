@@ -16,10 +16,10 @@
 			</p>
 			<hr>
 			<p>
-				Open Source Libraries:
+				Tooling:
 				<ul>
 					<li
-						v-for="(link, name) in os_libs"
+						v-for="(link, name) in tooling"
 						:key="name"
 					>
 						<a :href="link">{{ name }}</a>
@@ -40,7 +40,7 @@ export default {
 	},
 	data() {return {
 		modal: false,
-		os_libs: {}
+		tooling: {}
 	}},
 	computed: {},
 	methods: {},
