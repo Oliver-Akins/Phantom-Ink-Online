@@ -8,7 +8,7 @@ export default new Vuex.Store({
 		team_1: {
 			name: `Sun`,
 			icon: ``,
-			moons: {
+			eyes: {
 				1: 0,	2: 0,
 				3: 0,	4: 0,
 				5: 0,	6: 0,
@@ -18,7 +18,7 @@ export default new Vuex.Store({
 		team_2: {
 			name: `Moon`,
 			icon: ``,
-			moons: {
+			eyes: {
 				1: 0,	2: 0,
 				3: 0,	4: 0,
 				5: 0,	6: 0,
