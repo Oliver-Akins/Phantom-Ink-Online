@@ -34,6 +34,7 @@ export default new Vuex.Store({
 		role: null,
 		name: ``,
 		id: null,
+		players: [],
 	},
 	mutations: {
 	},
