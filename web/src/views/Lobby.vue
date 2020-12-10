@@ -14,7 +14,7 @@
 				:team_name="$store.state.team_1.name"
 				:player_name="playerName"
 			/>
-			<div>Player List</div>
+			<player-list />
 			<role-select
 				:team_name="$store.state.team_2.name"
 				:player_name="playerName"
@@ -33,11 +33,13 @@
 
 <script>
 import TeamRoleSelect from "../components/TeamRoleSelect";
+import PlayerList from "../components/PlayerList";
 
 export default {
 	name: `GameLobby`,
 	components: {
 		"RoleSelect": TeamRoleSelect,
+		"PlayerList": PlayerList,
 	},
 	computed: {
 		playerName() {
@@ -61,7 +63,7 @@ export default {
 
 .flex-row {
 	justify-content: center;
-	align-items: center;
+	align-items: stretch;
 	display: flex;
 }
 
