@@ -2,6 +2,7 @@
 	<div id="app" class="maximize">
 		<CreateJoin v-if="gameState == `login`" />
 		<GameLobby v-else-if="gameState == `lobby`" />
+		<InGame v-else-if="gameState == `in-game`" />
 		<Attributions />
 	</div>
 </template>
@@ -10,6 +11,7 @@
 import AttributionsBar from "./components/Attributions";
 import CreateJoinGame from "./views/CreateJoin";
 import GameLobby from "./views/Lobby";
+import InGame from "./views/InGame";
 
 export default {
 	name: `App`,
@@ -17,6 +19,7 @@ export default {
 		"Attributions": AttributionsBar,
 		"CreateJoin": CreateJoinGame,
 		"GameLobby": GameLobby,
+		"InGame": InGame,
 	},
 	computed: {
 		gameState() {
