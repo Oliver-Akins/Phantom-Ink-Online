@@ -1,0 +1,4 @@
+0 -> Main components (default)
+2 -> Eyes + the multiplier
+10 -> Modal background
+11 -> Modal foreground
