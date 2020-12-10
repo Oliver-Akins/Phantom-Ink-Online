@@ -34,8 +34,8 @@
 	/*
 		The colours for the cards in the hands of the players
 	*/
-	--card-background: #000;
-	--card-text: #FFF;
+	--card-background: #E1D098;
+	--card-text: var(--dark-font-colour);
 
 	/*
 		The colours used for the main game board. While playing, the alt colour
