@@ -31,7 +31,7 @@ export default new Vuex.Store({
 
 //===========================================================================//
 		// DO NOT EDIT ANYTHING BELOW THIS COMMENT
-		view: `lobby`,
+		view: `in-game`,
 		role: null,
 		team: 0,
 		name: ``,
