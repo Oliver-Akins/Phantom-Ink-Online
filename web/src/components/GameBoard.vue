@@ -3,126 +3,18 @@
 		<div id="other-team-answers" class="team-container">
 			<h2 class="centre">{{ $store.getters.otherTeamName }} Answers</h2>
 			<div class="answer-container">
-				<div class="answer">
-					<input type="text" :id="`${otherTeamID}-answer-1`" disabled>
-					<span class="other-team eye-container" v-if="$store.state[`team_${3 - $store.state.team}`].eyes[1] > 0">
+				<div
+					class="answer"
+					v-for="answerIndex in 8"
+					:key="`${otherTeamID}-answer-container-${answerIndex}`"
+				>
+					<input type="text" :id="`${otherTeamID}-answer-${answerIndex}`" disabled>
+					<span class="other-team eye-container" v-if="$store.state[`team_${3 - $store.state.team}`].eyes[answerIndex] > 0">
 						<span
-							v-if="$store.state[`team_${3 - $store.state.team}`].eyes[1] > 1"
+							v-if="$store.state[`team_${3 - $store.state.team}`].eyes[answerIndex] > 1"
 							class="eye-multiplier"
 						>
-							{{ $store.state[`team_${3 - $store.state.team}`].eyes[1] }} x
-						</span>
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${otherTeamID}-answer-2`" disabled>
-					<span class="other-team eye-container" v-if="$store.state[`team_${3 - $store.state.team}`].eyes[2] > 0">
-						<span
-							v-if="$store.state[`team_${3 - $store.state.team}`].eyes[2] > 1"
-							class="eye-multiplier"
-						>
-							{{ $store.state[`team_${3 - $store.state.team}`].eyes[2] }}x
-						</span>
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${otherTeamID}-answer-3`" disabled>
-					<span class="other-team eye-container" v-if="$store.state[`team_${3 - $store.state.team}`].eyes[3] > 0">
-						<span
-							v-if="$store.state[`team_${3 - $store.state.team}`].eyes[3] > 1"
-							class="eye-multiplier"
-						>
-							{{ $store.state[`team_${3 - $store.state.team}`].eyes[3] }} x
-						</span>
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${otherTeamID}-answer-4`" disabled>
-					<span class="other-team eye-container" v-if="$store.state[`team_${3 - $store.state.team}`].eyes[4] > 0">
-						<span
-							v-if="$store.state[`team_${3 - $store.state.team}`].eyes[4] > 1"
-							class="eye-multiplier"
-						>
-							{{ $store.state[`team_${3 - $store.state.team}`].eyes[4] }} x
-						</span>
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${otherTeamID}-answer-5`" disabled>
-					<span class="other-team eye-container" v-if="$store.state[`team_${3 - $store.state.team}`].eyes[5] > 0">
-						<span
-							v-if="$store.state[`team_${3 - $store.state.team}`].eyes[5] > 1"
-							class="eye-multiplier"
-						>
-							{{ $store.state[`team_${3 - $store.state.team}`].eyes[5] }} x
-						</span>
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${otherTeamID}-answer-6`" disabled>
-					<span class="other-team eye-container" v-if="$store.state[`team_${3 - $store.state.team}`].eyes[6] > 0">
-						<span
-							v-if="$store.state[`team_${3 - $store.state.team}`].eyes[6] > 1"
-							class="eye-multiplier"
-						>
-							{{ $store.state[`team_${3 - $store.state.team}`].eyes[6] }} x
-						</span>
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${otherTeamID}-answer-7`" disabled>
-					<span class="other-team eye-container" v-if="$store.state[`team_${3 - $store.state.team}`].eyes[7] > 0">
-						<span
-							v-if="$store.state[`team_${3 - $store.state.team}`].eyes[7] > 1"
-							class="eye-multiplier"
-						>
-							{{ $store.state[`team_${3 - $store.state.team}`].eyes[7] }} x
-						</span>
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${otherTeamID}-answer-8`" disabled>
-					<span class="other-team eye-container" v-if="$store.state[`team_${3 - $store.state.team}`].eyes[8] > 0">
-						<span
-							v-if="$store.state[`team_${3 - $store.state.team}`].eyes[8] > 1"
-							class="eye-multiplier"
-						>
-							{{ $store.state[`team_${3 - $store.state.team}`].eyes[8] }} x
+							{{ $store.state[`team_${3 - $store.state.team}`].eyes[answerIndex] }} x
 						</span>
 						<img
 							class="eye"
@@ -136,131 +28,23 @@
 		<div id="team-answers" class="team-container">
 			<h2 class="centre">{{ $store.getters.teamName }} Answers</h2>
 			<div class="answer-container">
-				<div class="answer">
+				<div
+					class="answer"
+					v-for="answerIndex in 8"
+					:key="`${teamID}-answer-container-${answerIndex}`"
+				>
 					<input type="text" :id="`${teamID}-answer-1`">
-					<span class="team eye-container" v-if="$store.state[`team_${$store.state.team}`].eyes[1] > 0">
+					<span class="team eye-container" v-if="$store.state[`team_${$store.state.team}`].eyes[answerIndex] > 0">
 						<img
 							class="eye"
 							:src="`/assets/${$store.state.eye_icon}`"
 							alt="reveal another letter"
 						>
 						<span
-							v-if="$store.state[`team_${$store.state.team}`].eyes[1] > 1"
+							v-if="$store.state[`team_${$store.state.team}`].eyes[answerIndex] > 1"
 							class="eye-multiplier"
 						>
-							x {{ $store.state[`team_${$store.state.team}`].eyes[1] }}
-						</span>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${teamID}-answer-2`">
-					<span class="team eye-container" v-if="$store.state[`team_${$store.state.team}`].eyes[2] > 0">
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-						<span
-							v-if="$store.state[`team_${$store.state.team}`].eyes[2] > 1"
-							class="eye-multiplier"
-						>
-							x {{ $store.state[`team_${$store.state.team}`].eyes[2] }}
-						</span>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${teamID}-answer-3`">
-					<span class="team eye-container" v-if="$store.state[`team_${$store.state.team}`].eyes[3] > 0">
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-						<span
-							v-if="$store.state[`team_${$store.state.team}`].eyes[3] > 1"
-							class="eye-multiplier"
-						>
-							x {{ $store.state[`team_${$store.state.team}`].eyes[3] }}
-						</span>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${teamID}-answer-4`">
-					<span class="team eye-container" v-if="$store.state[`team_${$store.state.team}`].eyes[4] > 0">
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-						<span
-							v-if="$store.state[`team_${$store.state.team}`].eyes[4] > 1"
-							class="eye-multiplier"
-						>
-							x {{ $store.state[`team_${$store.state.team}`].eyes[4] }}
-						</span>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${teamID}-answer-5`">
-					<span class="team eye-container" v-if="$store.state[`team_${$store.state.team}`].eyes[5] > 0">
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-						<span
-							v-if="$store.state[`team_${$store.state.team}`].eyes[5] > 1"
-							class="eye-multiplier"
-						>
-							x {{ $store.state[`team_${$store.state.team}`].eyes[5] }}
-						</span>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${teamID}-answer-6`">
-					<span class="team eye-container" v-if="$store.state[`team_${$store.state.team}`].eyes[6] > 0">
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-						<span
-							v-if="$store.state[`team_${$store.state.team}`].eyes[6] > 1"
-							class="eye-multiplier"
-						>
-							x {{ $store.state[`team_${$store.state.team}`].eyes[6] }}
-						</span>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${teamID}-answer-7`">
-					<span class="team eye-container" v-if="$store.state[`team_${$store.state.team}`].eyes[7] > 0">
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-						<span
-							v-if="$store.state[`team_${$store.state.team}`].eyes[7] > 1"
-							class="eye-multiplier"
-						>
-							x {{ $store.state[`team_${$store.state.team}`].eyes[7] }}
-						</span>
-					</span>
-				</div>
-				<div class="answer">
-					<input type="text" :id="`${teamID}-answer-8`">
-					<span class="team eye-container" v-if="$store.state[`team_${$store.state.team}`].eyes[8] > 0">
-						<img
-							class="eye"
-							:src="`/assets/${$store.state.eye_icon}`"
-							alt="reveal another letter"
-						>
-						<span
-							v-if="$store.state[`team_${$store.state.team}`].eyes[8] > 1"
-							class="eye-multiplier"
-						>
-							x {{ $store.state[`team_${$store.state.team}`].eyes[8] }}
+							x {{ $store.state[`team_${$store.state.team}`].eyes[answerIndex] }}
 						</span>
 					</span>
 				</div>
