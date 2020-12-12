@@ -76,12 +76,12 @@
 export default {
 	name: `GameBoard`,
 	components: {},
-	data: {
+	data() {return {
 		answers: {
 			team_1: [ ``, ``, ``, ``, ``, ``, ``, `` ],
 			team_2: [ ``, ``, ``, ``, ``, ``, ``, `` ],
 		},
-	},
+	}},
 	computed: {
 		teamID() {
 			return this.$store.getters.teamName.replace(/\s/g, `-`).toLowerCase();
