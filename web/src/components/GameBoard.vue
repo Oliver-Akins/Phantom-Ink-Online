@@ -92,11 +92,19 @@ export default {
 	},
 	methods: {
 		answerInputHandler(answerIndex) {
-			console.log(this.answers[`team_${this.$store.state.team}`][answerIndex-1])
+			console.debug(this.answers[`team_${this.$store.state.team}`][answerIndex-1]);
+
+			let team = this.$store.state.team;
+			let data = {
+				team: team,
+				answer: answerIndex,
+				value: this.answers[`team_${team}`][answerIndex - 1]
+			};
+			// Send data to socket.io server
 		}
 	},
 	sockets: {
-		UpdateAnswer() {
+		UpdateAnswer(data) {
 			/*
 			{
 				team: 1 | 2,
@@ -104,6 +112,7 @@ export default {
 				value: String,
 			}
 			*/
+			this.answers[`team_${data.team}`][data.answer - 1] = data.value;
 		}
 	},
 }
