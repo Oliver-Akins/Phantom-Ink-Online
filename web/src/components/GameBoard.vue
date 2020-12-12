@@ -153,7 +153,7 @@ export default {
 }
 .other-team {
 	text-align: right;
-	left: -40px;
+	left: -50px;
 	top: 25%;
 }
 
@@ -176,6 +176,12 @@ input[type="text"] {
 	outline: none;
 	margin: 7px 0;
 	border: none;
-	width: 95%;
+	width: 90%;
+}
+input[type="text"].team-answer {
+	padding-right: 5%;
+}
+input[type="text"].other-team-answer {
+	padding-left: 5%;
 }
 </style>
