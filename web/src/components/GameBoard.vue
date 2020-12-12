@@ -126,9 +126,9 @@ export default {
 	background-color: var(--board-background);
 	color: var(--board-background-text);
 	justify-content: space-evenly;
-	padding: 0 10px 10px;
-	border-radius: 20px;
+	padding-bottom: 10px;
 	flex-direction: row;
+	border-radius: 20px;
 	display: flex;
 	margin: 0;
 }
