@@ -129,9 +129,8 @@ export default {
 	padding: 0 10px 10px;
 	border-radius: 20px;
 	flex-direction: row;
-	margin: 15px auto;
 	display: flex;
-	width: 95%;
+	margin: 0;
 }
 
 .team-container {
