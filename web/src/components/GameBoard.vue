@@ -8,8 +8,17 @@
 					v-for="answerIndex in 8"
 					:key="`${otherTeamID}-answer-container-${answerIndex}`"
 				>
-					<input type="text" :id="`${otherTeamID}-answer-${answerIndex}`" disabled>
-					<span class="other-team eye-container" v-if="$store.state[`team_${3 - $store.state.team}`].eyes[answerIndex] > 0">
+					<input
+						type="text"
+						class="other-team-answer"
+						:id="`${otherTeamID}-answer-${answerIndex}`"
+						v-model="answers[`team_${3 - $store.state.team}`][answerIndex-1]"
+						disabled
+					>
+					<span
+						class="other-team eye-container"
+						v-if="$store.state[`team_${3 - $store.state.team}`].eyes[answerIndex] > 0"
+					>
 						<span
 							v-if="$store.state[`team_${3 - $store.state.team}`].eyes[answerIndex] > 1"
 							class="eye-multiplier"
@@ -33,8 +42,18 @@
 					v-for="answerIndex in 8"
 					:key="`${teamID}-answer-container-${answerIndex}`"
 				>
-					<input type="text" :id="`${teamID}-answer-1`">
-					<span class="team eye-container" v-if="$store.state[`team_${$store.state.team}`].eyes[answerIndex] > 0">
+					<input
+						type="text"
+						class="team-answer"
+						:id="`${teamID}-answer-${answerIndex}`"
+						:disabled="$store.state.role == $store.state.guesser_name"
+						@input.stop="answerInputHandler(answerIndex)"
+						v-model="answers[`team_${$store.state.team}`][answerIndex-1]"
+					>
+					<span
+						class="team eye-container"
+						v-if="$store.state[`team_${$store.state.team}`].eyes[answerIndex] > 0"
+					>
 						<img
 							class="eye"
 							:src="`/assets/${$store.state.eye_icon}`"
@@ -57,6 +76,12 @@
 export default {
 	name: `GameBoard`,
 	components: {},
+	data() {return {
+		answers: {
+			team_1: [ ``, ``, ``, ``, ``, ``, ``, `` ],
+			team_2: [ ``, ``, ``, ``, ``, ``, ``, `` ],
+		},
+	}},
 	computed: {
 		teamID() {
 			return this.$store.getters.teamName.replace(/\s/g, `-`).toLowerCase();
@@ -65,7 +90,11 @@ export default {
 			return this.$store.getters.otherTeamName.replace(/\s/g, `-`).toLowerCase();
 		},
 	},
-	methods: {},
+	methods: {
+		answerInputHandler(answerIndex) {
+			console.log(this.answers[`team_${this.$store.state.team}`][answerIndex-1])
+		}
+	},
 	sockets: {
 		UpdateAnswer() {
 			/*
