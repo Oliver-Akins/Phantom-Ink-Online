@@ -123,6 +123,7 @@ export default {
 	top: 25%;
 }
 .other-team {
+	text-align: right;
 	left: -40px;
 	top: 25%;
 }
