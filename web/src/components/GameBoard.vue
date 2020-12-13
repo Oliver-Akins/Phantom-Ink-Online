@@ -3,6 +3,12 @@
 		<div id="other-team-answers" class="team-container">
 			<h2 class="centre">{{ $store.getters.otherTeamName }} Answers</h2>
 			<div class="answer-container">
+				<!--
+					Repeats to create the number of team answers that we need,
+					these text inputs are always disabled for the player as these
+					inputs are only ever for the opposing team. They still have
+					a model attribute to keep them synced correctly.
+				-->
 				<div
 					class="answer"
 					v-for="answerIndex in 8"
@@ -15,6 +21,8 @@
 						v-model="answers[`team_${3 - $store.state.team}`][answerIndex-1]"
 						disabled
 					>
+
+					<!-- Display the number of eyes for the slot on the board -->
 					<span
 						class="other-team eye-container"
 						v-if="$store.state[`team_${3 - $store.state.team}`].eyes[answerIndex] > 0"
@@ -37,6 +45,11 @@
 		<div id="team-answers" class="team-container">
 			<h2 class="centre">{{ $store.getters.teamName }} Answers</h2>
 			<div class="answer-container">
+				<!--
+					This repeats to create the volume oftext inputs that we need,
+					only allowing the text inputs to be used by the spirit players
+					and having them be disabled for all other players
+				-->
 				<div
 					class="answer"
 					v-for="answerIndex in 8"
@@ -50,6 +63,8 @@
 						@input.stop="answerInputHandler(answerIndex)"
 						v-model="answers[`team_${$store.state.team}`][answerIndex-1]"
 					>
+
+					<!-- Display the number of eyes for the slot on the board -->
 					<span
 						class="team eye-container"
 						v-if="$store.state[`team_${$store.state.team}`].eyes[answerIndex] > 0"
@@ -106,19 +121,29 @@ export default {
 	},
 	methods: {
 		answerInputHandler(answerIndex) {
-			console.debug(this.answers[`team_${this.$store.state.team}`][answerIndex-1]);
-
+			/**
+			 * Sends input data updates to the server when they occur, indicating
+			 * the data as necessary
+			 */
 			let team = this.$store.state.team;
 			let data = {
 				team: team,
 				answer: answerIndex,
 				value: this.answers[`team_${team}`][answerIndex - 1]
 			};
-			// Send data to socket.io server
+
+			// TODO -> Send data to socket.io server
+			console.log(data)
 		},
 		toggleInsert() {
+			/**
+			 * When toggling the insert, we want to request new information
+			 * from the server in case there has been an update since the last
+			 * time it was displayed. We only want to do this on appear though,
+			 * never on disappear.
+			 */
 			if (!this.visible) {
-				// request questions from server
+				// TODO -> request questions from server
 				console.log(`Fetching questions for team`)
 			};
 			this.visible = !this.visible;
@@ -126,13 +151,16 @@ export default {
 	},
 	sockets: {
 		UpdateAnswer(data) {
-			/*
-			{
-				team: 1 | 2,
-				answer: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8,
-				value: String,
-			}
-			*/
+			/**
+			 * Receives the updates for the answer for both teams, updating the
+			 * data for the text inputs to be displayed dynamically.
+			 *
+			 * data -> {
+			 *     team: 1 | 2,
+			 *     answer: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8,
+			 *     value: string
+			 * }
+			 */
 			this.answers[`team_${data.team}`][data.answer - 1] = data.value;
 		}
 	},
