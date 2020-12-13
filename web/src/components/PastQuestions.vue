@@ -52,6 +52,7 @@ export default {
 	background-color: var(--board-background);
 	color: var(--board-background-text);
 	padding: 10px 10px 0 10px;
+	border-radius: 7px;
 	margin: 5px;
 	width: 40%;
 }
