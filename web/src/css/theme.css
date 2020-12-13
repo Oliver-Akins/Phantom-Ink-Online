@@ -62,9 +62,13 @@
 	--modal-content-background: var(--background1);
 	--modal-content-text: var(--background1-text);
 
-	/* The colours used for the buttons in the discard hand modal */
-	--confirm-background: #00aa00;
+	/* The colours used for the buttons in the modal that are for confirming actions */
+	--confirm-background: #018501;
+	--confirm-background-darken: #006600;
+	--confirm-background-lighten: #00aa00;
 	--confirm-text: white;
 	--cancel-background: #aa0000;
+	--cancel-background-darken: #830101;
+	--cancel-background-lighten: #e71111;
 	--cancel-text: white;
 }
