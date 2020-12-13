@@ -2,8 +2,9 @@
 	<transition name="fade" @after-enter="content = true">
 		<div
 			v-if="show"
-			class="modal-container clickable"
-			@click.self.stop="content = false"
+			class="modal-container"
+			:class="closable ? 'clickable' : ''"
+			@click.self.stop="handleBackgroundClick"
 		>
 			<transition name="burst" @after-leave="$emit('closed')">
 				<div v-if="content" class="modal unclickable">
@@ -22,10 +23,22 @@ export default {
 			required: true,
 			type: Boolean,
 		},
+		closable: {
+			required: false,
+			type: Boolean,
+			default: true,
+		}
 	},
 	data() {return {
 		content: false,
 	}},
+	methods: {
+		handleBackgroundClick() {
+			if (this.closable) {
+				this.content = false;
+			};
+		},
+	},
 }
 </script>
 
