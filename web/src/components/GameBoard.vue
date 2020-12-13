@@ -69,14 +69,28 @@
 				</div>
 			</div>
 		</div>
+		<button
+			class="past-questions-toggle clickable"
+			@click.self="toggleInsert()"
+		>
+			{{ visible ? `Hide` : `Show` }} Past Questions
+		</button>
+		<transition name="expand-from-left">
+			<past-questions v-if="visible" />
+		</transition>
 	</div>
 </template>
 
 <script>
+import PastQuestions from './PastQuestions';
+
 export default {
 	name: `GameBoard`,
-	components: {},
+	components: {
+		"past-questions": PastQuestions
+	},
 	data() {return {
+		visible: false,
 		answers: {
 			team_1: [ ``, ``, ``, ``, ``, ``, ``, `` ],
 			team_2: [ ``, ``, ``, ``, ``, ``, ``, `` ],
@@ -101,7 +115,14 @@ export default {
 				value: this.answers[`team_${team}`][answerIndex - 1]
 			};
 			// Send data to socket.io server
-		}
+		},
+		toggleInsert() {
+			if (!this.visible) {
+				// request questions from server
+				console.log(`Fetching questions for team`)
+			};
+			this.visible = !this.visible;
+		},
 	},
 	sockets: {
 		UpdateAnswer(data) {
@@ -129,8 +150,10 @@ export default {
 	padding-bottom: 10px;
 	flex-direction: row;
 	border-radius: 20px;
+	position: relative;
+	margin: 15px auto;
 	display: flex;
-	margin: 0;
+	width: 95%;
 }
 
 .team-container {
@@ -192,4 +215,17 @@ input[type="text"].team-answer {
 input[type="text"].other-team-answer {
 	padding-left: 5%;
 }
+
+button {
+	background-color: var(--board-background-alt);
+	border-radius: 0 20px 0 7px;
+	border-style: none;
+	position: absolute;
+	outline: none;
+	padding: 10px;
+	right: 0;
+	top: 0;
+}
+button:hover { background-color: var(--board-background-alt-darken); }
+button:focus { background-color: var(--board-background-alt-lighten); }
 </style>
