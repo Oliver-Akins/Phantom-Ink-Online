@@ -1,5 +1,5 @@
 <template>
-	<div></div>
+	<div id="PlayerHand"></div>
 </template>
 
 <script>
@@ -8,10 +8,11 @@ export default {
 	components: {},
 	computed: {},
 	methods: {},
+	sockets: {},
 }
 </script>
 
-<style>
+<style scoped>
 @import "../css/theme.css";
 @import "../css/style.css";
 </style>
