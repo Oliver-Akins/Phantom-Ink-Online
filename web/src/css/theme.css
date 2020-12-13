@@ -49,6 +49,8 @@
 	*/
 	--board-background: #ACA885;
 	--board-background-alt: #E1D098;
+	--board-background-alt-darken: #cab981;
+	--board-background-alt-lighten: #f1e4b7;
 	--board-background-text: var(--dark-font-colour);
 	--board-background-alt-text: var(--dark-font-colour);
 
