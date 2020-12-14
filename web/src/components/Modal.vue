@@ -1,18 +1,20 @@
 <template>
-	<transition name="fade" @after-enter="content = true">
-		<div
-			v-if="show"
-			class="modal-container"
-			:class="closable ? 'clickable' : ''"
-			@click.self.stop="handleBackgroundClick"
-		>
-			<transition name="burst" @after-leave="$emit('closed')">
-				<div v-if="content" class="modal unclickable">
-					<slot />
-				</div>
-			</transition>
-		</div>
-	</transition>
+	<teleport to="body">
+		<transition name="fade" @after-enter="content = true">
+			<div
+				v-if="show"
+				class="modal-container"
+				:class="closable ? 'clickable' : ''"
+				@click.self.stop="handleBackgroundClick"
+			>
+				<transition name="burst" @after-leave="$emit('closed')">
+					<div v-if="content" class="modal unclickable">
+						<slot />
+					</div>
+				</transition>
+			</div>
+		</transition>
+	</teleport>
 </template>
 
 <script>
