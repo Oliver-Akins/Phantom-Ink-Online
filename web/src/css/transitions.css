@@ -9,6 +9,33 @@
 
 
 
+.expand-from-left-enter-active {
+	animation: expand-from-left 1s;
+	transform-origin: left;
+}
+.expand-from-left-leave-active {
+	animation: shrink-to-left 1s;
+	transform-origin: left;
+}
+@keyframes expand-from-left {
+	0% {
+		transform: scaleX(0);
+	}
+	100% {
+		transform: scaleX(1);
+	}
+}
+@keyframes shrink-to-left {
+	0% {
+		transform: scaleX(1);
+	}
+	100% {
+		transform: scaleX(0);
+	}
+}
+
+
+
 /* Transition for modal card appearing disappearing */
 .burst-enter-active {
 	animation: burst-in .5s;
