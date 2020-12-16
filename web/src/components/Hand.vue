@@ -1,150 +1,88 @@
 <template>
 	<div id="PlayerHand">
 		<div
-			class="card clickable"
+			class="card"
 			v-for="cardIndex in questions.length"
 			:key="`card_${cardIndex}`"
 			@click.self="handleCardClick(cardIndex)"
 		>
-			{{questions[cardIndex - 1]}}
+			<p class="card-text centre">
+				{{ questions[cardIndex - 1] }}
+			</p>
+			<button
+				class="card-button clickable"
+				@click.stop="sendCard(cardIndex)"
+			>
+				<span v-if="isGuesser" >
+					Ask {{ $store.state.writer_name }}
+				</span>
+				<span v-else-if="isWriter" >
+					Answer Question
+				</span>
+				<span v-else >
+					Unknown Role
+				</span>
+			</button>
 		</div>
-		<ModalAnimation
-			:show="showQuestionConfirm"
-			:closable="false"
-			@closed="showQuestionConfirm = false"
-		>
-			<h2 class="centre">Send Card?</h2>
-			<p class="centre">
-				You're about to send the below question to your {{ $store.state.writer_name.toLowerCase() }}, are you sure?
-			</p>
-			<p class="question-quote centre">
-				"{{ questions[targetQuestion] }}"
-			</p>
-			<div class="button-container">
-				<button
-					class="confirm clickable"
-					@click.stop="confirmSend()"
-				>
-					Send Card
-				</button>
-				<button
-					class="cancel clickable"
-					@click.stop="showQuestionConfirm = false"
-				>
-					Don't Send Card
-				</button>
-			</div>
-		</ModalAnimation>
-		<ModalAnimation
-			:show="showDoneModal"
-			:closable="false"
-			@closed="showDoneModal = false"
-		>
-			<h2 class="centre">Finished Writing?</h2>
-			<p class="centre">
-				You're about to finish writing for the turn, this will send the
-				card to the discard pile. You will still be able to view it from
-				the past questions pile using the "Past Questions" button in the
-				upper right corner of the game board.
-			</p>
-			<div class="button-container">
-				<button
-					class="confirm clickable"
-					@click.stop="confirmDone()"
-				>
-					Done With Card
-				</button>
-				<button
-					class="cancel clickable"
-					@click.stop="showDoneModal = false"
-				>
-					Not Done With Card
-				</button>
-			</div>
-		</ModalAnimation>
 	</div>
 </template>
 
 <script>
-import ModalAnimation from "./Modal";
-
 export default {
 	name: `PlayerHand`,
-	components: {
-		"ModalAnimation": ModalAnimation,
-	},
+	components: {},
 	data() {return {
-		targetQuestion: null,
-		showQuestionConfirm: false,
-		showDoneModal: false,
-		questions: [
-			`Where would I be most likely to find it?`,
-			`What continent/region would I find the most of these?`,
-			`What's a variety it comes in?`,
-			`Where in my house am I most likely to find it in?`,
-			`How is it made?`,
-			`What would happen if I ate it?`,
-			`If it were a musical instrument, what instrument would it be?`
-		]
+		questions: [],
 	}},
-	computed: {},
+	computed: {
+		userRole() {
+			return this.$store.state.role;
+		},
+		isGuesser() {
+			return this.userRole == this.$store.state.guesser_name;
+		},
+		isWriter() {
+			return this.userRole == this.$store.state.writer_name;
+		},
+	},
 	methods: {
-		handleCardClick(cardIndex) {
-			/**
-			 * Handles the different types of clicks that can happen for the
-			 * cards of the different roles.
-			 */
-			if (this.$store.state.role == this.$store.state.guesser_name)
-				this.promptQuestionConfirm(cardIndex);
-			else if (this.$store.state.role == this.$store.state.writer_name)
-				this.showDoneModal = true;
-			else
-				console.error(`Invalid role: ${this.$store.state.role}`);
-		},
-		promptQuestionConfirm(cardIndex) {
-			this.targetQuestion = cardIndex - 1;
-			this.showQuestionConfirm = true;
-		},
-		confirmSend() {
-			/**
-			 * The guesser wants to send the question to the writer, this handles
-			 * closing the modal and sends then sends the data to the server
-			 */
-			this.showQuestionConfirm = false;
+		sendCard(cardIndex) {
+
+			// Determine what the source of the card is for the server to take
+			// appropriate action.
+			let role = `unknown`;
+			if (this.isGuesser)
+				role = `guesser`
+			else if (this.isWriter)
+				role = `writer`
+
+			// Create the data object for the server to receive
 			let data = {
-				text: this.questions[this.targetQuestion],
-				from: `guesser`,
+				text: this.questions[cardIndex - 1],
+				from: role,
 				team: this.$store.state.team,
-			}
+			};
+
+			this.questions.splice(cardIndex - 1, 1);
+
+			// Discard the rest of the writer's hand
+			if (this.isWriter) {
+				this.questions = [];
+			};
+
 			// TODO -> send data to server
-		},
-		confirmDone() {
-			/**
-			 * This sends all the cards in the player's hand to the server so
-			 * that it can add them to the discard pile so they are viewable
-			 * in the PastQuestions insert
-			 */
-			this.showDoneModal = false;
-			let data = {
-				questions: this.questions,
-				team: this.$store.state.team,
-			}
-			this.questions = [];
-			// TODO -> send data to the WSS
-		},
+			console.debug(data);
+		}
 	},
 	sockets: {
 		NewCard(data) {
 			/**
 			 * Triggered when the client gets a new card for their hand, if the
-			 * "from" property is set to "deck" that means the deck game is
-			 * replenishing the hand of the guesser after they sent a card to the
-			 * writer, if it's set to "guesser", this is being received from the
-			 * guesser and the spirit has to answer it.
+			 * "from" property is set to either of the
 			 *
 			 * data = {
 			 *     text: string,
-			 *     from: "guesser" | "deck",
+			 *     from: "guesser" | "writer" | "deck",
 			 *     team: 1 | 2,
 			 * }
 			 */
@@ -176,10 +114,16 @@ export default {
 .card {
 	background-color: var(--card-background);
 	color: var(--card-text);
+	flex-direction: column;
 	width: calc(100% / 9);
 	border-radius: 10px;
 	padding: 10px;
+	display: flex;
 	height: 80%;
+}
+
+.card-text {
+	flex-grow: 1;
 }
 
 .question-quote {
@@ -213,4 +157,11 @@ button {
 }
 .cancel:hover { background-color: var(--cancel-background-darken); }
 .cancel:focus { background-color: var(--cancel-background-lighten); }
+
+
+.card-button {
+	background: var(--card-button);
+	font-size: medium;
+}
+.card-button:hover { background-color: var(--card-button-darken); }
 </style>
