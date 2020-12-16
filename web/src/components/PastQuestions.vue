@@ -7,7 +7,7 @@
 				v-for="questionIndex in 8"
 				:key="`question_${questionIndex}`"
 			>
-				Question #{{ questionIndex }}
+				{{ questions[questionIndex - 1] }}
 			</div>
 		</div>
 	</div>
@@ -17,8 +17,36 @@
 export default {
 	name: `PastQuestions`,
 	components: {},
+	data() {return {
+		intervalID: null,
+		questions: [],
+	}},
 	computed: {},
-	methods: {},
+	methods: {
+		requestQuestions() {
+			console.debug(`Requesting questions for team ${this.$store.state.team}`);
+			// TODO -> Emit event to server
+		},
+	},
+	sockets: {
+		TeamQuestions(data) {
+			console.debug(`Received question data from the server.`);
+			this.questions = data;
+		},
+	},
+	mounted() {
+		this.requestQuestions();
+		this.intervalID = setInterval(
+			this.requestQuestions,
+			5000
+		);
+	},
+	beforeDestroy() {
+		if (this.intervalID != null) {
+			clearInterval(this.intervalID);
+			console.debug(`Cleared interval with ID: ${this.intervalID}`);
+		};
+	},
 }
 </script>
 
@@ -52,7 +80,10 @@ export default {
 	background-color: var(--board-background);
 	color: var(--board-background-text);
 	padding: 10px 10px 0 10px;
+	justify-content: center;
+	align-items: center;
 	border-radius: 7px;
+	display: flex;
 	margin: 5px;
 	width: 40%;
 }
