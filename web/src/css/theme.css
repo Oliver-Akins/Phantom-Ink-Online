@@ -36,6 +36,9 @@
 	*/
 	--card-background: #E1D098;
 	--card-text: var(--dark-font-colour);
+	--card-button: #ACA885;
+	--card-button-darken: #88845e;
+	--card-button-lighten: #d1ceaf;
 
 	/*
 		The colours used for the main game board. While playing, the alt colour
