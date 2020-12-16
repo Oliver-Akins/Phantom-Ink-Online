@@ -229,13 +229,18 @@ input[type="text"] {
 	font-family: var(--fonts);
 	background-color: var(--board-background-alt);
 	color: var(--board-background-alt-text);
+	border-color: transparent;
+	border-style: solid;
 	border-radius: 7px;
+	border-width: 2px;
 	font-size: larger;
 	padding: 12px;
 	outline: none;
 	margin: 7px 0;
-	border: none;
 	width: 90%;
+}
+input[type="text"]:active, input[type="text"]:focus {
+	border-color: var(--board-background-text);
 }
 input[type="text"].team-answer {
 	padding-right: 5%;
