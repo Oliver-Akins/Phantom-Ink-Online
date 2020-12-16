@@ -40,7 +40,10 @@ export default {
 	},
 	data() {return {
 		modal: false,
-		tooling: {}
+		tooling: {
+			"Vue.JS (With VueX)": "https://vuejs.org",
+			"Vue-Socket.io": "https://github.com/MetinSeylan/Vue-Socket.io",
+		}
 	}},
 	computed: {},
 	methods: {},
