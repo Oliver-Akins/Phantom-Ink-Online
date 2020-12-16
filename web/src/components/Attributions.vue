@@ -69,4 +69,8 @@ export default {
 	height: 100%;
 	width: 25%;
 }
+
+a, a:visited {
+	color: var(--light-font-colour);
+}
 </style>
