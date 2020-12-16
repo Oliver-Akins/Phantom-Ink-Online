@@ -1,8 +1,8 @@
 # Properties Of All Response Payloads
 | Property | Type | Description
 | -------- | ---- | -----------
-| success  | Boolean | Whether the player joined the team successfully.
-| message? | String | More information relating to the response. This is set iff `success` is `false`.
+| status   | Integer | The response code of the server. This follows HTTP standards as described by [Mozilla's Documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+| message? | String | More information relating to the response. This is set iff `success` is a non 2XX value.
 
 <br><br>
 ---
