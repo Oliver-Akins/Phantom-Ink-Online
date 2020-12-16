@@ -86,7 +86,7 @@
 		</div>
 		<button
 			class="past-questions-toggle clickable"
-			@click.self="toggleInsert()"
+			@click.self="visible = !visible"
 		>
 			{{ visible ? `Hide` : `Show` }} Past Questions
 		</button>
@@ -134,19 +134,6 @@ export default {
 
 			// TODO -> Send data to socket.io server
 			console.log(data)
-		},
-		toggleInsert() {
-			/**
-			 * When toggling the insert, we want to request new information
-			 * from the server in case there has been an update since the last
-			 * time it was displayed. We only want to do this on appear though,
-			 * never on disappear.
-			 */
-			if (!this.visible) {
-				// TODO -> request questions from server
-				console.log(`Fetching questions for team`)
-			};
-			this.visible = !this.visible;
 		},
 	},
 	sockets: {
