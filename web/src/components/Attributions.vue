@@ -4,7 +4,7 @@
 			class="bottom-bar clickable"
 			@click.stop="modal = true"
 		>
-			Made By: Oliver Akins
+			Made By: Oliver Akins (Alkali Metal)
 		</div>
 		<ModalAnimation
 			:show="modal"
