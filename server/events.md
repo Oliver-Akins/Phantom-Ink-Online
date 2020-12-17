@@ -161,6 +161,23 @@ The event sent by the clients when they are selecting an object from the card.
 <br><br>
 ---
 
+# `NewPlayer`:
+
+## Description:
+This is sent by the server when a new player joins the game.
+
+## Request Payload:
+This event cannot be requested by the clients.
+
+## Response Payload: (``)
+| Property | Type | Description
+| -------- | ---- | -----------
+| name     | String | The player's name.
+
+
+<br><br>
+---
+
 # ``:
 
 ## Description:
