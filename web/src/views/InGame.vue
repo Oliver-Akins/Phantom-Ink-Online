@@ -3,7 +3,9 @@
 		<game-board />
 		<player-hand />
 		<team-reminder />
-		<discard-hand />
+		<discard-hand
+			v-if="isGuesser"
+		/>
 	</div>
 </template>
 
@@ -21,7 +23,11 @@ export default {
 		"player-hand": PlayerHand,
 		"game-board": GameBoard,
 	},
-	computed: {},
+	computed: {
+		isGuesser() {
+			return this.$store.state.role === this.$store.state.guesser_name;
+		},
+	},
 	methods: {},
 }
 </script>
