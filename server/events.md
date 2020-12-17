@@ -174,7 +174,6 @@ This event cannot be requested by the clients.
 | -------- | ---- | -----------
 | name     | String | The player's name.
 
-
 <br><br>
 ---
 
