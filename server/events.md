@@ -124,10 +124,23 @@ Sends a card to the server, the server either then either forwards the card to t
 
 <br><br>
 ---
+
+# `RemoveCard`:
+
+## Description:
+This event is sent from the server when a guesser sends a card to the spirit, it's purpose is to keep the other medium's hands in sync.
+
+## Request Payload:
+This event is only sent by the server.
+
+## Response Payload: (`RemoveCard`)
 | Property | Type | Description
 | -------- | ---- | -----------
-| text     | String | The text of the card that was sent.
-| from     | String | The source of the card. This will be one of `"deck"`, or `"guesser"`
+| card     | String | The card to remove the player's hand.
+| team     | Integer | The team to remove the card from. This will be either `1`, or `2`.
+
+<br><br>
+---
 
 <br><br>
 ---
