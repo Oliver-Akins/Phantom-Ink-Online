@@ -177,6 +177,25 @@ This event cannot be requested by the clients.
 <br><br>
 ---
 
+# `NewHand`:
+
+## Description:
+This is the event client sends it requests a new 7 cards for the hand.
+
+## Request Payload:
+| Property | Type | Description
+| -------- | ---- | -----------
+| team     | Integer | The team that is requesting a new hand.
+
+## Response Payload: (`NewHand`)
+| Property | Type | Description
+| -------- | ---- | -----------
+| by       | String | The name of the player that triggered the `NewHand` event.
+| cards    | String[] | An array containing all of the new cards for the team.
+
+<br><br>
+---
+
 # ``:
 
 ## Description:
