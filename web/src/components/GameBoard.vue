@@ -170,14 +170,19 @@ export default {
 	width: 95%;
 }
 
+h2 {
+	margin: 12px 0;
+}
+
 .team-container {
-	display: inline-block;
+	grid-template-rows: 50px 1fr;
+	display: grid;
 	width: 45%;
 }
 
 .answer-container {
+	justify-content: space-evenly;
 	flex-direction: column;
-	justify-content: stretch;
 	align-items: center;
 	display: flex;
 }
@@ -220,12 +225,12 @@ input[type="text"] {
 	border-radius: 7px;
 	border-width: 2px;
 	font-size: larger;
-	padding: 12px;
 	outline: none;
 	margin: 7px 0;
+	padding: 7px;
 	width: 90%;
 }
-input[type="text"]:active, input[type="text"]:focus {
+input[type="text"]:focus {
 	border-color: var(--board-background-text);
 }
 input[type="text"].team-answer {
