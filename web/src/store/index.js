@@ -26,7 +26,11 @@ export default new Vuex.Store({
 			},
 		},
 		writer_name: `Spirit`,
+		writer_card_button: `Answer Question`,
+		writer_object_choose_button: `Choose Object`,
+
 		guesser_name: `Medium`,
+		guesser_card_button: `Ask Spirit`,
 		eye_icon: `eye.svg`,
 
 //===========================================================================//
