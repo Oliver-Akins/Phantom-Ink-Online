@@ -35,4 +35,9 @@ export default {
 <style scoped>
 @import "../css/theme.css";
 @import "../css/style.css";
+
+#GameView {
+	display: grid;
+	grid-template-rows: 70% 1fr 40px;
+}
 </style>
