@@ -13,15 +13,7 @@
 				class="card-button clickable"
 				@click.stop="sendCard(cardIndex)"
 			>
-				<span v-if="isGuesser" >
-					Ask {{ $store.state.writer_name }}
-				</span>
-				<span v-else-if="isWriter" >
-					Answer Question
-				</span>
-				<span v-else >
-					Unknown Role
-				</span>
+				{{ buttonLabel }}
 			</button>
 		</div>
 	</div>
@@ -43,6 +35,15 @@ export default {
 		},
 		isWriter() {
 			return this.userRole == this.$store.state.writer_name;
+		},
+		buttonLabel() {
+			if (this.isGuesser) {
+				return this.$store.state.guesser_card_button
+			} else if (this.isWriter) {
+				return this.$store.state.writer_card_button
+			} else {
+				return `Unknown Role`
+			}
 		},
 	},
 	methods: {
