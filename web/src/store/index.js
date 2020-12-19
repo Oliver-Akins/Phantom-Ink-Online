@@ -41,6 +41,7 @@ export default new Vuex.Store({
 		name: ``,
 		id: null,
 		players: [],
+		chosen_object: null,
 	},
 	getters: {
 		teamName(state) {
