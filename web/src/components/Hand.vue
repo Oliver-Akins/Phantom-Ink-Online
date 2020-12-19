@@ -104,18 +104,18 @@ export default {
 	border-radius: 20px;
 	align-items: center;
 	flex-wrap: nowrap;
+	overflow-x: auto;
 	margin: 0 auto;
 	display: flex;
-	height: 250px;
 	padding: 0px;
 	width: 95%;
 }
 
 .card {
 	background-color: var(--card-background);
+	min-width: calc(100% / 9);
 	color: var(--card-text);
 	flex-direction: column;
-	width: calc(100% / 9);
 	border-radius: 10px;
 	padding: 10px;
 	display: flex;
