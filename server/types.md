@@ -4,14 +4,20 @@
 | name     | String | The player's name.
 | id       | String | The player's unique ID.
 
+## Deck
+| Property | Type | Description
+| -------- | ---- | -----------
+| discard  | String[] | The used cards
+| deck     | String[] | The unused cards
+
 ## Game:
 | Property | Type | Description
 | -------- | ---- | -----------
 | id       | String | The game's ID to join with.
 | teams    | Team[] | The teams that are a part of this game.
 | players  | Player[] | All of the players that are in this game.
-| q_deck   | String[] | The deck of question cards that the mediums can ask the spirit.
-| o_deck   | String[] | The deck of object cards that the spririts can pick from when the game starts.
+| questons | Deck | The deck and discard of the question cards.
+| objects  | Deck | The deck and discard of the object cards.
 
 ## Team
 | Property | Type | Description
