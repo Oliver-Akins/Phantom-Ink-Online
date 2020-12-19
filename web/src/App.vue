@@ -14,7 +14,9 @@
 			<p class="centre">
 				To use this site you must be using a laptop, desktop, or iPad.
 				If you are on one of those devices and you still see this message,
-				
+				please contact "oliver {at} akins.me" with the following information:
+				<br><br>
+				{{ userAgent }}
 			</p>
 		</div>
 	</div>
@@ -38,8 +40,14 @@ export default {
 		gameState() {
 			return this.$store.state.view;
 		},
+		userAgent() {
+			if (navigator == null) {
+				return "Navigator Undefined";
+			};
+			return navigator.userAgent;
+		},
 		isMobile () {
-			return navigator == null || navigator.userAgent.match(/iPhone|iPod|Android/) != null;
+			return this.userAgent.match(/Navigator|iPhone|iPod|Android/) != null;
 		},
 	},
 	methods: {},
@@ -54,7 +62,7 @@ html, body {
 	background-color: var(--background1);
 	color: var(--light-font-colour);
 	font-family: var(--fonts);
-	overflow: hidden;
+	overflow-x: hidden;
 	height: 100vh;
 	width: 100vw;
 	padding: 0;
