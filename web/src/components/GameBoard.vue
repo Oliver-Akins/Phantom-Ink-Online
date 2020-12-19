@@ -59,7 +59,6 @@
 						type="text"
 						class="team-answer"
 						:id="`${teamID}-answer-${answerIndex}`"
-						:disabled="$store.state.role == $store.state.guesser_name"
 						@input.stop="answerInputHandler(answerIndex)"
 						v-model="answers[`team_${$store.state.team}`][answerIndex-1]"
 					>
