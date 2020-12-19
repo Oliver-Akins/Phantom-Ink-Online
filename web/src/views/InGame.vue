@@ -37,7 +37,7 @@ export default {
 @import "../css/style.css";
 
 #GameView {
+	grid-template-rows: 70% 1fr 50px;
 	display: grid;
-	grid-template-rows: 70% 1fr 40px;
 }
 </style>
