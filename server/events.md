@@ -125,22 +125,19 @@ Sends a card to the server, the server either then either forwards the card to t
 <br><br>
 ---
 
-# `RemoveCard`:
+# `UpdateHand`:
 
 ## Description:
-This event is sent from the server when a guesser sends a card to the spirit, it's purpose is to keep the other medium's hands in sync.
+Tells the client to update their hand, using one of the provided modes.
 
 ## Request Payload:
-This event is only sent by the server.
+This event is never sent to the server
 
-## Response Payload: (`RemoveCard`)
+## Response Payload:
 | Property | Type | Description
 | -------- | ---- | -----------
-| card     | String | The card to remove the player's hand.
-| team     | Integer | The team to remove the card from. This will be either `1`, or `2`.
-
-<br><br>
----
+| questions | String[] | The cards that the operation for the hand will use.
+| mode     | String | This is one of `"append"` or `"replace"`
 
 <br><br>
 ---
