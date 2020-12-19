@@ -63,6 +63,7 @@ export default {
 	padding-bottom: 10px;
 	position: absolute;
 	display: flex;
+	z-index: 3;
 	width: 50%;
 	left: 0;
 	top: 0;
