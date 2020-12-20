@@ -1,0 +1,15 @@
+[cards]
+type = "csv"
+key = ''
+questions = ''
+objects = ''
+
+
+[webserver]
+enabled = true
+port = 8080
+code_length = 6
+
+
+[websocket]
+port = 8081
