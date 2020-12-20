@@ -34,6 +34,8 @@ export default new Vuex.Store({
 		guesser_card_button: `Ask Spirit`,
 		eye_icon: `eye.svg`,
 
+		discard_hand_icon: `trash.svg`,
+
 //===========================================================================//
 		// DO NOT EDIT ANYTHING BELOW THIS COMMENT
 		view: `login`,
