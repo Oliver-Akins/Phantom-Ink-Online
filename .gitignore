@@ -2,6 +2,7 @@
 # The files added manually by Oliver
 node_modules
 .vscode
+server/server.toml
 
 #=============================================================================#
 # The files that were auto-generated into a .gitignore by Vue-cli
