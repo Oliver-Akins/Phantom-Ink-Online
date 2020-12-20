@@ -29,7 +29,7 @@ export default {
 		},
 	},
 	sockets: {
-		TeamQuestions(data) {
+		PastQuestions(data) {
 			console.debug(`Received question data from the server.`);
 			this.questions = data;
 		},
