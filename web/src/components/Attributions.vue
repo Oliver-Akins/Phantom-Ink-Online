@@ -44,6 +44,8 @@ export default {
 			"Vue.JS (With VueX)": "https://vuejs.org",
 			"VueX-Persist": "https://www.npmjs.com/package/vuex-persist",
 			"Vue-Socket.io": "https://github.com/MetinSeylan/Vue-Socket.io",
+			"Toml": "https://www.npmjs.com/package/toml",
+			"Socket.io": "https://socket.io",
 		}
 	}},
 	computed: {},
