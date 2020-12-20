@@ -23,9 +23,6 @@
 export default {
 	name: `PlayerHand`,
 	components: {},
-	data() {return {
-		questions: [],
-	}},
 	computed: {
 		userRole() {
 			return this.$store.state.role;
@@ -45,6 +42,9 @@ export default {
 				return `Unknown Role`
 			}
 		},
+		questions() {
+			return this.$store.state.questions;
+		}
 	},
 	methods: {
 		sendCard(cardIndex) {
@@ -68,7 +68,7 @@ export default {
 
 			// Discard the rest of the writer's hand
 			if (this.isWriter) {
-				this.questions = [];
+				this.$store.state.questions = [];
 			};
 
 			// TODO -> send data to server
@@ -76,19 +76,28 @@ export default {
 		}
 	},
 	sockets: {
-		NewCard(data) {
+		UpdateHand(data) {
 			/**
 			 * Triggered when the client gets a new card for their hand, if the
 			 * "from" property is set to either of the
 			 *
 			 * data = {
-			 *     text: string,
-			 *     from: "guesser" | "writer" | "deck",
-			 *     team: 1 | 2,
+			 *     questions: String[],
+			 *     mode: "append"|"replace",
 			 * }
 			 */
-			console.debug(`Got a new card from the ${data.from} on team ${data.team}`);
-			this.questions.push(data.text);
+			console.debug(`Updating hand.`);
+			console.debug(data);
+			switch (data.mode) {
+				case `append`:
+					// TODO -> Implement appending
+					break;
+				case `replace`:
+					this.$store.state.questions = data.questions;
+					break;
+				default:
+					console.error(`Server returned an unsupported mode.`);
+			};
 		},
 	},
 }
