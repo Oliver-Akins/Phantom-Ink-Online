@@ -27,7 +27,6 @@ export default {
 	},
 	methods: {},
 	sockets: {
-		NewPlayer() {},
 		PlayerUpdate() {},
 	},
 }
