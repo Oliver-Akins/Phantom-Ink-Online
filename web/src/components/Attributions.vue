@@ -58,9 +58,10 @@ export default {
 @import "../css/style.css";
 
 #attributions-bar {
+	left: calc(50% - 20%);
 	position: absolute;
 	height: 35px;
-	width: 100%;
+	width: 40%;
 	bottom: 0;
 }
 
@@ -70,10 +71,8 @@ export default {
 	border-radius: 15px 15px 0 0;
 	justify-content: center;
 	align-items: center;
-	margin: 0 auto;
 	display: flex;
 	height: 100%;
-	width: 25%;
 }
 
 a, a:visited {
