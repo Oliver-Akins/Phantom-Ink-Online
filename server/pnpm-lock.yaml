@@ -1,0 +1,16 @@
+dependencies:
+  '@types/node': 14.14.14
+  toml: 3.0.0
+lockfileVersion: 5.2
+packages:
+  /@types/node/14.14.14:
+    dev: false
+    resolution:
+      integrity: sha512-UHnOPWVWV1z+VV8k6L1HhG7UbGBgIdghqF3l9Ny9ApPghbjICXkUJSd/b9gOgQfjM1r+37cipdw/HJ3F6ICEnQ==
+  /toml/3.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-y/mWCZinnvxjTKYhJ+pYxwD0mRLVvOtdS2Awbgxln6iEnt4rk0yBxeSBHkGJcPucRiG0e55mwWp+g/05rsrd6w==
+specifiers:
+  '@types/node': ^14.14.14
+  toml: ^3.0.0
