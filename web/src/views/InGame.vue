@@ -5,10 +5,12 @@
 		<player-hand />
 		<team-reminder />
 		<discard-hand v-if="isGuesser" />
+		<object-reminder v-else-if="isWriter && objectChosen" />
 	</div>
 </template>
 
 <script>
+import ObjectReminder from "../components/ObjectReminder";
 import DiscardHand from "../components/DiscardHandButton";
 import ObjectSelector from "../components/ChooseObject";
 import TeamReminder from "../components/TeamReminder";
@@ -23,10 +25,14 @@ export default {
 		"discard-hand": DiscardHand,
 		"player-hand": PlayerHand,
 		"game-board": GameBoard,
+		"object-reminder": ObjectReminder
 	},
 	computed: {
 		isGuesser() {
 			return this.$store.state.role === this.$store.state.guesser_name;
+		},
+		isWriter() {
+			return this.$store.state.role === this.$store.state.writer_name;
 		},
 		objectChosen() {
 			return this.$store.state.chosen_object != null;
