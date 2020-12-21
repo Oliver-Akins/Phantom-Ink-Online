@@ -3,7 +3,7 @@
 		<div
 			v-if="show"
 			class="modal-container"
-			:class="closable ? 'clickable' : ''"
+			:class="closable ? 'clickable' : 'unclickable'"
 			@click.self.stop="handleBackgroundClick"
 		>
 			<transition name="burst" @after-leave="$emit('closed')">
