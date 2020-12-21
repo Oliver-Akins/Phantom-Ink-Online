@@ -39,6 +39,18 @@ export default {
 			};
 		},
 	},
+	watch: {
+		show(newVal) {
+			/**
+			 * This method is used to re-set the animation for the modal when
+			 * the modal is closed through changing the `show` property rather
+			 * than having a `closed` event emitted.
+			 */
+			if (!newVal) {
+				this.content = false;
+			}
+		},
+	},
 }
 </script>
 
