@@ -154,21 +154,6 @@ button {
 	margin: 5px;
 }
 
-.confirm {
-	background-color: var(--confirm-background);
-	color: var(--confirm-text);
-}
-.confirm:hover { background-color: var(--confirm-background-darken); }
-.confirm:focus { background-color: var(--confirm-background-lighten); }
-
-.cancel {
-	background-color: var(--cancel-background);
-	color: var(--cancel-text);
-}
-.cancel:hover { background-color: var(--cancel-background-darken); }
-.cancel:focus { background-color: var(--cancel-background-lighten); }
-
-
 .card-button {
 	background: var(--card-button);
 	font-size: medium;
