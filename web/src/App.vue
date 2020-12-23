@@ -51,6 +51,15 @@ export default {
 		},
 	},
 	methods: {},
+	sockets: {
+		Error(data) {
+
+			// Ensure that it was actually an error
+			if (200 <= data.status && data.status < 300) { return; };
+
+			console.error(data)
+		}
+	}
 }
 </script>
 
