@@ -11,7 +11,4 @@ Sends a card to the server, the server either then either forwards the card to t
 | team     | Integer | The team that is sending the card. This can be either `1` or `2`, any other value will return an error.
 
 ## Response Payload: (`NewCards`)
-| Property | Type | Description
-| -------- | ---- | -----------
-| cards    | String[] | The text of the cards that was sent.
-| from     | String | The source of the card(s). This will be one of `"deck"`, or `"guesser"`
+The response to this event comes in the form of an `UpdateHand` event with the `mode` set to `"append"`.
