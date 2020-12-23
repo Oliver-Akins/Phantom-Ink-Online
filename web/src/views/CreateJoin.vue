@@ -18,7 +18,10 @@ export default {
 	methods: {
 		createGame() {
 			let name = prompt(`What is your name?`);
-			console.log(`Creating a new game for ${name}`);
+
+			this.$socket.client.emit(`CreateGame`, {
+				name: name,
+			});
 		},
 		joinGame() {
 			// Get the user's name
@@ -39,7 +42,12 @@ export default {
 	},
 	sockets: {
 		GameJoined(data) {},
-		GameCreated(data) {},
+		GameCreated(data) {
+			console.log(data)
+			if (200 <= data.status && data.status < 300) {
+				return;
+			}
+		},
 	},
 	mounted() {},
 }
