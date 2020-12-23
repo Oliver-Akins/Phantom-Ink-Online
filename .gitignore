@@ -3,6 +3,8 @@
 node_modules
 .vscode
 server/server.toml
+server/built/*
+server/dist/*
 
 #=============================================================================#
 # The files that were auto-generated into a .gitignore by Vue-cli
