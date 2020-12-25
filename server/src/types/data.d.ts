@@ -14,7 +14,6 @@ interface CreateGame {
 }
 interface GameCreated extends response {
 	game_code?: string;
-	id?: string;
 }
 
 
@@ -29,11 +28,8 @@ interface PastQuestions extends response {
 interface JoinGame {
 	game_code: string;
 	name: string;
-	id?: string;
 }
-interface GameJoined extends response {
-	id?: string;
-}
+interface GameJoined extends response {}
 
 
 interface NewHand {
