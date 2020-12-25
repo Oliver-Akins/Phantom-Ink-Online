@@ -1,7 +1,7 @@
 interface response {
 	status: number;
-	source?: String;
-	message?: String;
+	source?: string;
+	message?: string;
 }
 
 type team = 1 | 2;
@@ -10,11 +10,11 @@ type answer = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 
 interface CreateGame {
-	name: String;
+	name: string;
 }
 interface GameCreated extends response {
-	game_code?: String;
-	id?: String;
+	game_code?: string;
+	id?: string;
 }
 
 
@@ -22,17 +22,17 @@ interface GetPastQuestions {
 	team: team;
 }
 interface PastQuestions extends response {
-	questions?: String[];
+	questions?: string[];
 }
 
 
 interface JoinGame {
-	game_code: String;
-	name: String;
-	id?: String;
+	game_code: string;
+	name: string;
+	id?: string;
 }
 interface GameJoined extends response {
-	id?: String;
+	id?: string;
 }
 
 
@@ -40,49 +40,49 @@ interface NewHand {
 	team: team;
 }
 interface SendCard {
-	text: String;
+	text: string;
 	from: role;
 	team: team;
 }
 interface UpdateHand extends response{
 	mode?: "append" | "replace";
-	questions?: String[];
+	questions?: string[];
 }
 
 
 interface ObjectList {}
 interface ObjectListResponse extends response {
-	objects?: String[];
+	objects?: string[];
 }
 
 
 interface SelectObject {
-	object: String;
+	object: string;
 }
 interface ChosenObject extends response {
-	object?: String;
+	object?: string;
 }
 
 
 interface UpdateAnswer {
 	answer: answer;
-	value: String;
+	value: string;
 	team: team;
 }
 interface UpdateAnswerResponse extends response {
 	answer: answer;
-	value: String;
+	value: string;
 	team: team;
 }
 
 
 interface UpdatePlayer {
-	name: String;
+	name: string;
 	team: team;
 	role: role;
 }
 interface UpdatePlayerResponse {
-	name: String;
+	name: string;
 	team: team;
 	role: role;
 }
