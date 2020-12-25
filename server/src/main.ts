@@ -1,9 +1,13 @@
 import * as toml from "toml";
 import { Logger } from "tslog";
 import { readFileSync } from "fs";
+import { Game } from "./objects/Game";
 import startWebsocket from "./websocket";
+import { Validate } from "./utils/validate";
 
-let conf: config = toml.parse(readFileSync(`server.toml`, `utf-8`));
+export const conf: config = toml.parse(readFileSync(`server.toml`, `utf-8`));
+
+export var games: {[index: string]: Game} = {};
 
 export const log: Logger = new Logger({
 	displayFunctionName: false,
@@ -14,4 +18,6 @@ export const log: Logger = new Logger({
 	name: conf.log.name,
 });
 
-startWebsocket(conf);
+if (Validate.config(conf)) {
+	startWebsocket(conf);
+}
