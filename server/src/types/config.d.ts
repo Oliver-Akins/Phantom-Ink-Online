@@ -9,13 +9,16 @@ interface config {
 	webserver: {
 		enabled: boolean;
 		port: number;
-		code_length: number;
 		hostname: string;
 	};
-	cards: {
-		type: `csv` //| `sheets`;
-		key?: string;
-		questions: string;
-		objects: string;
-	}
+	game: {
+		hand_size: number;
+		code_length: number;
+		cards: {
+			type: `csv` | `sheets`;
+			key?: string;
+			questions: string;
+			objects: string;
+		};
+	};
 }
