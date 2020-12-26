@@ -5,16 +5,16 @@ import { conf, games, log } from '../main';
 
 export default (io: Server, socket: Socket, data: CreateGame) => {
 	try {
+		let host = new Player(data.name, socket, true);
 
 		// Create the game object to save
-		let game = new Game(conf);
+		let game = new Game(conf, host);
 		games[game.id] = game;
-		log.info(`New game created with ID ${game.id}`);
-
-		// Register the player with the game
-		let host = new Player(data.name, socket, true);
 		game.players.push(host);
+		log.info(`New game created with ID ${game.id} (host=${host.name})`);
 
+
+		socket.join(game.id);
 		socket.emit(`GameCreated`, {
 			status: 200,
 			game_code: game.id,
