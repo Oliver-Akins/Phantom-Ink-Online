@@ -80,12 +80,21 @@ interface UpdateAnswerResponse extends response {
 
 
 interface UpdatePlayer {
+	action: "modify" | "remove";
+	game_code: string;
 	name: string;
-	team: team;
-	role: role;
+	from: {
+		team: team;
+		role: role;
+	};
+	to: {
+		team: team;
+		role: role;
+	};
 }
 interface UpdatePlayerResponse {
-	name: string;
-	team: team;
-	role: role;
+	action?: "modify" | "new" | "remove";
+	name?: string; // action: all
+	team?: team; // action: "modify"
+	role?: role; // action: "modify"
 }
