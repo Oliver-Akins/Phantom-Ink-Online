@@ -14,6 +14,8 @@ interface config {
 	game: {
 		hand_size: number;
 		code_length: number;
+		writer_name: string;
+		guesser_name: string;
 		cards: {
 			type: `csv` | `sheets`;
 			key?: string;
