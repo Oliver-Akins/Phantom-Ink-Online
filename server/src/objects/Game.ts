@@ -7,6 +7,8 @@ import { createReadStream } from "fs";
 
 export class Game {
 	readonly id: string;
+	readonly host: Player;
+	public ingame: boolean;
 	public teams: [Team, Team];
 	public players: Player[];
 	private _questions: Deck<question_deck>;
@@ -15,8 +17,10 @@ export class Game {
 	public object: string;
 
 
-	constructor(conf: config) {
+	constructor(conf: config, host: Player) {
 		this.id = Game.generateID(conf.game.code_length);
+		this.host = host;
+		this.ingame = false;
 
 		// Get the decks based on what type of data they are.
 		switch (conf.game.cards.type) {
@@ -33,7 +37,6 @@ export class Game {
 		this.teams[0].addQuestions(this._questions.draw(conf.game.hand_size));
 		this.teams[1].addQuestions(this._questions.draw(conf.game.hand_size));
 	};
-
 
 	get questions() { return this._questions; };
 
