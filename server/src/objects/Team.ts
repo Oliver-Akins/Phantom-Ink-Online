@@ -2,7 +2,7 @@ import { Player } from "./Player";
 
 export class Team {
 	public guessers: Player[];
-	public writer: Player;
+	public writer: Player | null;
 	private _hand: string[];
 	private _questions: string[];
 	private _answers: string[];
