@@ -36,6 +36,7 @@ interface JoinGame {
 	name: string;
 }
 interface GameJoined extends response {}
+interface GameRejoined extends response {}
 
 
 interface NewHand {
