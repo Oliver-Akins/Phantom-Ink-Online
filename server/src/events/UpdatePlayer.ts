@@ -10,7 +10,7 @@ export default (io: Server, socket: Socket, data: UpdatePlayer) => {
 			socket.emit(`Error`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,
-				source: `DeleteGame`
+				source: `UpdatePlayer`
 			});
 			return;
 		};
