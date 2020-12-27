@@ -9,7 +9,7 @@ interface config {
 	webserver: {
 		enabled: boolean;
 		port: number;
-		hostname: string;
+		permitted_hosts: string | string[];
 	};
 	game: {
 		hand_size: number;
