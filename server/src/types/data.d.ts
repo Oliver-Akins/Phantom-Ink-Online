@@ -24,6 +24,7 @@ interface GameDeleted extends response {}
 
 
 interface GetPastQuestions {
+	game_code: string;
 	team: team;
 }
 interface PastQuestions extends response {
@@ -40,6 +41,7 @@ interface GameRejoined extends response {}
 
 
 interface NewHand {
+	game_code: string;
 	team: team;
 }
 interface SendCard {
@@ -53,13 +55,16 @@ interface UpdateHand extends response{
 }
 
 
-interface ObjectList {}
+interface ObjectList {
+	game_code: string;
+}
 interface ObjectListResponse extends response {
 	objects?: string[];
 }
 
 
 interface SelectObject {
+	game_code: string;
 	object: string;
 }
 interface ChosenObject extends response {
@@ -68,6 +73,7 @@ interface ChosenObject extends response {
 
 
 interface UpdateAnswer {
+	game_code: string;
 	answer: answer;
 	value: string;
 	team: team;
