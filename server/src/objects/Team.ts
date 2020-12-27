@@ -19,6 +19,7 @@ export class Team {
 	 */
 	get hand(): string[] { return this._hand; };
 	get answers(): string[] { return this._answers; };
+	get questions(): string[] { return this._questions; };
 
 
 	public addQuestions(questions: string[]): void {
