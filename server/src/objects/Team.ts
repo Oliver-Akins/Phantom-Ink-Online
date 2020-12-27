@@ -53,7 +53,7 @@ export class Team {
 	};
 
 
-	public modifyAnswer(answerIndex: number, answer: string) {
+	public modifyAnswer(answerIndex: answer, answer: string) {
 		/**
 		 * Takes the value of an answer and modifies in the storage.
 		 *
