@@ -22,14 +22,14 @@ export class Team {
 	get questions(): string[] { return this._questions; };
 
 
-	public addQuestions(questions: string[]): void {
+	public addCardsToHand(questions: string[]): void {
 		/**
 		 * Adds the question(s) to the medium's hand
 		 *
 		 * @param questions -> The array of question text to add the medium's
 		 * 		hand.
 		 */
-		this._questions.push(...questions);
+		this._hand.push(...questions);
 	};
 
 

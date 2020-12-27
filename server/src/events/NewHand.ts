@@ -27,7 +27,7 @@ export default (io: Server, socket: Socket, data: NewHand) => {
 		};
 
 		// Add the questions and then alert the game clients about the changes
-		team.addQuestions(deck.draw(conf.game.hand_size));
+		team.addCardsToHand(deck.draw(conf.game.hand_size));
 		log.silly(`[${game.id}] Drew a new hand of cards for team ${data.team}.`);
 		io.to(game.id).emit(`UpdateHand`, {
 			mode: `replace`,
