@@ -43,6 +43,16 @@ export class Team {
 	};
 
 
+	public selectQuestion(question: string) {
+		/**
+		 * Adds the given question to the history of the questions.
+		 *
+		 * @param question -> The question the spirit is answering
+		 */
+		this._questions.push(question);
+	};
+
+
 	public modifyAnswer(answerIndex: number, answer: string) {
 		/**
 		 * Takes the value of an answer and modifies in the storage.
