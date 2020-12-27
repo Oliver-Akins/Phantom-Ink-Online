@@ -83,6 +83,10 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 				}
 				team.guessers.push(player);
 				team.writer = null;
+
+				// Move the rooms the player is in
+				player.socket.join(`${game.id}:${data.to.team}:guesser`)
+				player.socket.leave(`${game.id}:${data.from.team}:writer`);
 				break;
 			case "writer":
 				if (team.writer) {
@@ -96,6 +100,10 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 				// Change team object
 				team.writer = player;
 				team.guessers = team.guessers.filter(x => x.socket !== socket);
+
+				// Move the rooms the player is in
+				player.socket.join(`${game.id}:${data.to.team}:writer`);
+				player.socket.leave(`${game.id}:${data.from.team}:guesser`)
 				break;
 		};
 	}
@@ -119,6 +127,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 					return;
 				};
 				newTeam.guessers.push(player);
+				player.socket.join(`${game.id}:${data.to.team}:guesser`)
 				break;
 
 
@@ -134,6 +143,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 					return;
 				};
 				newTeam.writer = player;
+				player.socket.join(`${game.id}:${data.to.team}:guesser`)
 				break;
 		};
 
@@ -142,9 +152,11 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 		switch (data.from.role) {
 			case "guesser":
 				oldTeam.guessers = oldTeam.guessers.filter(x => x.socket !== socket);
+				player.socket.leave(`${game.id}:${data.from.team}:guesser`);
 				break;
 			case "writer":
 				oldTeam.writer = null;
+				player.socket.leave(`${game.id}:${data.from.team}:writer`);
 				break;
 		};
 	};
