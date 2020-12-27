@@ -1,13 +1,28 @@
+import { games, log } from '../main';
 import { Server, Socket } from 'socket.io';
 
 export default (io: Server, socket: Socket, data: GetPastQuestions) => {
 	try {
-		socket.emit(`Error`, {
-			status: 501,
-			message: `GetPastQuestions: Not Implemented Yet`,
-			source: `GetPastQuestions`,
+
+		// Assert game exists
+		if (!games[data.game_code]) {
+			log.debug(`Can't delete game that doesn't exist: ${data.game_code}`);
+			socket.emit(`Error`, {
+				status: 404,
+				message: `Game with code ${data.game_code} could not be found`,
+				source: `GetPastQuestions`
+			});
+			return;
+		};
+		let game = games[data.game_code];
+		let team = game.teams[data.team - 1];
+
+		log.silly(`Past questions retrieved for team ${data.team} (gID=${game.id})`);
+		socket.emit(`PastQuestions`, {
+			questions: team.questions
 		});
-	} catch (err) {
+	}
+	catch (err) {
 		socket.emit(`Error`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,
