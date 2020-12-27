@@ -41,5 +41,5 @@ export class Validate {
 
 		// Config is valid
 		return valid;
-	}
-}
+	};
+};
