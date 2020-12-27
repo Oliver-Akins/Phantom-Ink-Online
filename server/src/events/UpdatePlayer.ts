@@ -85,6 +85,15 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 				team.writer = null;
 				break;
 			case "writer":
+				if (team.writer) {
+					socket.emit(`Error`, {
+						status: 403,
+						message: `Someone on that team is already the ${conf.game.writer_name}`,
+						source: `UpdatePlayer.Modify`
+					});
+					return;
+				};
+				// Change team object
 				team.writer = player;
 				team.guessers = team.guessers.filter(x => x.socket !== socket);
 				break;
