@@ -45,6 +45,7 @@ interface NewHand {
 	team: team;
 }
 interface SendCard {
+	game_code: string;
 	text: string;
 	from: role;
 	team: team;
