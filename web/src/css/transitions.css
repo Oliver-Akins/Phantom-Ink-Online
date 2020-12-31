@@ -9,6 +9,33 @@
 
 
 
+/* Transition for modal card appearing disappearing */
+.top-slide-enter-active {
+	animation: top-slide-in 1s;
+}
+.top-slide-leave-active { animation: top-slide-out 1s; }
+
+@keyframes top-slide-in {
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@keyframes top-slide-out {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(-100%);
+	}
+}
+
+
+
+/* Transition for past questions expanding in */
 .expand-from-left-enter-active {
 	animation: expand-from-left 1s;
 	transform-origin: left;
@@ -59,7 +86,6 @@
 		transform: scale(0);
 	}
 }
-
 
 
 @media only screen and (min-width: 768px) {
