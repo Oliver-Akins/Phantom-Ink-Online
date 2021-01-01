@@ -34,7 +34,7 @@ export class Validate {
 				valid = false;
 			};
 		};
-		if (!conf.webserver.hostname) {
+		if (!conf.websocket.permitted_hosts) {
 			log.error(`Can't have a blank or null webserver.hostname`);
 			valid = false;
 		};
