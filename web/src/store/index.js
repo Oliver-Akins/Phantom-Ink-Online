@@ -46,6 +46,7 @@ export default new Vuex.Store({
 		chosen_object: null,
 		questions: [],
 		game_code: null,
+		players: [],
 	},
 	getters: {
 		teamName(state) {
@@ -77,6 +78,20 @@ export default new Vuex.Store({
 		},
 		view(state, target) {
 			state.view = target;
+		},
+		playerList(state, players) {
+			state.players = players;
+		},
+		updatePlayer(state, data) {
+			for (var player of state.players) {
+				if (player.name == data.name) {
+					player.role = data.role;
+					player.team = data.team;
+				};
+			};
+		},
+		newPlayer(state, player) {
+			state.players.push(player);
 		},
 	},
 	actions: {
