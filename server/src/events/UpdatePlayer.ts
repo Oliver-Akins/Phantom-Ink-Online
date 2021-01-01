@@ -6,8 +6,8 @@ export default (io: Server, socket: Socket, data: UpdatePlayer) => {
 
 		// Assert game exists
 		if (!games[data.game_code]) {
-			log.debug(`Can't delete game that doesn't exist: ${data.game_code}`);
-			socket.emit(`Error`, {
+			log.debug(`Can't modify player in a game that doesn't exist: ${data.game_code}`);
+			socket.emit(`PlayerUpdate`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,
 				source: `UpdatePlayer`
@@ -26,7 +26,7 @@ export default (io: Server, socket: Socket, data: UpdatePlayer) => {
 				removePlayer(io, socket, data);
 				break;
 			default:
-				socket.emit(`Error`, {
+				socket.emit(`PlayerUpdate`, {
 					status: 400,
 					message: `Unknown player action: ${data.action}`,
 					source: `UpdatePlayer`,
@@ -34,7 +34,7 @@ export default (io: Server, socket: Socket, data: UpdatePlayer) => {
 		};
 	}
 	catch (err) {
-		socket.emit(`Error`, {
+		socket.emit(`PlayerUpdate`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,
 			source: `UpdatePlayer`,
@@ -50,7 +50,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 	// Ensure that the player was found correctly so it is not undefined
 	if (player == null) {
 		log.debug(`Can't modify a player that doesn't exist. (name=${data.name},gID=${game.id})`);
-		socket.emit(`Error`, {
+		socket.emit(`PlayerUpdate`, {
 			status: 404,
 			message: `Cannot find player with the name: ${data.name}`,
 			source: `UpdatePlayer.Modify`
@@ -61,7 +61,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 	// Assert the player is modifying themselves
 	if (player.socket !== socket) {
 		log.debug(`${socket.id} is trying to modify a different player: ${data.name} (gID=${game.id})`);
-		socket.emit(`Error`, {
+		socket.emit(`PlayerUpdate`, {
 			status: 403,
 			message: `Cannot modify other players`,
 			source: `UpdatePlayer.Modify`
@@ -124,7 +124,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 		switch (data.to.role) {
 			case "guesser":
 				if (team.guessers.length >= 7) {
-					socket.emit(`Error`, {
+					socket.emit(`PlayerUpdate`, {
 						status: 403,
 						message: `A team can't have 8 or more ${conf.game.guesser_name}`,
 						source: `UpdatePlayer.Modify`
@@ -140,7 +140,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 				break;
 			case "writer":
 				if (team.writer) {
-					socket.emit(`Error`, {
+					socket.emit(`PlayerUpdate`, {
 						status: 403,
 						message: `Someone on that team is already the ${conf.game.writer_name}`,
 						source: `UpdatePlayer.Modify`
@@ -170,7 +170,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 				// Ensure we don't get 8 guessers
 				if (newTeam.guessers.length >= 7) {
-					socket.emit(`Error`, {
+					socket.emit(`PlayerUpdate`, {
 						status: 403,
 						message: `Cannot have 8 players as ${conf.game.guesser_name}s on a single team.`,
 						source: `UpdatePlayer.Modify`
@@ -186,7 +186,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 				// Ensure we don't already have a writer
 				if (newTeam.writer) {
-					socket.emit(`Error`, {
+					socket.emit(`PlayerUpdate`, {
 						status: 403,
 						message: `Someone on that team is already the ${conf.game.writer_name}`,
 						source: `UpdatePlayer.Modify`
@@ -212,8 +212,12 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 		};
 	};
 
-	io.to(game.id).emit(`UpdatePlayer`, {
+	player.role = data.to.role;
+	player.team = data.to.team;
+
+	io.to(game.id).emit(`PlayerUpdate`, {
 		status: 200,
+		mode: `modify`,
 		name: data.name,
 		role: data.to.role,
 		team: data.to.team,
@@ -229,6 +233,7 @@ const removePlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 	// Ensure that the player was found correctly so it is not undefined
 	if (player == null) {
 		log.debug(`Can't delete a player that doesn't exist. (name=${data.name},gID=${game.id})`);
+		socket.emit(`PlayerUpdate`, {
 			status: 404,
 			message: `Cannot find player with the name: ${data.name}`,
 			source: `UpdatePlayer.Remove`
@@ -238,7 +243,7 @@ const removePlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 	// Ensure that the player who is removing the player is the host
 	if (host.socket !== socket) {
-		socket.emit(`Error`, {
+		socket.emit(`PlayerUpdate`, {
 			status: 403,
 			message: `Cannot kick a player when you are not the host`,
 			source: `UpdatePlayer.Remove`
@@ -261,7 +266,7 @@ const removePlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 	game.players = game.players.filter(x => x !== player);
 
 	log.info(`${host.name} kicked ${player.name} from game ${game.id}`);
-	io.to(game.id).emit(`UpdatePlayer`, {
+	io.to(game.id).emit(`PlayerUpdate`, {
 		action: "remove",
 		name: player.name,
 	});
