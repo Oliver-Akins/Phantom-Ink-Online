@@ -8,12 +8,21 @@ type team = 1 | 2;
 type role = "writer" | "guesser";
 type answer = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
+// Player specific data
+interface player {
+	name: string;
+	role: role;
+	team: team;
+}
+
+
 
 interface CreateGame {
 	name: string;
 }
 interface GameCreated extends response {
 	game_code?: string;
+	players?: player[]
 }
 
 
@@ -36,8 +45,12 @@ interface JoinGame {
 	game_code: string;
 	name: string;
 }
-interface GameJoined extends response {}
-interface GameRejoined extends response {}
+interface GameJoined extends response {
+	players: player[];
+}
+interface GameRejoined extends response {
+	players: player[];
+}
 
 
 interface NewHand {
