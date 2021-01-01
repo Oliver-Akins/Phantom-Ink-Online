@@ -12,7 +12,7 @@ export default async (conf: config) => {
 
 	io.listen(conf.websocket.port, {
 		cors: {
-			origin: conf.webserver.permitted_hosts,
+			origin: conf.websocket.permitted_hosts,
 			credentials: true,
 		}
 	});
