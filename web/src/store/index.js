@@ -83,7 +83,8 @@ export default new Vuex.Store({
 	},
 	modules: {
 	},
-	plugins: [
-		new VuexPersistence().plugin,
-	]
-})
+	plugins:
+		process.env.NODE_ENV === `production`
+			? [new VuexPersistence({ key: `ghost-writer-save` }).plugin]
+			: []
+});
