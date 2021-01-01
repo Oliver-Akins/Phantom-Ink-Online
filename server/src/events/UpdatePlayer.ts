@@ -18,9 +18,11 @@ export default (io: Server, socket: Socket, data: UpdatePlayer) => {
 		// Execute the corresponding action code
 		switch (data.action) {
 			case "modify":
+				log.debug(`Modifying a player. (gID=${data.game_code})`);
 				modifyPlayer(io, socket, data);
 				break;
 			case "remove":
+				log.debug(`Removing a player. (gID=${data.game_code})`);
 				removePlayer(io, socket, data);
 				break;
 			default:
@@ -69,7 +71,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 
 	// Check if the player is just swapping roles on the same team
-	if (data.from.team === data.to.team) {
+		log.silly(`Client provided "to" and "from" objects for the same team.`)
 		let team = game.teams[data.to.team - 1];
 		switch (data.to.role) {
 			case "guesser":
@@ -110,6 +112,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 	// The player is swapping roles and teams
 	else {
+		log.silly(`Client provided both "to" and "from" for different teams.`);
 		let oldTeam = game.teams[data.from.team - 1];
 		let newTeam = game.teams[data.to.team - 1];
 
@@ -177,8 +180,7 @@ const removePlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 	// Ensure that the player was found correctly so it is not undefined
 	if (player == null) {
-		log.debug(`Can't modify a player that doesn't exist. (name=${data.name},gID=${game.id})`);
-		socket.emit(`Error`, {
+		log.debug(`Can't delete a player that doesn't exist. (name=${data.name},gID=${game.id})`);
 			status: 404,
 			message: `Cannot find player with the name: ${data.name}`,
 			source: `UpdatePlayer.Remove`
