@@ -11,8 +11,8 @@ type answer = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 // Player specific data
 interface player {
 	name: string;
-	role: role;
-	team: team;
+	role: role | null;
+	team: team | null;
 }
 
 
@@ -112,7 +112,7 @@ interface UpdatePlayer {
 		role: role;
 	};
 }
-interface UpdatePlayerResponse {
+interface PlayerUpdate extends response {
 	action?: "modify" | "new" | "remove";
 	name?: string; // action: all
 	team?: team; // action: "modify"
