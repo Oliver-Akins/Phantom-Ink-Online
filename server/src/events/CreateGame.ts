@@ -13,11 +13,11 @@ export default (io: Server, socket: Socket, data: CreateGame) => {
 		game.players.push(host);
 		log.info(`New game created with ID ${game.id} (host=${host.name})`);
 
-
 		socket.join(game.id);
 		socket.emit(`GameCreated`, {
 			status: 200,
 			game_code: game.id,
+			players: game.playerData,
 		});
 	}
 	catch (err) {

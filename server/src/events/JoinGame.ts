@@ -63,7 +63,8 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		socket.emit(`GameJoined`, {});
 		socket.to(game.id).emit(`PlayerUpdate`, {
 			action: "new",
-			name: player.name
+			name: player.name,
+			players: game.playerData,
 		});
 	}
 	catch (err) {
