@@ -1,9 +1,8 @@
-import csv from "csv-parser";
 import { Team } from "./Team";
 import { Deck } from "./Deck";
+import { games } from "../main";
 import { Player } from "./Player";
-import { games, log } from "../main";
-import { createReadStream } from "fs";
+import { readFileSync } from "fs";
 
 export class Game {
 	readonly id: string;
