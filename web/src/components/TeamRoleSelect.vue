@@ -1,15 +1,15 @@
 <template>
-	<div :id="`${team_name}-role-select`" class="team-select">
-		<h2 class="centre">{{ team_name }} Team</h2>
+	<div :id="`${teamName}-role-select`" class="team-select">
+		<h2 class="centre">{{ teamName }} Team</h2>
 		<button
 			class="clickable"
-			@click.stop="joinWriterRole"
+			@click.stop="joinRole(`writer`)"
 		>
 			{{ $store.state.writer_name }}
 		</button>
 		<button
 			class="clickable"
-			@click.stop="joinGuesserRole"
+			@click.stop="joinRole(`guesser`)"
 		>
 			{{ $store.state.guesser_name }}
 		</button>
@@ -21,19 +21,46 @@ export default {
 	name: `TeamRoleSelection`,
 	components: {},
 	props: {
-		team_name: {
-			type: String,
-			required: true,
-		},
-		player_name: {
-			type: String,
+		teamID: {
+			type: Number,
 			required: true,
 		},
 	},
-	computed: {},
+	computed: {
+		teamName() {
+			return this.$store.state[`team_${this.teamID}`].name;
+		}
+	},
 	methods: {
-		joinWriterRole() {},
-		joinGuesserRole() {},
+		joinRole(role) {
+
+			if (this.teamID == this.$store.state.team && this.$store.state.role == role) {
+				this.$emit(`error`, {
+					status: 403,
+					message: `You are already that role on that team.`,
+				});
+				return;
+			};
+
+			let response = {
+				action: `modify`,
+				game_code: this.$store.state.game_code,
+				name: this.$store.state.name,
+				to: {
+					team: this.teamID,
+					role: role,
+				},
+			}
+
+			if (this.$store.state.team != null) {
+				response.from = {
+					team: this.$store.state.team,
+					role: this.$store.state.role,
+				};
+			};
+
+			this.$socket.client.emit(`UpdatePlayer`, response);
+		},
 	},
 }
 </script>
