@@ -7,10 +7,10 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 
 		// Assert game exists
 		if (!games[data.game_code]) {
-			log.debug(`Can't delete game that doesn't exist: ${data.game_code}`);
-			socket.emit(`Error`, {
+			log.debug(`Can't join game that doesn't exist: ${data.game_code}`);
+			socket.emit(`GameJoined`, {
 				status: 404,
-				message: `Game with code ${data.game_code} could not be found`,
+				message: `Game with code "${data.game_code}" could not be found`,
 				source: `JoinGame`
 			});
 			return;
@@ -23,13 +23,13 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		let sameName = game.players.find(x => x.name == data.name);
 		if (sameName != null) {
 			if (!game.ingame) {
-				socket.emit(`Error`, {
+				socket.emit(`GameJoined`, {
 					status: 400,
 					message: `A player already has that name in the game.`,
 					source: `JoinGame`
 				});
 				return;
-			}
+			};
 
 			// Player has the same name but is allowed to rejoin if they
 			// disconnect in the middle of the game
@@ -37,7 +37,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 				socket.emit(`GameRejoined`, { status: 200 });
 				return;
 			} else {
-				socket.emit(`Error`, {
+				socket.emit(`GameJoined`, {
 					status: 403,
 					message: `Can't connect to an already connected client`,
 					source: `JoinGame`
@@ -49,7 +49,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 
 		// Assert game is not in-progess
 		if (game.ingame) {
-			socket.emit(`Error`, {
+			socket.emit(`GameJoined`, {
 				status: 403,
 				message: `Cannot connect to a game that's in progress.`,
 				source: `JoinGame`
@@ -68,7 +68,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		});
 	}
 	catch (err) {
-		socket.emit(`Error`, {
+		socket.emit(`GameJoined`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,
 			source: `JoinGame`,
