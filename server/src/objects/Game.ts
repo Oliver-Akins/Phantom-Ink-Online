@@ -51,31 +51,24 @@ export class Game {
 	};
 
 
-	private parseDeckCSV(conf: config): void {
+
+	private parseDeckCSV(conf: config): any {
 		/**
 		 * Parses out the CSV files and creates the decks for the game to run on
 		 *
-		 * @param conf -> The config object
+		 * @param path -> The filepath of the CSV file
 		 */
-		let questions: question_deck[] = [];
-		let objects: object_deck[] = [];
 
-		// parse the questions from the CSV and adding them to the array
-		createReadStream(conf.game.cards.questions)
-			.pipe(csv([`q`]))
-			.on(`data`, (data) => { questions.push(data.q)})
-			.on(`end`, () => {
-				log.debug(`Loaded questions cards from CSV file: ${conf.game.cards.questions}`);
-			});
-		this._questions = new Deck(questions);
+		// parse the questions from the CSV
+		let questions = readFileSync(conf.game.cards.questions, `utf-8`).replace(/\r/g, ``);
+		this._questions = new Deck(questions.split(`\n`).slice(1))
 
-		// parse the objects from the CSV and add them to the array
-		createReadStream(conf.game.cards.questions)
-			.pipe(csv([`q`]))
-			.on(`data`, (data) => { objects.push(Object.values(data))})
-			.on(`end`, () => {
-				log.debug(`Loaded object cards from CSV file: ${conf.game.cards.questions}`);
-			});
+		// Parse the object deck from CSV
+		let objectsCSV = readFileSync(conf.game.cards.objects, `utf-8`).replace(/\r/g, ``);
+		let objects: string[][] = [];
+		for (var line of objectsCSV.split(`\n`).slice(1)) {
+			objects.push(line.split(`,`));
+		};
 		this._objects = new Deck(objects);
 	};
 
