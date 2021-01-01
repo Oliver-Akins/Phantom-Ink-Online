@@ -5,11 +5,11 @@ interface config {
 	};
 	websocket: {
 		port: number;
+		permitted_hosts: string | string[];
 	};
 	webserver: {
 		enabled: boolean;
 		port: number;
-		permitted_hosts: string | string[];
 	};
 	game: {
 		hand_size: number;
