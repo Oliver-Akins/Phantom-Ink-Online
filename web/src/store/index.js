@@ -59,9 +59,25 @@ export default new Vuex.Store({
 				return state[`team_${3 - state.team}`].name;
 			};
 			return ``;
-		}
+		},
 	},
 	mutations: {
+		player(state, data) {
+			if (data.name)
+				state.name = data.name
+			if (data.role)
+				state.role = data.role
+			if (data.team)
+				state.team = data.team
+			if (data.host)
+				state.is_host = data.host
+		},
+		game_code(state, game_code) {
+			state.game_code = game_code;
+		},
+		view(state, target) {
+			state.view = target;
+		},
 	},
 	actions: {
 	},
