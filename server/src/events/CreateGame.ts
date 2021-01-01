@@ -21,9 +21,9 @@ export default (io: Server, socket: Socket, data: CreateGame) => {
 		});
 	}
 	catch (err) {
-		socket.emit(`Error`, {
+		socket.emit(`GameCreated`, {
 			status: 500,
-			message: `${err.name}: ${err.message}`,
+			message: err.message,
 			source: `CreateGame`,
 		});
 	}
