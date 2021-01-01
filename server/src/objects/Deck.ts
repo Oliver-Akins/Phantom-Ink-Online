@@ -39,7 +39,7 @@ export class Deck<T> {
 
 			// Move it from the arrays
 			cards.push(card);
-			this._deck = this._deck.splice(index, 1);
+			this._deck.splice(index, 1);
 			this._unknown.push(card);
 		};
 
