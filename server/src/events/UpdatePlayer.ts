@@ -69,8 +69,56 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 		return;
 	};
 
+	if (!data.to) {
+		log.silly(`Client did not include a "to" object in request.`)
+		socket.emit(`PlayerUpdate`, {
+			status: 400,
+			message: `The "to" property must to be specified in the request.`,
+			source: `UpdatePlayer.Modify`
+		});
+		return;
+	};
+
+	// The player is joining a team for the first time
+	if (!data.from) {
+		log.silly(`Client included a "to" but not a "from" property.`);
+		let team = game.teams[data.to.team - 1];
+
+		switch (data.to.role) {
+			case "guesser":
+				if (team.guessers.length >= 7) {
+					socket.emit(`PlayerUpdate`, {
+						status: 403,
+						message: `A team can't have 8 or more ${conf.game.guesser_name}`,
+						source: `UpdatePlayer.Modify`
+					});
+					return;
+				}
+				team.guessers.push(player);
+
+				// Move the rooms the player is in
+				player.socket.join(`${game.id}:${data.to.team}:guesser`)
+				break;
+			case "writer":
+				if (team.writer) {
+					socket.emit(`PlayerUpdate`, {
+						status: 403,
+						message: `Someone on that team is already the ${conf.game.writer_name}`,
+						source: `UpdatePlayer.Modify`
+					});
+					return;
+				};
+				// Change team object
+				team.writer = player;
+
+				// Move the rooms the player is in
+				player.socket.join(`${game.id}:${data.to.team}:writer`);
+				break;
+		}
+	}
 
 	// Check if the player is just swapping roles on the same team
+	else if (data.from.team === data.to.team) {
 		log.silly(`Client provided "to" and "from" objects for the same team.`)
 		let team = game.teams[data.to.team - 1];
 		switch (data.to.role) {
