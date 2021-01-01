@@ -27,16 +27,16 @@ export class Game {
 		switch (conf.game.cards.type) {
 			case "csv":
 				this.parseDeckCSV(conf);
+
+				// Instantiate everything for the teams
+				this.teams = [ new Team(1), new Team(2) ];
+				this.teams[0].addCardsToHand(this._questions.draw(conf.game.hand_size));
+				this.teams[1].addCardsToHand(this._questions.draw(conf.game.hand_size));
 				break;
 			case "sheets":
 				this.parseDeckGoogleSheets(conf);
 				break;
 		};
-
-		// Instantiate everything for the teams
-		this.teams = [ new Team(), new Team() ];
-		this.teams[0].addQuestions(this._questions.draw(conf.game.hand_size));
-		this.teams[1].addQuestions(this._questions.draw(conf.game.hand_size));
 	};
 
 	get questions() { return this._questions; };
