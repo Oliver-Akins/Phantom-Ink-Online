@@ -4,20 +4,22 @@
 		<div class="flex-row">
 			<button
 				class="clickable"
-				@click.stop=""
+				v-clipboard:copy="gameURL"
+				v-clipboard:success="copySuccess"
+				v-clipboard:error="copyError"
 			>
-				Click to Copy Game Link
+				{{ copyURLButtonText }}
 			</button>
 		</div>
 		<div class="flex-row">
 			<role-select
-				:team_name="$store.state.team_1.name"
-				:player_name="playerName"
+				:teamID="1"
+				@error="$emit(`error`, $event)"
 			/>
-			<player-list />
+			<player-list @error="$emit(`error`, $event)" />
 			<role-select
-				:team_name="$store.state.team_2.name"
-				:player_name="playerName"
+				:teamID="2"
+				@error="$emit(`error`, $event)"
 			/>
 		</div>
 		<div class="flex-row">
@@ -41,12 +43,29 @@ export default {
 		"RoleSelect": TeamRoleSelect,
 		"PlayerList": PlayerList,
 	},
+	data() {return {
+		copyURLButtonText: `Click to Copy Game Link`,
+	}},
 	computed: {
 		playerName() {
 			return this.$store.state.name;
+		},
+		gameURL() {
+			return `${window.location.protocol}//${window.location.host}?game=${this.$store.state.game_code}`;
 		}
 	},
-	methods: {},
+	methods: {
+		copySuccess() {
+			this.copyURLButtonText = `Game Link Copied!`;
+			setTimeout(() => { this.copyURLButtonText = `Click to Copy Game Link`; }, 1000)
+		},
+		copyError(e) {
+			this.$emit(`error`, {
+				status: 418,
+				message: `Failed to copy game URL`,
+			});
+		}
+	},
 }
 </script>
 
@@ -55,7 +74,6 @@ export default {
 @import "../css/style.css";
 
 #GameLobby {
-	justify-content: center;
 	flex-direction: column;
 	align-items: stretch;
 	display: flex;

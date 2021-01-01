@@ -64,7 +64,10 @@ export default {
 				return;
 			};
 
+			history.replaceState(null, ``, `?game=${data.game_code}`);
+
 			// Save the data in the store
+			this.$store.commit(`playerList`, data.players);
 			this.$store.commit(`game_code`, this.game_code);
 			this.$store.commit(`player`, {
 				name: this.name,
@@ -79,7 +82,10 @@ export default {
 				return;
 			};
 
+			history.replaceState(null, ``, `?game=${data.game_code}`);
+
 			// Update storage
+			this.$store.commit(`playerList`, data.players);
 			this.$store.commit(`game_code`, data.game_code);
 			this.$store.commit(`player`, {
 				name: this.name,
