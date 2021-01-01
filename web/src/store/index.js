@@ -40,12 +40,12 @@ export default new Vuex.Store({
 		// DO NOT EDIT ANYTHING BELOW THIS COMMENT
 		view: `login`,
 		role: null,
-		team: 2,
+		team: null,
 		name: ``,
-		id: null,
-		players: [],
+		is_host: false,
 		chosen_object: null,
 		questions: [],
+		game_code: null,
 	},
 	getters: {
 		teamName(state) {
