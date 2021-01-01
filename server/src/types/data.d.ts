@@ -11,8 +11,8 @@ type answer = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 // Player specific data
 interface player {
 	name: string;
-	role: role;
-	team: team;
+	role: role | null;
+	team: team | null;
 }
 
 
