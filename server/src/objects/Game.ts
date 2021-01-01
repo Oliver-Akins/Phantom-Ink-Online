@@ -21,6 +21,7 @@ export class Game {
 		this.id = Game.generateID(conf.game.code_length);
 		this.host = host;
 		this.ingame = false;
+		this.players = [];
 
 		// Get the decks based on what type of data they are.
 		switch (conf.game.cards.type) {
