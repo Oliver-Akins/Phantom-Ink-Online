@@ -14,39 +14,78 @@
 export default {
 	name: `CreateJoinGame`,
 	components: {},
+	data() {return {
+		name: null,
+		game_code: null,
+	}},
 	computed: {},
 	methods: {
 		createGame() {
-			let name = prompt(`What is your name?`);
+			this.name = prompt(`What is your name?`);
 
 			this.$socket.client.emit(`CreateGame`, {
-				name: name,
+				name: this.name,
 			});
 		},
 		joinGame() {
 			// Get the user's name
-			let name = prompt(`What is your name?`);
+			this.name = prompt(`Enter a username:`);
+
+			if (!this.name) {
+				this.$emit(`error`, {
+					status: 406,
+					message: `Can't join a game without a name`,
+					extra: `(provided a false-y name = ${this.name})`
+				});
+				return;
+			};
 
 			let qs = new URLSearchParams(window.location.search);
 
 			// Get the game code
-			let game_code;
-			if (qs.has(`game_code`)) {
-				game_code = qs.get(`game_code`);
+			if (qs.has(`game`)) {
+				this.game_code = qs.get(`game`);
 			} else {
-				game_code = prompt(`What is the game code?`);
-			}
+				this.game_code = prompt(`What is the game code?`);
+			};
 
-			console.log(`${name} is joining game ${game_code}`);
+			this.$socket.client.emit(`JoinGame`, {
+				name: this.name,
+				game_code: this.game_code
+			});
 		},
 	},
 	sockets: {
-		GameJoined(data) {},
-		GameCreated(data) {
-			console.log(data)
-			if (200 <= data.status && data.status < 300) {
+		GameJoined(data) {
+
+			// Check for errors
+			if (!(200 <= data.status && data.status < 300)) {
+				this.$emit(`error`, data);
 				return;
-			}
+			};
+
+			// Save the data in the store
+			this.$store.commit(`game_code`, this.game_code);
+			this.$store.commit(`player`, {
+				name: this.name,
+				host: false,
+			});
+			this.$store.commit(`view`, `lobby`);
+		},
+		GameCreated(data) {
+
+			if (!(200 <= data.status && data.status < 300)) {
+				this.$emit(`error`, data);
+				return;
+			};
+
+			// Update storage
+			this.$store.commit(`game_code`, data.game_code);
+			this.$store.commit(`player`, {
+				name: this.name,
+				host: true,
+			});
+			this.$store.commit(`view`, `lobby`);
 		},
 	},
 	mounted() {},
