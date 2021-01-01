@@ -2,6 +2,7 @@ dependencies:
   core-js: 3.8.1
   socket.io-client: 3.0.4
   vue: 2.6.12
+  vue-clipboard2: 0.3.1
   vue-socket.io-extended: 4.0.5
   vuex: 3.6.0_vue@2.6.12
   vuex-persist: 3.1.3_vuex@3.6.0
@@ -2614,6 +2615,14 @@ packages:
       node: '>= 10'
     resolution:
       integrity: sha512-FxqpkPPwu1HjuN93Omfm4h8uIanXofW0RxVEW3k5RKx+mJJYSthzNhp32Kzxxy3YAEZ/Dc/EWN1vZRY0+kOhbw==
+  /clipboard/2.0.6:
+    dependencies:
+      good-listener: 1.2.2
+      select: 1.1.2
+      tiny-emitter: 2.1.0
+    dev: false
+    resolution:
+      integrity: sha512-g5zbiixBRk/wyKakSwCKd7vQXDjFnAMGHoEyBogG/bw9kTD9GvdAvaoRR1ALcEzt3pVKxZR0pViekPMIS0QyGg==
   /clipboardy/2.3.0:
     dependencies:
       arch: 2.2.0
@@ -3316,6 +3325,10 @@ packages:
       node: '>=0.4.0'
     resolution:
       integrity: sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
+  /delegate/3.2.0:
+    dev: false
+    resolution:
+      integrity: sha512-IofjkYBZaZivn0V8nnsMJGBr4jVLxHDheKSW88PyxS5QC4Vo9ZbZVvhzlSxY87fVq3STR6r+4cGepyHkcWOQSw==
   /depd/1.1.2:
     dev: true
     engines:
@@ -4446,6 +4459,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-ollPHROa5mcxDEkwg6bPt3QbEf4pDQSNtd6JPL1YvOvAo/7/0VAm9TccUeoTmarjPw4pfUthSCqcyfNB1I3ZSg==
+  /good-listener/1.2.2:
+    dependencies:
+      delegate: 3.2.0
+    dev: false
+    resolution:
+      integrity: sha1-1TswzfkxPf+33JoNR3CWqm0UXFA=
   /graceful-fs/4.2.4:
     dev: true
     resolution:
@@ -7501,6 +7520,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-Yl2GWPhlr0Psliv8N2o3NZpJlMo=
+  /select/1.1.2:
+    dev: false
+    resolution:
+      integrity: sha1-DnNQrN7ICxEIUoeG7B1EGNEbOW0=
   /selfsigned/1.10.8:
     dependencies:
       node-forge: 0.10.0
@@ -8250,6 +8273,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
+  /tiny-emitter/2.1.0:
+    dev: false
+    resolution:
+      integrity: sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==
   /tmp/0.0.33:
     dependencies:
       os-tmpdir: 1.0.2
@@ -8630,6 +8657,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
+  /vue-clipboard2/0.3.1:
+    dependencies:
+      clipboard: 2.0.6
+    dev: false
+    resolution:
+      integrity: sha512-H5S/agEDj0kXjUb5GP2c0hCzIXWRBygaWLN3NEFsaI9I3uWin778SFEMt8QRXiPG+7anyjqWiw2lqcxWUSfkYg==
   /vue-eslint-parser/7.2.0_eslint@6.8.0:
     dependencies:
       debug: 4.3.1
@@ -9124,6 +9157,7 @@ specifiers:
   eslint-plugin-vue: ^6.2.2
   socket.io-client: ^3.0.4
   vue: ^2.6.11
+  vue-clipboard2: ^0.3.1
   vue-socket.io-extended: ^4.0.5
   vue-template-compiler: ^2.6.11
   vuex: ^3.4.0
