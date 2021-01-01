@@ -1,9 +1,26 @@
 <template>
 	<div id="app" class="maximize">
 		<div v-if="!isMobile" class="maximize">
-			<CreateJoin v-if="gameState == `login`" />
-			<GameLobby v-else-if="gameState == `lobby`" />
-			<InGame v-else-if="gameState == `in-game`" />
+			<transition name="top-slide">
+				<div
+					v-if="error"
+					class="error-bar"
+				>
+					{{ error }}
+				</div>
+			</transition>
+			<CreateJoin
+				v-if="gameState == `login`"
+				@error="handleError($event)"
+			/>
+			<GameLobby
+				v-else-if="gameState == `lobby`"
+				@error="handleError($event)"
+			/>
+			<InGame
+				v-else-if="gameState == `in-game`"
+				@error="handleError($event)"
+			/>
 			<Attributions />
 		</div>
 		<div
@@ -36,6 +53,9 @@ export default {
 		"GameLobby": GameLobby,
 		"InGame": InGame,
 	},
+	data() {return {
+		error: null
+	}},
 	computed: {
 		gameState() {
 			return this.$store.state.view;
@@ -50,16 +70,13 @@ export default {
 			return this.userAgent.match(/Navigator|iPhone|iPod|Android/) != null;
 		},
 	},
-	methods: {},
-	sockets: {
-		Error(data) {
-
-			// Ensure that it was actually an error
-			if (200 <= data.status && data.status < 300) { return; };
-
-			console.error(data)
-		}
-	}
+	methods: {
+		handleError(data) {
+			this.error = `${data.status}${data.source ? ` @ ${data.source}` : ''} : ${data.message}`;
+			console.error(`${this.error}${data.extra ? ` ${data.extra}` : ''}`);
+			setTimeout(() => { this.error = null; }, 3000);
+		},
+	},
 }
 </script>
 
@@ -76,6 +93,19 @@ html, body {
 	width: 100vw;
 	padding: 0;
 	margin: 0;
+}
+
+.error-bar {
+	background-color: #bb0000;
+	justify-content: center;
+	align-items: center;
+	color: #FFFFFF;
+	position: fixed;
+	display: flex;
+	height: 35px;
+	width: 100vw;
+	left: 0;
+	top: 0;
 }
 
 .error {
