@@ -103,16 +103,16 @@ interface UpdatePlayer {
 	action: "modify" | "remove";
 	game_code: string;
 	name: string;
-	from: {
+	from?: {
 		team: team;
 		role: role;
 	};
-	to: {
+	to?: {
 		team: team;
 		role: role;
 	};
 }
-interface PlayerUpdate extends response {
+interface UpdatePlayerResponse {
 	action?: "modify" | "new" | "remove";
 	name?: string; // action: all
 	team?: team; // action: "modify"
