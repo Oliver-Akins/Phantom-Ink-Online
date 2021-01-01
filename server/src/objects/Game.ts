@@ -50,6 +50,17 @@ export class Game {
 		return this._objectCard;
 	};
 
+	get playerData() {
+		let players: player[] = [];
+		for (var player of this.players) {
+			players.push({
+				name: player.name,
+				role: player.role,
+				team: player.team,
+			});
+		};
+		return players
+	}
 
 
 	private parseDeckCSV(conf: config): any {
