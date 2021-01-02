@@ -3,6 +3,7 @@ import { Server, Socket } from "socket.io";
 
 import JoinGame from "./events/JoinGame";
 import LeaveGame from "./events/LeaveGame";
+import StartGame from "./events/StartGame";
 import CreateGame from "./events/CreateGame";
 import DeleteGame from "./events/DeleteGame";
 import UpdatePlayer from "./events/UpdatePlayer";
@@ -24,6 +25,7 @@ export default async (conf: config) => {
 
 		// Game Management
 		socket.on(`CreateGame`, (data: CreateGame) => CreateGame(io, socket, data));
+		socket.on(`StartGame`, (data: StartGame) => StartGame(io, socket, data));
 		socket.on(`DeleteGame`, (data: DeleteGame) => DeleteGame(io, socket, data));
 
 

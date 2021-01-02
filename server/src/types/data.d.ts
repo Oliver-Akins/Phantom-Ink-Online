@@ -38,6 +38,12 @@ interface LeaveGame {
 interface GameLeft extends response {}
 
 
+interface StartGame {
+	game_code: string;
+}
+interface GameStarted extends response {}
+
+
 interface GetPastQuestions {
 	game_code: string;
 	team: team;
