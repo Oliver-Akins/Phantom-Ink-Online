@@ -18,11 +18,11 @@ export default (io: Server, socket: Socket, data: UpdatePlayer) => {
 		// Execute the corresponding action code
 		switch (data.action) {
 			case "modify":
-				log.debug(`Modifying a player. (gID=${data.game_code})`);
+				log.debug(`Modifying a player. (gID=${data.game_code},name=${data.name})`);
 				modifyPlayer(io, socket, data);
 				break;
 			case "remove":
-				log.debug(`Removing a player. (gID=${data.game_code})`);
+				log.debug(`Removing a player. (gID=${data.game_code},name=${data.name})`);
 				removePlayer(io, socket, data);
 				break;
 			default:
