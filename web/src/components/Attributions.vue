@@ -46,6 +46,7 @@ export default {
 			"Vue-Socket.io": "https://github.com/MetinSeylan/Vue-Socket.io",
 			"Vue-Clipboard2": "https://www.npmjs.com/package/vue-clipboard2",
 			"Toml": "https://www.npmjs.com/package/toml",
+			"tslog": "https://www.npmjs.com/package/tslog",
 			"Socket.io": "https://socket.io",
 		}
 	}},
