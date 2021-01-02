@@ -32,6 +32,12 @@ interface DeleteGame {
 interface GameDeleted extends response {}
 
 
+interface LeaveGame {
+	game_code: string;
+}
+interface GameLeft extends response {}
+
+
 interface GetPastQuestions {
 	game_code: string;
 	team: team;
