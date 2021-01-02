@@ -29,10 +29,10 @@ export default {
 	},
 	computed: {
 		isGuesser() {
-			return this.$store.state.role === this.$store.state.guesser_name;
+			return this.$store.state.role === `guesser`;
 		},
 		isWriter() {
-			return this.$store.state.role === this.$store.state.writer_name;
+			return this.$store.state.role === `writer`;
 		},
 		objectChosen() {
 			return this.$store.state.chosen_object != null;
