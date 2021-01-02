@@ -95,10 +95,16 @@ export default {
 				this.handleError(data);
 			} else {
 				this.alert = {
-					message: `The game has been ended.`,
-					type: `info`
-				}
+					message: `The game has been ended by the host.`,
+					type: `info`,
+				};
 				this.$store.commit(`resetState`);
+				setTimeout(() => {
+					this.alert = {
+						message: null,
+						type: null,
+					};
+				}, 2000)
 			};
 		},
 	},
@@ -137,7 +143,6 @@ html, body {
 }
 .alert-bar.info {
 	background-color: #7289da;
-	font-size: large;
 	color: #000000;
 }
 

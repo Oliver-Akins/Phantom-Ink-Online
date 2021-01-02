@@ -24,6 +24,11 @@
 		</div>
 		<div class="flex-row">
 			<button
+				@click.stop="exitGame()"
+			>
+				{{ $store.state.is_host ? `Delete` : `Leave`}} Game
+			</button>
+			<button
 				class="clickable"
 				@click.stop=""
 			>
@@ -64,7 +69,31 @@ export default {
 				status: 418,
 				message: `Failed to copy game URL`,
 			});
-		}
+		},
+		exitGame() {
+			// The user is the host, they can't leave the game, so kick
+			// everyone from the game.
+			if (this.$store.state.is_host) {
+				this.$socket.client.emit(`DeleteGame`, {
+					game_code: this.$store.state.game_code
+				});
+			}
+
+			// Just a normal user, they can leave the game just fine
+			else {
+				this.$socket.client.emit(`LeaveGame`, {
+					game_code: this.$store.state.game_code
+				});
+			};
+		},
+	},
+	sockets: {
+		GameLeft(data) {
+			if (data.status < 200 || 300 <= data.status) {
+				return this.$emit(`error`, data);
+			};
+			this.$store.commit(`resetState`);
+		},
 	},
 }
 </script>
