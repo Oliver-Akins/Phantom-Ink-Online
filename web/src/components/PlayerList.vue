@@ -62,15 +62,9 @@ export default {
 					};
 					this.$store.commit(`updatePlayer`, data)
 					break;
-				case "remove":
-					this.$store.commit(`playerList`, this.players.filter(player => player.name !== data.name));
-					break;
 				case "new":
-					this.$store.commit(`newPlayer`, {
-						name: data.name,
-						role: data.role,
-						team: data.team
-					})
+				case "remove":
+					this.$store.commit(`playerList`, data.players);
 					break;
 				default:
 					console.warn(`Unknown response type from "PlayerUpdate"`);
