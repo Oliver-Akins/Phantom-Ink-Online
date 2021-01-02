@@ -60,7 +60,10 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		let player = new Player(data.name, socket);
 		game.players.push(player);
 
-		socket.emit(`GameJoined`, {});
+		socket.emit(`GameJoined`, {
+			status: 200,
+			players: game.playerData,
+		});
 		socket.to(game.id).emit(`PlayerUpdate`, {
 			status: 200,
 			action: "new",
