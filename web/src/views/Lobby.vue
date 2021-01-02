@@ -30,7 +30,7 @@
 			</button>
 			<button
 				class="clickable"
-				@click.stop=""
+				@click.stop="startGame()"
 			>
 				Click to Start the Game
 			</button>
@@ -56,7 +56,10 @@ export default {
 			return this.$store.state.name;
 		},
 		gameURL() {
-			return `${window.location.protocol}//${window.location.host}/?game=${this.$store.state.game_code}`;
+			return `${window.location.protocol}//${window.location.host}/?game=${this.gameCode}`;
+		},
+		gameCode() {
+			return this.$store.state.game_code;
 		},
 	},
 	methods: {
@@ -75,16 +78,21 @@ export default {
 			// everyone from the game.
 			if (this.$store.state.is_host) {
 				this.$socket.client.emit(`DeleteGame`, {
-					game_code: this.$store.state.game_code
+					game_code: this.gameCode
 				});
 			}
 
 			// Just a normal user, they can leave the game just fine
 			else {
 				this.$socket.client.emit(`LeaveGame`, {
-					game_code: this.$store.state.game_code
+					game_code: this.gameCode
 				});
 			};
+		},
+		startGame() {
+			this.$socket.client.emit(`StartGame`, {
+				game_code: this.gameCode
+			})
 		},
 	},
 	sockets: {
@@ -93,6 +101,12 @@ export default {
 				return this.$emit(`error`, data);
 			};
 			this.$store.commit(`resetState`);
+		},
+		GameStarted(data) {
+			if (data.status < 200 || 300 <= data.status) {
+				return this.$emit(`error`, data);
+			};
+			this.$store.commit(`view`, `in-game`);
 		},
 	},
 }
