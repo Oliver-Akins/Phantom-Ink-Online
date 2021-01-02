@@ -51,15 +51,15 @@ export default {
 			return this.$store.state.name;
 		},
 		gameURL() {
-			return `${window.location.protocol}//${window.location.host}?game=${this.$store.state.game_code}`;
-		}
+			return `${window.location.protocol}//${window.location.host}/?game=${this.$store.state.game_code}`;
+		},
 	},
 	methods: {
 		copySuccess() {
 			this.copyURLButtonText = `Game Link Copied!`;
 			setTimeout(() => { this.copyURLButtonText = `Click to Copy Game Link`; }, 1000)
 		},
-		copyError(e) {
+		copyError() {
 			this.$emit(`error`, {
 				status: 418,
 				message: `Failed to copy game URL`,
