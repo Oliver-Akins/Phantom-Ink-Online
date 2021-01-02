@@ -60,6 +60,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		let player = new Player(data.name, socket);
 		game.players.push(player);
 
+		socket.join(game.id);
 		socket.emit(`GameJoined`, {
 			status: 200,
 			players: game.playerData,
