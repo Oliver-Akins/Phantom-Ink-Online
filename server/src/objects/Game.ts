@@ -1,5 +1,6 @@
 import { Team } from "./Team";
 import { Deck } from "./Deck";
+import { Logger } from "tslog";
 import { games } from "../main";
 import { Player } from "./Player";
 import { readFileSync } from "fs";
@@ -7,6 +8,7 @@ import { readFileSync } from "fs";
 export class Game {
 	readonly id: string;
 	readonly host: Player;
+	public log: Logger;
 	public ingame: boolean;
 	public teams: [Team, Team];
 	public players: Player[];

@@ -11,7 +11,11 @@ export default (io: Server, socket: Socket, data: CreateGame) => {
 		let game = new Game(conf, host);
 		games[game.id] = game;
 		game.players.push(host);
-		log.info(`New game created with ID ${game.id} (host=${host.name})`);
+		game.log = log.getChildLogger({
+			displayLoggerName: true,
+			name: game.id,
+		})
+		game.log.info(`New game created (host=${host.name})`);
 
 		socket.join(game.id);
 		socket.emit(`GameCreated`, {
