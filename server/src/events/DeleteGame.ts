@@ -7,7 +7,7 @@ export default (io: Server, socket: Socket, data: DeleteGame) => {
 		// Ensure game exists
 		if (!games[data.game_code]) {
 			log.debug(`Can't delete game that doesn't exist: ${data.game_code}`);
-			socket.emit(`Error`, {
+			socket.emit(`GameDeleted`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,
 				source: `DeleteGame`
@@ -22,7 +22,7 @@ export default (io: Server, socket: Socket, data: DeleteGame) => {
 
 		if (player != null && player.socket !== socket) {
 			log.warn(`${player.name} attempted to delete game ${game.id}.`);
-			socket.emit(`Error`, {
+			socket.emit(`GameDeleted`, {
 				status: 403,
 				message: `Not allowed to delete a game that you are not the host of.`,
 				source: `DeleteGame`
@@ -35,9 +35,9 @@ export default (io: Server, socket: Socket, data: DeleteGame) => {
 		socket.emit(`GameDeleted`, { status: 200 });
 	}
 	catch (err) {
-		socket.emit(`Error`, {
+		socket.emit(`GameDeleted`, {
 			status: 500,
-			message: `${err.name}: ${err.message}`,
+			message:  err.message,
 			source: `DeleteGame`,
 		});
 	};
