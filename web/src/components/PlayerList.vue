@@ -52,7 +52,7 @@ export default {
 				return;
 			};
 
-			switch (data.mode) {
+			switch (data.action) {
 				case "modify":
 					if (this.$store.state.name === data.name) {
 						this.$store.commit(`player`, {
@@ -67,7 +67,7 @@ export default {
 					this.$store.commit(`playerList`, data.players);
 					break;
 				default:
-					console.warn(`Unknown response type from "PlayerUpdate"`);
+					console.warn(`Unknown response type from "PlayerUpdate": ${data.mode}`);
 			};
 		},
 	},
