@@ -11,11 +11,11 @@ export var games: {[index: string]: Game} = {};
 
 export const log: Logger = new Logger({
 	displayFunctionName: false,
-	displayLoggerName: false,
+	displayLoggerName: true,
 	displayFilePath: `hidden`,
 	displayLogLevel: true,
 	minLevel: conf.log.level,
-	name: conf.log.name,
+	name: `GLOBAL`,
 });
 
 if (Validate.config(conf)) {
