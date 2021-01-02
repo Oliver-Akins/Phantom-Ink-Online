@@ -49,6 +49,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 
 		// Assert game is not in-progess
 		if (game.ingame) {
+			log.debug(`${data.name} tried to connect to gID:${game.id} in the middle of a game.`);
 			socket.emit(`GameJoined`, {
 				status: 403,
 				message: `Cannot connect to a game that's in progress.`,
@@ -60,6 +61,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		let player = new Player(data.name, socket);
 		game.players.push(player);
 
+		log.debug(`${data.name} joined gID:${game.id}`);
 		socket.join(game.id);
 		socket.emit(`GameJoined`, {
 			status: 200,
