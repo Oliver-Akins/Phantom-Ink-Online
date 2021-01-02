@@ -63,6 +63,17 @@ export default new Vuex.Store({
 		},
 	},
 	mutations: {
+		resetState(state) {
+			state.view = `login`;
+			state.role = null;
+			state.team = null;
+			state.name = ``;
+			state.is_host = false;
+			state.chosen_object = null;
+			state.questions = [];
+			state.game_code = null;
+			state.players = [];
+		},
 		player(state, data) {
 			if (data.name)
 				state.name = data.name
