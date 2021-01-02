@@ -64,7 +64,7 @@ export default {
 				return;
 			};
 
-			history.replaceState(null, ``, `?game=${data.game_code}`);
+			history.replaceState(null, ``, `?game=${this.game_code}`);
 
 			// Save the data in the store
 			this.$store.commit(`playerList`, data.players);
