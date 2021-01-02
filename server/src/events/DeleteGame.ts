@@ -32,7 +32,7 @@ export default (io: Server, socket: Socket, data: DeleteGame) => {
 
 		// Delete game
 		delete games[data.game_code];
-		socket.emit(`GameDeleted`, { status: 200 });
+		io.to(game.id).emit(`GameDeleted`, { status: 200 });
 	}
 	catch (err) {
 		socket.emit(`GameDeleted`, {
