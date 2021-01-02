@@ -46,10 +46,10 @@ interface JoinGame {
 	name: string;
 }
 interface GameJoined extends response {
-	players: player[];
+	players?: player[];
 }
 interface GameRejoined extends response {
-	players: player[];
+	players?: player[];
 }
 
 
