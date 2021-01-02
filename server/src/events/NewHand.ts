@@ -23,12 +23,12 @@ export default (io: Server, socket: Socket, data: NewHand) => {
 		for (var card of team.hand) {
 			deck.discard(card);
 			team.removeCard(card);
-			log.silly(`[${game.id}] Removing card: '${card}' from team ${data.team}'s hand.`);
+			game.log.silly(`Removing card: '${card}' from team ${data.team}'s hand.`);
 		};
 
 		// Add the questions and then alert the game clients about the changes
 		team.addCardsToHand(deck.draw(conf.game.hand_size));
-		log.silly(`[${game.id}] Drew a new hand of cards for team ${data.team}.`);
+		game.log.silly(`Drew a new hand of cards for team ${data.team}.`);
 		io.to(game.id).emit(`UpdateHand`, {
 			mode: `replace`,
 			questions: team.hand,

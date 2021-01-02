@@ -18,11 +18,9 @@ export default (io: Server, socket: Socket, data: UpdatePlayer) => {
 		// Execute the corresponding action code
 		switch (data.action) {
 			case "modify":
-				log.debug(`Modifying a player. (gID=${data.game_code},name=${data.name})`);
 				modifyPlayer(io, socket, data);
 				break;
 			case "remove":
-				log.debug(`Removing a player. (gID=${data.game_code},name=${data.name})`);
 				removePlayer(io, socket, data);
 				break;
 			default:
@@ -49,7 +47,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 	// Ensure that the player was found correctly so it is not undefined
 	if (player == null) {
-		log.debug(`Can't modify a player that doesn't exist. (name=${data.name},gID=${game.id})`);
+		game.log.debug(`Can't modify a player that doesn't exist. (name=${data.name})`);
 		socket.emit(`PlayerUpdate`, {
 			status: 404,
 			message: `Cannot find player with the name: ${data.name}`,
@@ -60,7 +58,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 	// Assert the player is modifying themselves
 	if (player.socket !== socket) {
-		log.debug(`${socket.id} is trying to modify a different player: ${data.name} (gID=${game.id})`);
+		game.log.debug(`${socket.id} is trying to modify a different player: ${data.name}`);
 		socket.emit(`PlayerUpdate`, {
 			status: 403,
 			message: `Cannot modify other players`,
@@ -70,7 +68,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 	};
 
 	if (!data.to) {
-		log.silly(`Client did not include a "to" object in request.`)
+		game.log.silly(`Client did not include a "to" object in request.`)
 		socket.emit(`PlayerUpdate`, {
 			status: 400,
 			message: `The "to" property must to be specified in the request.`,
@@ -81,26 +79,29 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 	// The player is joining a team for the first time
 	if (!data.from) {
-		log.silly(`Client included a "to" but not a "from" property.`);
+		game.log.silly(`Client included a "to" but not a "from" property`);
 		let team = game.teams[data.to.team - 1];
 
 		switch (data.to.role) {
 			case "guesser":
 				if (team.guessers.length >= 7) {
+					game.log.debug(`Game cannot have more than 7 guessers`);
 					socket.emit(`PlayerUpdate`, {
 						status: 403,
 						message: `A team can't have 8 or more ${conf.game.guesser_name}`,
 						source: `UpdatePlayer.Modify`
 					});
 					return;
-				}
+				};
 				team.guessers.push(player);
+				game.log.silly(`${player.name} became a guesser`);
 
 				// Move the rooms the player is in
 				player.socket.join(`${game.id}:${data.to.team}:guesser`)
 				break;
 			case "writer":
 				if (team.writer) {
+					game.log.debug(`Game cannot have more than 1 writer`);
 					socket.emit(`PlayerUpdate`, {
 						status: 403,
 						message: `Someone on that team is already the ${conf.game.writer_name}`,
@@ -110,6 +111,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 				};
 				// Change team object
 				team.writer = player;
+				game.log.silly(`${player.name} became the writer`);
 
 				// Move the rooms the player is in
 				player.socket.join(`${game.id}:${data.to.team}:writer`);
@@ -119,7 +121,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 	// Check if the player is just swapping roles on the same team
 	else if (data.from.team === data.to.team) {
-		log.silly(`Client provided "to" and "from" objects for the same team.`)
+		game.log.silly(`Client provided "to" and "from" objects for the same team.`)
 		let team = game.teams[data.to.team - 1];
 		switch (data.to.role) {
 			case "guesser":
@@ -160,7 +162,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 	// The player is swapping roles and teams
 	else {
-		log.silly(`Client provided both "to" and "from" for different teams.`);
+		game.log.silly(`Client provided both "to" and "from" for different teams.`);
 		let oldTeam = game.teams[data.from.team - 1];
 		let newTeam = game.teams[data.to.team - 1];
 
@@ -232,7 +234,7 @@ const removePlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 	// Ensure that the player was found correctly so it is not undefined
 	if (player == null) {
-		log.debug(`Can't delete a player that doesn't exist. (name=${data.name},gID=${game.id})`);
+		game.log.debug(`Can't delete a player that doesn't exist. (name=${data.name})`);
 		socket.emit(`PlayerUpdate`, {
 			status: 404,
 			message: `Cannot find player with the name: ${data.name}`,
@@ -256,16 +258,16 @@ const removePlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 	for (var team of game.teams) {
 		if (team.writer == player) {
 			team.writer = null;
-			log.silly(`Removed ${player.name} from the writer role.`);
+			game.log.silly(`Removed ${player.name} from the writer role.`);
 		} else if (team.guessers.includes(player)) {
 			team.guessers = team.guessers.filter(x => x !== player);
-			log.silly(`Removed ${player.name} from the guesser role`);
+			game.log.silly(`Removed ${player.name} from the guesser role`);
 		};
 	};
 
 	game.players = game.players.filter(x => x !== player);
 
-	log.info(`${host.name} kicked ${player.name} from game ${game.id}`);
+	game.log.info(`${host.name} kicked ${player.name} from game`);
 	io.to(game.id).emit(`PlayerUpdate`, {
 		action: "remove",
 		name: player.name,

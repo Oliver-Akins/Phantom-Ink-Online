@@ -21,7 +21,7 @@ export default (io: Server, socket: Socket, data: DeleteGame) => {
 		let player = game.players.find(x => x.isHost);
 
 		if (player != null && player.socket !== socket) {
-			log.warn(`${player.name} attempted to delete game ${game.id}.`);
+			game.log.warn(`${player.name} attempted to delete game.`);
 			socket.emit(`GameDeleted`, {
 				status: 403,
 				message: `Not allowed to delete a game that you are not the host of.`,
@@ -31,6 +31,7 @@ export default (io: Server, socket: Socket, data: DeleteGame) => {
 		};
 
 		// Delete game
+		game.log.debug(`Game deleted.`)
 		delete games[data.game_code];
 		io.to(game.id).emit(`GameDeleted`, { status: 200 });
 	}

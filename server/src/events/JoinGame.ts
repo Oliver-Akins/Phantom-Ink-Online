@@ -15,7 +15,6 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 			});
 			return;
 		};
-
 		let game = games[data.game_code];
 
 
@@ -23,6 +22,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		let sameName = game.players.find(x => x.name == data.name);
 		if (sameName != null) {
 			if (!game.ingame) {
+				game.log.info(`Client attempted to connect using name already in use.`);
 				socket.emit(`GameJoined`, {
 					status: 400,
 					message: `A player already has that name in the game.`,
@@ -34,9 +34,11 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 			// Player has the same name but is allowed to rejoin if they
 			// disconnect in the middle of the game
 			if (!sameName.socket.connected) {
+				game.log.info(`Player Reconnected to the game (name=${data.name})`);
 				socket.emit(`GameRejoined`, { status: 200 });
 				return;
 			} else {
+				game.log.debug(`${socket.id} attempted to claim ${sameName.socket.id}'s game spot.`);
 				socket.emit(`GameJoined`, {
 					status: 403,
 					message: `Can't connect to an already connected client`,
@@ -49,7 +51,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 
 		// Assert game is not in-progess
 		if (game.ingame) {
-			log.debug(`${data.name} tried to connect to gID:${game.id} in the middle of a game.`);
+			game.log.debug(`${data.name} tried to connect in the middle of a game.`);
 			socket.emit(`GameJoined`, {
 				status: 403,
 				message: `Cannot connect to a game that's in progress.`,
@@ -61,7 +63,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		let player = new Player(data.name, socket);
 		game.players.push(player);
 
-		log.debug(`${data.name} joined gID:${game.id}`);
+		game.log.debug(`${data.name} joined the game`);
 		socket.join(game.id);
 		socket.emit(`GameJoined`, {
 			status: 200,

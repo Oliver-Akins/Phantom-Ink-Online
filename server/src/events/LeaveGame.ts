@@ -19,7 +19,7 @@ export default (io: Server, socket: Socket, data: LeaveGame) => {
 		// Ensure it's not the host trying to leave so that the game can
 		// actually start
 		if (game.host.socket == socket) {
-			log.debug(`Host `)
+			game.log.debug(`Host attempted to leave game. (name=${game.host.name})`);
 			socket.emit(`GameLeft`, {
 				status: 303,
 				message: `Can't leave the game as the host, use "DeleteGame".`,
@@ -41,20 +41,20 @@ export default (io: Server, socket: Socket, data: LeaveGame) => {
 
 				switch (role) {
 					case "guesser":
-						log.silly(`Removed ${player.name} from guesser role.`);
+						game.log.silly(`Removed ${player.name} from guesser role.`);
 						team.guessers = team.guessers.filter(p => p.socket !== socket);
-					break;
-				case "writer":
-					log.silly(`Removed ${player.name} from writer role.`);
-					team.writer = null;
-					break;
+						break;
+					case "writer":
+						game.log.silly(`Removed ${player.name} from writer role.`);
+						team.writer = null;
+						break;
 				};
 
 			};
 
 			game.players = game.players.filter(p => p.socket != socket);
 
-			log.debug(`${player.name} left gID:${game.id}`);
+			game.log.debug(`${player.name} left the game.`);
 			socket.to(game.id).emit(`PlayerUpdate`, {
 				status: 200,
 				action: `remove`,

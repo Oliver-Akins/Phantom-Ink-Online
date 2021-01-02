@@ -6,7 +6,7 @@ export default (io: Server, socket: Socket, data: UpdateAnswer) => {
 
 		// Assert game exists
 		if (!games[data.game_code]) {
-			log.debug(`Can't delete game that doesn't exist: ${data.game_code}`);
+			log.debug(`Can't update answer in a game that doesn't exist: ${data.game_code}`);
 			socket.emit(`Error`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,

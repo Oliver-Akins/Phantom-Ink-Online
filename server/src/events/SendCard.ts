@@ -6,7 +6,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 
 		// Assert game exists
 		if (!games[data.game_code]) {
-			log.debug(`Can't delete game that doesn't exist: ${data.game_code}`);
+			log.debug(`Can't send a card in a game that doesn't exist: ${data.game_code}`);
 			socket.emit(`Error`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,
@@ -20,7 +20,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 
 		// The writer is answering
 		if (data.from === "writer") {
-			log.debug(`[${game.id}] Writer selected question to answer.`);
+			game.log.debug(` Writer selected question to answer.`);
 			deck.discard(data.text);
 			team.selectQuestion(data.text);
 
@@ -33,7 +33,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 
 		// The writer is sending the card to the writer
 		else if (data.from === "guesser") {
-			log.debug(`[${game.id}] Guesser is sending the card to the writer.`);
+			game.log.debug(`Guesser is sending the card to the writer.`);
 
 			// Update the team's hand
 			team.removeCard(data.text);
@@ -54,7 +54,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 		}
 
 		else {
-			log.warn(`[${game.id}] Unknown role in the "from" property: ${data.from}`);
+			game.log.warn(`Unknown role in the "from" property: ${data.from}`);
 			socket.emit(`Error`, {
 				status: 400,
 				message: `Unknown role in the "from" property: ${data.from}`,

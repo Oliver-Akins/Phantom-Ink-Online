@@ -6,7 +6,7 @@ export default (io: Server, socket: Socket, data: SelectObject) => {
 
 		// Assert game exists
 		if (!games[data.game_code]) {
-			log.debug(`Can't delete game that doesn't exist: ${data.game_code}`);
+			log.debug(`Can't choose an object for a game that doesn't exist: ${data.game_code}`);
 			socket.emit(`Error`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,
@@ -18,7 +18,7 @@ export default (io: Server, socket: Socket, data: SelectObject) => {
 
 		// Assert that the object is actually a valid choice
 		if (!game.objects.includes(data.object)) {
-			log.warn(`[${game.id}] Someone tried selecting an object that doesn't exist: ${data.object}`);
+			game.log.warn(`Someone tried selecting an object that doesn't exist: ${data.object}`);
 			socket.emit(`Error`, {
 				status: 409,
 				message: `That object isn't on the card.`,
@@ -27,7 +27,7 @@ export default (io: Server, socket: Socket, data: SelectObject) => {
 			return;
 		};
 
-		log.debug(`[${game.id}] Object has been chosen: ${data.object}`);
+		game.log.debug(`Object has been chosen: ${data.object}`);
 		game.object = data.object;
 		io.to(game.id).emit(`ChosenObject`, {
 			object: data.object

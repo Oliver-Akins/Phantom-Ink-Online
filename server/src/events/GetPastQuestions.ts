@@ -6,7 +6,7 @@ export default (io: Server, socket: Socket, data: GetPastQuestions) => {
 
 		// Assert game exists
 		if (!games[data.game_code]) {
-			log.debug(`Can't delete game that doesn't exist: ${data.game_code}`);
+			log.debug(`Can't get questions game that doesn't exist: ${data.game_code}`);
 			socket.emit(`Error`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,
@@ -17,7 +17,7 @@ export default (io: Server, socket: Socket, data: GetPastQuestions) => {
 		let game = games[data.game_code];
 		let team = game.teams[data.team - 1];
 
-		log.silly(`Past questions retrieved for team ${data.team} (gID=${game.id})`);
+		game.log.silly(`Past questions retrieved for team ${data.team}`);
 		socket.emit(`PastQuestions`, {
 			questions: team.questions
 		});
