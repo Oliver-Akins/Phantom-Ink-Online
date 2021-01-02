@@ -217,7 +217,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 	io.to(game.id).emit(`PlayerUpdate`, {
 		status: 200,
-		mode: `modify`,
+		action: `modify`,
 		name: data.name,
 		role: data.to.role,
 		team: data.to.team,
