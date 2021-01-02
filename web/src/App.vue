@@ -67,7 +67,7 @@ export default {
 			return navigator.userAgent;
 		},
 		isMobile () {
-			return this.userAgent.match(/Navigator|iPhone|iPod|Android/) != null;
+			return this.userAgent.match(/(Navigator Undefined)|iPhone|iPod|Android/) != null;
 		},
 	},
 	methods: {
