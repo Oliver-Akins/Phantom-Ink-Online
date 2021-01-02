@@ -3,10 +3,11 @@
 		<div v-if="!isMobile" class="maximize">
 			<transition name="top-slide">
 				<div
-					v-if="error"
-					class="error-bar"
+					v-if="alert.message"
+					class="alert-bar"
+					:class="alert.type"
 				>
-					{{ error }}
+					{{ alert.message }}
 				</div>
 			</transition>
 			<CreateJoin
@@ -25,7 +26,7 @@
 		</div>
 		<div
 			v-else
-			class="error"
+			class="device-error"
 		>
 			<h1 class="centre">Ghost Writer Online</h1>
 			<p class="centre">
@@ -54,7 +55,10 @@ export default {
 		"InGame": InGame,
 	},
 	data() {return {
-		error: null
+		alert: {
+			message: null,
+			type: null,
+		},
 	}},
 	computed: {
 		gameState() {
@@ -72,9 +76,30 @@ export default {
 	},
 	methods: {
 		handleError(data) {
-			this.error = `${data.status}${data.source ? ` @ ${data.source}` : ''} : ${data.message}`;
-			console.error(`${this.error}${data.extra ? ` ${data.extra}` : ''}`);
-			setTimeout(() => { this.error = null; }, 3000);
+			this.alert = {
+				message: `${data.status}${data.source ? ` @ ${data.source}` : ''} : ${data.message}`,
+				type: `error`,
+			};
+			console.error(`${this.alert.message}${data.extra ? ` ${data.extra}` : ''}`);
+			setTimeout(() => {
+				this.alert = {
+					message: null,
+					type: null,
+				};
+			}, 3000);
+		},
+	},
+	sockets: {
+		GameDeleted(data) {
+			if (data.status < 200 || 300 <= data.status) {
+				this.handleError(data);
+			} else {
+				this.alert = {
+					message: `The game has been ended.`,
+					type: `info`
+				}
+				this.$store.commit(`resetState`);
+			};
 		},
 	},
 }
@@ -95,11 +120,9 @@ html, body {
 	margin: 0;
 }
 
-.error-bar {
-	background-color: #bb0000;
+.alert-bar {
 	justify-content: center;
 	align-items: center;
-	color: #FFFFFF;
 	position: fixed;
 	display: flex;
 	height: 35px;
@@ -108,7 +131,17 @@ html, body {
 	top: 0;
 }
 
-.error {
+.alert-bar.error {
+	background-color: #bb0000;
+	color: #FFFFFF;
+}
+.alert-bar.info {
+	background-color: #7289da;
+	font-size: large;
+	color: #000000;
+}
+
+.device-error {
 	border: solid 2px red;
 	margin: 50% auto;
 	width: 90%;
