@@ -69,7 +69,7 @@ export default {
 					this.$store.commit(`newPlayer`, {
 						name: data.name,
 						role: data.role,
-						team: data.ream
+						team: data.team
 					})
 					break;
 				default:
