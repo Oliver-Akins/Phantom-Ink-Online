@@ -1,9 +1,10 @@
 import { Team } from "./Team";
 import { Deck } from "./Deck";
+import neatCSV from "neat-csv";
 import { Logger } from "tslog";
 import { games } from "../main";
 import { Player } from "./Player";
-import { readFileSync } from "fs";
+import { readFile } from "fs";
 
 export class Game {
 	readonly id: string;
@@ -70,20 +71,30 @@ export class Game {
 		 */
 
 		// parse the questions from the CSV
-		let data = readFileSync(conf.game.cards.questions.fingerprint, `utf-8`).replace(/\r/g, ``);
-		let questions: question_deck[] = [];
-		for (var line of data.split(`\n`).slice(conf.game.cards.questions.header_rows)) {
-			questions.push(line.split(`,`)[conf.game.cards.questions.column]);
-		};
-		this._questions = new Deck(questions);
+		readFile(conf.game.cards.questions.fingerprint, `utf-8`, (err, filebuffer) => {
+			if (err) throw err;
+			neatCSV(filebuffer)
+			.then((data) => {
+				let questions: question_deck[] = [];
+				for (var entry of data) {
+					questions.push(Object.values(entry)[conf.game.cards.questions.column]);
+				};
+				this._questions = new Deck(questions);
+			});
+		});
 
 		// Parse the object deck from CSV
-		let objectsCSV = readFileSync(conf.game.cards.objects.fingerprint, `utf-8`).replace(/\r/g, ``);
-		let objects: object_deck[] = [];
-		for (var line of objectsCSV.split(`\n`).slice(conf.game.cards.objects.header_rows)) {
-			objects.push(line.split(`,`));
-		};
-		this._objects = new Deck(objects);
+		readFile(conf.game.cards.objects.fingerprint, `utf-8`, (err, filebuffer) => {
+			if (err) throw err;
+			neatCSV(filebuffer)
+			.then((data) => {
+				let objects: object_deck[] = [];
+				for (var line of data) {
+					objects.push(Object.values(line));
+				};
+				this._objects = new Deck(objects);
+			})
+		});
 	};
 
 	private parseDeckGoogleSheets(conf: config): void {
