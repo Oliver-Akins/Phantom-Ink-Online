@@ -6,7 +6,9 @@ import LeaveGame from "./events/LeaveGame";
 import StartGame from "./events/StartGame";
 import CreateGame from "./events/CreateGame";
 import DeleteGame from "./events/DeleteGame";
+import ObjectList from "./events/ObjectList";
 import UpdatePlayer from "./events/UpdatePlayer";
+import SelectObject from "./events/SelectObject";
 
 
 export default async (conf: config) => {
@@ -33,6 +35,11 @@ export default async (conf: config) => {
 		socket.on(`JoinGame`, (data: JoinGame) => JoinGame(io, socket, data));
 		socket.on(`UpdatePlayer`, (data: UpdatePlayer) => UpdatePlayer(io, socket, data));
 		socket.on(`LeaveGame`, (data: LeaveGame) => LeaveGame(io, socket, data));
+
+
+		// Game Mechanisms
+		socket.on(`ObjectList`, (data: ObjectList) => ObjectList(io, socket, data));
+		socket.on(`SelectObject`, (data: SelectObject) => SelectObject(io, socket, data));
 	});
 
 	log.info(`Server started on port ${conf.websocket.port}`);
