@@ -220,13 +220,23 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 				game.log.debug(`${player.name} left the guessers`);
 				oldTeam.guessers = oldTeam.guessers.filter(x => x.socket !== socket);
 				player.socket.leave(`${game.id}:${data.from.team}:guesser`);
-				player.socket.leave(`${game.id}:*:guesser`);
+
+				// Ensure we don't remove the general role room if the player
+				// is taking the same role, but on the other team.
+				if (data.from.role !== data.to.role) {
+					player.socket.leave(`${game.id}:*:guesser`);
+				};
 				break;
 			case "writer":
 				game.log.debug(`${player.name} stopped being a writer`);
 				oldTeam.writer = null;
 				player.socket.leave(`${game.id}:${data.from.team}:writer`);
-				player.socket.leave(`${game.id}:*:writer`);
+
+				// Ensure we don't remove the general role room when the player
+				// is taking the same role, but on the other team.
+				if (data.from.role !== data.to.role) {
+					player.socket.leave(`${game.id}:*:writer`);
+				};
 				break;
 		};
 	};
