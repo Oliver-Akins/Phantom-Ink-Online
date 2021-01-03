@@ -96,6 +96,13 @@ export default {
 			});
 			this.$store.commit(`view`, `lobby`);
 		},
+		GameRejoined(data) {
+			if (!(200 <= data.status && data.status < 300)) {
+				this.$emit(`error`, data);
+				return;
+			};
+			// TODO -> Update all data that is received from the server
+		},
 	},
 	mounted() {},
 }
