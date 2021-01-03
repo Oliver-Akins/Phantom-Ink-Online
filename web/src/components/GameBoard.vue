@@ -126,13 +126,13 @@ export default {
 			 */
 			let team = this.$store.state.team;
 			let data = {
+				game_code: this.$store.state.game_code,
 				team: team,
 				answer: answerIndex,
 				value: this.answers[`team_${team}`][answerIndex - 1]
 			};
 
-			// TODO -> Send data to socket.io server
-			console.log(data)
+			this.$socket.client.emit(`UpdateAnswer`, data);
 		},
 	},
 	sockets: {
@@ -147,8 +147,8 @@ export default {
 			 *     value: string
 			 * }
 			 */
-			this.answers[`team_${data.team}`][data.answer - 1] = data.value;
-		}
+			this.answers[`team_${data.team}`].splice(data.answer - 1, 1, data.value);
+		},
 	},
 }
 </script>
