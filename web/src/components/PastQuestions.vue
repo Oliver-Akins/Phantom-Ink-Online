@@ -25,13 +25,18 @@ export default {
 	methods: {
 		requestQuestions() {
 			console.debug(`Requesting questions for team ${this.$store.state.team}`);
-			// TODO -> Emit event to server
+			this.$socket.client.emit(`GetPastQuestions`, {
+				game_code: this.$store.state.game_code,
+				team: this.$store.state.team
+			});
 		},
 	},
 	sockets: {
 		PastQuestions(data) {
-			console.debug(`Received question data from the server.`);
-			this.questions = data;
+			if (data.status < 200 || 300 <= data.status) {
+				this.$emit(`error`, data);
+			};
+			this.questions = data.questions;
 		},
 	},
 	mounted() {
