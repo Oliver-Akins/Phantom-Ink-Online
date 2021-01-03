@@ -65,6 +65,10 @@ interface GameRejoined extends response {
 }
 
 
+interface GetHand {
+	game_code: string;
+	team: team;
+}
 interface NewHand {
 	game_code: string;
 	team: team;
