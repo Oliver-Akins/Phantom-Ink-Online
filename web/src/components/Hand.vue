@@ -1,20 +1,25 @@
 <template>
 	<div id="PlayerHand">
-		<div
-			class="card"
-			v-for="cardIndex in questions.length"
-			:key="`card_${cardIndex}`"
-			@click.self="handleCardClick(cardIndex)"
-		>
-			<p class="card-text centre">
-				{{ questions[cardIndex - 1] }}
-			</p>
-			<button
-				class="card-button clickable"
-				@click.stop="sendCard(cardIndex)"
+		<div class="recentQuestion" v-if="mostRecentQuestion">
+			{{ mostRecentQuestion }}
+		</div>
+		<div class="hand" v-else>
+			<div
+				class="card"
+				v-for="cardIndex in questions.length"
+				:key="`card_${cardIndex}`"
+				@click.self="handleCardClick(cardIndex)"
 			>
-				{{ buttonLabel }}
-			</button>
+				<p class="card-text centre">
+					{{ questions[cardIndex - 1] }}
+				</p>
+				<button
+					class="card-button clickable"
+					@click.stop="sendCard(cardIndex)"
+				>
+					{{ buttonLabel }}
+				</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -23,15 +28,18 @@
 export default {
 	name: `PlayerHand`,
 	components: {},
+	data() {return {
+		mostRecentQuestion: null,
+	}},
 	computed: {
 		userRole() {
 			return this.$store.state.role;
 		},
 		isGuesser() {
-			return this.userRole == this.$store.state.guesser_name;
+			return this.userRole === `guesser`;
 		},
 		isWriter() {
-			return this.userRole == this.$store.state.writer_name;
+			return this.userRole === `writer`;
 		},
 		buttonLabel() {
 			if (this.isGuesser) {
@@ -49,18 +57,11 @@ export default {
 	methods: {
 		sendCard(cardIndex) {
 
-			// Determine what the source of the card is for the server to take
-			// appropriate action.
-			let role = `unknown`;
-			if (this.isGuesser)
-				role = `guesser`
-			else if (this.isWriter)
-				role = `writer`
-
 			// Create the data object for the server to receive
 			let data = {
+				game_code: this.$store.state.game_code,
 				text: this.questions[cardIndex - 1],
-				from: role,
+				from: this.userRole,
 				team: this.$store.state.team,
 			};
 
@@ -68,12 +69,21 @@ export default {
 
 			// Discard the rest of the writer's hand
 			if (this.isWriter) {
-				this.$store.state.questions = [];
+				this.mostRecentQuestion = data.text;
+				this.$store.commit(`replaceHand`, []);
 			};
 
-			// TODO -> send data to server
-			console.debug(data);
+			this.$socket.client.emit(`SendCard`, data);
 		}
+	},
+	mounted() {
+		if (this.isGuesser) {
+			console.debug(`Getting hand from server`);
+			this.$socket.client.emit(`GetHand`, {
+				game_code: this.$store.state.game_code,
+				team: this.$store.state.team
+			});
+		};
 	},
 	sockets: {
 		UpdateHand(data) {
@@ -87,16 +97,18 @@ export default {
 			 * }
 			 */
 			console.debug(`Updating hand.`);
-			console.debug(data);
 			switch (data.mode) {
 				case `append`:
-					// TODO -> Implement appending
+					if (this.isWriter && this.mostRecentQuestion) {
+						this.mostRecentQuestion = null;
+					};
+					this.$store.commit(`appendToHand`, data.questions);
 					break;
 				case `replace`:
-					this.$store.state.questions = data.questions;
+					this.$store.commit(`replaceHand`, data.questions);
 					break;
 				default:
-					console.error(`Server returned an unsupported mode.`);
+					console.error(`Server returned an unsupported mode: ${data.mode}`);
 			};
 		},
 	},
@@ -109,16 +121,29 @@ export default {
 
 #PlayerHand {
 	background-color: var(--background2);
+	border-radius: 20px;
+	margin: 0 auto;
+	padding: 0px;
+	width: 95%;
+}
+
+.recentQuestion {
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	height: 100%;
+	width: 100%;
+}
+
+.hand {
 	justify-content: space-evenly;
 	flex-direction: row;
-	border-radius: 20px;
 	align-items: center;
 	flex-wrap: nowrap;
 	overflow-x: auto;
-	margin: 0 auto;
 	display: flex;
-	padding: 0px;
-	width: 95%;
+	height: 100%;
+	width: 100%;
 }
 
 .card {
