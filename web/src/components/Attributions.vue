@@ -48,6 +48,7 @@ export default {
 			"Toml": "https://www.npmjs.com/package/toml",
 			"tslog": "https://www.npmjs.com/package/tslog",
 			"Socket.io": "https://socket.io",
+			"neat-csv": "https://github.com/sindresorhus/neat-csv",
 		}
 	}},
 	computed: {},
