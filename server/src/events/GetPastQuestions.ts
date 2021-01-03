@@ -6,8 +6,8 @@ export default (io: Server, socket: Socket, data: GetPastQuestions) => {
 
 		// Assert game exists
 		if (!games[data.game_code]) {
-			log.debug(`Can't get questions game that doesn't exist: ${data.game_code}`);
-			socket.emit(`Error`, {
+			log.debug(`Can't find game with code: ${data.game_code}`);
+			socket.emit(`PastQuestions`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,
 				source: `GetPastQuestions`
@@ -19,11 +19,12 @@ export default (io: Server, socket: Socket, data: GetPastQuestions) => {
 
 		game.log.silly(`Past questions retrieved for team ${data.team}`);
 		socket.emit(`PastQuestions`, {
+			status: 200,
 			questions: team.questions
 		});
 	}
 	catch (err) {
-		socket.emit(`Error`, {
+		socket.emit(`PastQuestions`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,
 			source: `GetPastQuestions`,
