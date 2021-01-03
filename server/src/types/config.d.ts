@@ -18,8 +18,15 @@ interface config {
 		cards: {
 			type: `csv` | `sheets`;
 			key?: string;
-			questions: string;
-			objects: string;
+			questions: {
+				fingerprint: string;
+				column: number;
+				header_rows: number;
+			};
+			objects: {
+				fingerprint: string;
+				header_rows: number;
+			};
 		};
 	};
 }

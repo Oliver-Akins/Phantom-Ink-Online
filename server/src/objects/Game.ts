@@ -70,17 +70,17 @@ export class Game {
 		 */
 
 		// parse the questions from the CSV
-		let data = readFileSync(conf.game.cards.questions, `utf-8`).replace(/\r/g, ``);
+		let data = readFileSync(conf.game.cards.questions.fingerprint, `utf-8`).replace(/\r/g, ``);
 		let questions: question_deck[] = [];
-		for (var line of data.split(`\n`).slice(1)) {
-			questions.push(line.split(`,`)[0]);
+		for (var line of data.split(`\n`).slice(conf.game.cards.questions.header_rows)) {
+			questions.push(line.split(`,`)[conf.game.cards.questions.column]);
 		};
 		this._questions = new Deck(questions);
 
 		// Parse the object deck from CSV
-		let objectsCSV = readFileSync(conf.game.cards.objects, `utf-8`).replace(/\r/g, ``);
+		let objectsCSV = readFileSync(conf.game.cards.objects.fingerprint, `utf-8`).replace(/\r/g, ``);
 		let objects: object_deck[] = [];
-		for (var line of objectsCSV.split(`\n`).slice(1)) {
+		for (var line of objectsCSV.split(`\n`).slice(conf.game.cards.objects.header_rows)) {
 			objects.push(line.split(`,`));
 		};
 		this._objects = new Deck(objects);
