@@ -1,7 +1,9 @@
 import { log } from "./main";
 import { Server, Socket } from "socket.io";
 
+import GetHand from "./events/GetHand";
 import JoinGame from "./events/JoinGame";
+import SendCard from "./events/SendCard";
 import LeaveGame from "./events/LeaveGame";
 import StartGame from "./events/StartGame";
 import CreateGame from "./events/CreateGame";
@@ -10,6 +12,7 @@ import ObjectList from "./events/ObjectList";
 import UpdatePlayer from "./events/UpdatePlayer";
 import SelectObject from "./events/SelectObject";
 import UpdateAnswer from "./events/UpdateAnswer";
+import GetPastQuestions from "./events/GetPastQuestions";
 
 
 export default async (conf: config) => {
@@ -41,7 +44,10 @@ export default async (conf: config) => {
 		// Game Mechanisms
 		socket.on(`ObjectList`, (data: ObjectList) => ObjectList(io, socket, data));
 		socket.on(`SelectObject`, (data: SelectObject) => SelectObject(io, socket, data));
+		socket.on(`GetHand`, (data: GetHand) => GetHand(io, socket, data));
+		socket.on(`SendCard`, (data: SendCard) => SendCard(io, socket, data));
 		socket.on(`UpdateAnswer`, (data: UpdateAnswer) => UpdateAnswer(io, socket, data));
+		socket.on(`GetPastQuestions`, (data: GetPastQuestions) => GetPastQuestions(io, socket, data));
 	});
 
 	log.info(`Server started on port ${conf.websocket.port}`);
