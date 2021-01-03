@@ -1,5 +1,5 @@
-import { games, log } from '../main';
 import { Server, Socket } from 'socket.io';
+import { conf, games, log } from '../main';
 
 export default (io: Server, socket: Socket, data: SendCard) => {
 	try {
@@ -7,7 +7,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 		// Assert game exists
 		if (!games[data.game_code]) {
 			log.debug(`Can't send a card in a game that doesn't exist: ${data.game_code}`);
-			socket.emit(`Error`, {
+			socket.emit(`UpdateHand`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,
 				source: `SendCard`
@@ -25,6 +25,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 			team.selectQuestion(data.text);
 
 			socket.emit(`UpdateHand`, {
+				status: 200,
 				mode: "replace",
 				questions: []
 			});
@@ -37,16 +38,18 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 
 			// Update the team's hand
 			team.removeCard(data.text);
-			team.addCardsToHand(game.questions.draw(1));
+			team.addCardsToHand(game.questions.draw(conf.game.hand_size - team.hand.length));
 
 			// send the question text to the writer player
-			io.to(`${game.id}:${data.team}:writer`).emit(`UpdateHand`, {
+			io.to(`${game.id}:${team.id}:writer`).emit(`UpdateHand`, {
+				status: 200,
 				mode: "append",
-				questions: data.text
+				questions: [data.text]
 			});
 
-			// Alert all the guessers of the
-			io.to(`${game.id}:${data.team}:guesser`).emit(`UpdateHand`, {
+			// Alert all the guessers of the team
+			io.to(`${game.id}:${team.id}:guesser`).emit(`UpdateHand`, {
+				status: 200,
 				mode: "replace",
 				questions: team.hand
 			});
@@ -55,7 +58,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 
 		else {
 			game.log.warn(`Unknown role in the "from" property: ${data.from}`);
-			socket.emit(`Error`, {
+			socket.emit(`UpdateHand`, {
 				status: 400,
 				message: `Unknown role in the "from" property: ${data.from}`,
 				source: `SendCard`
@@ -64,7 +67,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 		};
 	}
 	catch (err) {
-		socket.emit(`Error`, {
+		socket.emit(`UpdateHand`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,
 			source: `SendCard`,
