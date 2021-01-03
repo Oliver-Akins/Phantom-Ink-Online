@@ -90,7 +90,7 @@
 			{{ visible ? `Hide` : `Show` }} Past Questions
 		</button>
 		<transition name="expand-from-left">
-			<past-questions v-if="visible" />
+			<past-questions v-if="visible" @error="$emit(`error`, $event)" />
 		</transition>
 	</div>
 </template>
