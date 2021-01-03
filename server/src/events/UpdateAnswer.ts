@@ -7,7 +7,7 @@ export default (io: Server, socket: Socket, data: UpdateAnswer) => {
 		// Assert game exists
 		if (!games[data.game_code]) {
 			log.debug(`Can't update answer in a game that doesn't exist: ${data.game_code}`);
-			socket.emit(`Error`, {
+			socket.emit(`UpdateAnswer`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,
 				source: `UpdateAnswer`
@@ -26,7 +26,7 @@ export default (io: Server, socket: Socket, data: UpdateAnswer) => {
 		});
 	}
 	catch (err) {
-		socket.emit(`Error`, {
+		socket.emit(`UpdateAnswer`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,
 			source: `UpdateAnswer`,
