@@ -9,6 +9,7 @@ import DeleteGame from "./events/DeleteGame";
 import ObjectList from "./events/ObjectList";
 import UpdatePlayer from "./events/UpdatePlayer";
 import SelectObject from "./events/SelectObject";
+import UpdateAnswer from "./events/UpdateAnswer";
 
 
 export default async (conf: config) => {
@@ -40,6 +41,7 @@ export default async (conf: config) => {
 		// Game Mechanisms
 		socket.on(`ObjectList`, (data: ObjectList) => ObjectList(io, socket, data));
 		socket.on(`SelectObject`, (data: SelectObject) => SelectObject(io, socket, data));
+		socket.on(`UpdateAnswer`, (data: UpdateAnswer) => UpdateAnswer(io, socket, data));
 	});
 
 	log.info(`Server started on port ${conf.websocket.port}`);
