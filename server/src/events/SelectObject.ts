@@ -7,7 +7,7 @@ export default (io: Server, socket: Socket, data: SelectObject) => {
 		// Assert game exists
 		if (!games[data.game_code]) {
 			log.debug(`Can't choose an object for a game that doesn't exist: ${data.game_code}`);
-			socket.emit(`Error`, {
+			socket.emit(`ChosenObject`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,
 				source: `SelectObject`
@@ -17,9 +17,9 @@ export default (io: Server, socket: Socket, data: SelectObject) => {
 		let game = games[data.game_code];
 
 		// Assert that the object is actually a valid choice
-		if (!game.objects.includes(data.object)) {
-			game.log.warn(`Someone tried selecting an object that doesn't exist: ${data.object}`);
-			socket.emit(`Error`, {
+		if (!game.objects.includes(data.choice)) {
+			game.log.warn(`Someone tried selecting an object that doesn't exist: ${data.choice}`);
+			socket.emit(`ChosenObject`, {
 				status: 409,
 				message: `That object isn't on the card.`,
 				source: `SelectObject`
@@ -27,14 +27,15 @@ export default (io: Server, socket: Socket, data: SelectObject) => {
 			return;
 		};
 
-		game.log.debug(`Object has been chosen: ${data.object}`);
-		game.object = data.object;
+		game.log.debug(`Object has been chosen: ${data.choice}`);
+		game.object = data.choice;
 		io.to(`${game.id}:*:writer`).emit(`ChosenObject`, {
-			object: data.object
+			status: 200,
+			object: data.choice,
 		});
 	}
 	catch (err) {
-		socket.emit(`Error`, {
+		socket.emit(`ChosenObject`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,
 			source: `SelectObject`,
