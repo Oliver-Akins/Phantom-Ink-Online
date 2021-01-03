@@ -107,6 +107,12 @@ export default new Vuex.Store({
 		setObject(state, chosenObject) {
 			state.chosen_object = chosenObject;
 		},
+		replaceHand(state, questions) {
+			state.questions = questions;
+		},
+		appendToHand(state, questions) {
+			state.questions.push(...questions);
+		},
 	},
 	actions: {
 	},
