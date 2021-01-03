@@ -68,7 +68,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 	};
 
 	if (!data.to) {
-		game.log.silly(`Client did not include a "to" object in request.`)
+		game.log.debug(`Client did not include a "to" object in request.`)
 		socket.emit(`PlayerUpdate`, {
 			status: 400,
 			message: `The "to" property must to be specified in the request.`,
