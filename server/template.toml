@@ -35,9 +35,6 @@ key = ''
 #		Sheets to indicate which sheet to use when downloading the content.
 fingerprint = ''
 
-# The quantity of header rows in the CSV file or Google Sheet
-header_rows = 1
-
 # The zero-indexed column number to use when getting the question text.
 column = 0
 
@@ -48,9 +45,6 @@ column = 0
 #	- If "type" is "sheets", then this is a sheet identifier used by Google
 #		Sheets to indicate which sheet to use when downloading the content.
 fingerprint = ''
-
-# The quantity of header rows in the CSV file or Google Sheet
-header_rows = 1
 
 
 [webserver]

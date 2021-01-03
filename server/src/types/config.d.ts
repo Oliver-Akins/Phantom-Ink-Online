@@ -21,11 +21,9 @@ interface config {
 			questions: {
 				fingerprint: string;
 				column: number;
-				header_rows: number;
 			};
 			objects: {
 				fingerprint: string;
-				header_rows: number;
 			};
 		};
 	};
