@@ -94,7 +94,7 @@ interface SelectObject {
 	choice: string;
 }
 interface ChosenObject extends response {
-	object?: string;
+	choice?: string;
 }
 
 

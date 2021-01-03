@@ -31,7 +31,7 @@ export default (io: Server, socket: Socket, data: SelectObject) => {
 		game.object = data.choice;
 		io.to(`${game.id}:*:writer`).emit(`ChosenObject`, {
 			status: 200,
-			object: data.choice,
+			choice: data.choice,
 		});
 	}
 	catch (err) {
