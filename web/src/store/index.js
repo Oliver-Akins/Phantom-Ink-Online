@@ -104,6 +104,9 @@ export default new Vuex.Store({
 		newPlayer(state, player) {
 			state.players.push(player);
 		},
+		setObject(state, chosenObject) {
+			state.chosen_object = chosenObject;
+		},
 	},
 	actions: {
 	},
