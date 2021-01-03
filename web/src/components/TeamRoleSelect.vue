@@ -84,11 +84,8 @@ export default {
 button {
 	background-color: var(--background3);
 	color: var(--background3-text);
-	font-family: var(--fonts);
 	border-radius: 50px;
-	border-style: none;
 	font-size: larger;
-	outline: none;
 	padding: 10px;
 	margin: 10px;
 	width: 85%;

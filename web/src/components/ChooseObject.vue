@@ -119,9 +119,7 @@ export default {
 button {
 	background: var(--card-button);
 	border-radius: 7px;
-	border-style: none;
 	font-size: larger;
-	outline: none;
 	padding: 7px;
 	margin: 10px;
 }

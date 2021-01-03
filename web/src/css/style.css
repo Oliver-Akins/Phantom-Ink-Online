@@ -9,3 +9,9 @@
 .centre {
 	text-align: center;
 }
+
+
+button {
+	border-style: none;
+	outline: none;
+}

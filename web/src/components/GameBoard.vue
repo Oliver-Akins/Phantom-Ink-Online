@@ -243,9 +243,7 @@ input[type="text"].other-team-answer {
 button {
 	background-color: var(--board-background-alt);
 	border-radius: 0 20px 0 7px;
-	border-style: none;
 	position: absolute;
-	outline: none;
 	padding: 10px;
 	right: 0;
 	top: 0;

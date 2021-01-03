@@ -172,9 +172,7 @@ export default {
 
 button {
 	border-radius: 7px;
-	border-style: none;
 	font-size: larger;
-	outline: none;
 	padding: 7px;
 	margin: 5px;
 }
