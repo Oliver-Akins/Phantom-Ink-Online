@@ -23,9 +23,12 @@ export default {
 		createGame() {
 			this.name = prompt(`What is your name?`);
 
-			this.$socket.client.emit(`CreateGame`, {
-				name: this.name,
-			});
+			// Assert that the user entered a name and didn't cancel
+			if (this.name) {
+				this.$socket.client.emit(`CreateGame`, {
+					name: this.name,
+				});
+			};
 		},
 		joinGame() {
 			// Get the user's name
