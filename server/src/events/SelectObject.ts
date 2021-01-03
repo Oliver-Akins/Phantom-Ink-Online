@@ -29,7 +29,7 @@ export default (io: Server, socket: Socket, data: SelectObject) => {
 
 		game.log.debug(`Object has been chosen: ${data.object}`);
 		game.object = data.object;
-		io.to(game.id).emit(`ChosenObject`, {
+		io.to(`${game.id}:*:writer`).emit(`ChosenObject`, {
 			object: data.object
 		});
 	}
