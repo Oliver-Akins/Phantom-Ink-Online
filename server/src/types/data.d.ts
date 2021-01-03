@@ -91,7 +91,7 @@ interface ObjectListResponse extends response {
 
 interface SelectObject {
 	game_code: string;
-	object: string;
+	choice: string;
 }
 interface ChosenObject extends response {
 	object?: string;
