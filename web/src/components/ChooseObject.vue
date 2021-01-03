@@ -29,6 +29,9 @@ export default {
 		buttonLabel() {
 			return this.$store.state.writer_object_choose_button;
 		},
+		gameCode() {
+			return this.$store.state.game_code;
+		},
 	},
 	methods: {
 		selectObject(objectIndex) {
@@ -36,22 +39,19 @@ export default {
 			 * Sends the chosen object to the server so that the game can begin properly.
 			 */
 			let data = {
+				game_code: this.gameCode,
 				choice: this.objects[objectIndex - 1],
 			};
-
-			this.$store.state.chosen_object = data.choice;
-
-			console.debug(data)
-			// TODO -> Send data to the server
+			this.$socket.client.emit(`SelectObject`, data);
 		},
 		getObjects() {
 			/**
 			 * Gets the objects on the card from the server. This method will
 			 * return the same values for all spirit.
 			 */
-			this.objects = [ `Potato`, `Salad`, `Foo`, `Bar` ];
-
-			// TODO -> Actually get the data from the server
+			this.$socket.client.emit(`ObjectList`, {
+				game_code: this.$store.state.game_code,
+			});
 		},
 	},
 	sockets: {
@@ -59,11 +59,6 @@ export default {
 			/**
 			 * The response event from the server for the list of objects that
 			 * are on the card which we have drawn for the round.
-			 */
-			/**
-			 * data = {
-			 *     objects: String[],
-			 * }
 			 */
 			this.objects = data.objects;
 		},
@@ -73,13 +68,10 @@ export default {
 			 * turn stay synchronized on what object they are trying to get
 			 * their teammate to guess.
 			 */
-			/**
-			 * data = {
-			 *     choice: String,
-			 * }
-			 */
-			console.debug(data)
-			this.$store.state.chosen_object = data.choice;
+			if (data.status < 200 || 300 <= data.status) {
+				this.$emit(`error`, data);
+			};
+			this.$store.commit(`setObject`, data.choice);
 		},
 	},
 	mounted() {
