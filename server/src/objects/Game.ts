@@ -79,7 +79,7 @@ export class Game {
 
 		// Parse the object deck from CSV
 		let objectsCSV = readFileSync(conf.game.cards.objects, `utf-8`).replace(/\r/g, ``);
-		let objects: string[][] = [];
+		let objects: object_deck[] = [];
 		for (var line of objectsCSV.split(`\n`).slice(1)) {
 			objects.push(line.split(`,`));
 		};
