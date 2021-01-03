@@ -112,7 +112,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 				};
 				// Change team object
 				team.writer = player;
-				game.log.silly(`${player.name} became the writer for team ${data.to.team}`);
+				game.log.silly(`${player.name} became a writer`);
 
 				// Move the rooms the player is in
 				player.socket.join(`${game.id}:${data.to.team}:writer`);
@@ -128,7 +128,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 		switch (data.to.role) {
 			case "guesser":
 				if (team.guessers.length >= 7) {
-					game.log.debug(`Game cannot have more than 7 ${conf.game.guesser_name}`);
+					game.log.debug(`Game cannot have more than 7 guessers`);
 					socket.emit(`PlayerUpdate`, {
 						status: 403,
 						message: `A team can't have 8 or more ${conf.game.guesser_name}`,
@@ -138,7 +138,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 				}
 				team.guessers.push(player);
 				team.writer = null;
-				game.log.silly(`${data.name} became a guesser on team ${data.to.team}.`);
+				game.log.silly(`${data.name} became a guesser`);
 
 				// Move the rooms the player is in
 				player.socket.join(`${game.id}:${data.to.team}:guesser`);
@@ -159,7 +159,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 				// Change team object
 				team.writer = player;
 				team.guessers = team.guessers.filter(x => x.socket !== socket);
-				game.log.silly(`${data.name} became the writer on team ${data.to.team}`);
+				game.log.silly(`${data.name} became the writer`);
 
 				// Move the rooms the player is in
 				player.socket.join(`${game.id}:${data.to.team}:writer`);
@@ -181,7 +181,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 			case "guesser":
 				// Ensure we don't get 8 guessers
 				if (newTeam.guessers.length >= 7) {
-					game.log.debug(`Game cannot have 8 or more ${conf.game.guesser_name} on a team.`);
+					game.log.debug(`Game cannot have 8 or more guessers on a team.`);
 					socket.emit(`PlayerUpdate`, {
 						status: 403,
 						message: `Cannot have 8 players as ${conf.game.guesser_name}s on a single team.`,
@@ -189,7 +189,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 					});
 					return;
 				};
-				game.log.silly(`${data.name} became a ${conf.game.guesser_name} on team ${data.to.team}`);
+				game.log.silly(`${data.name} became a guesser`);
 				newTeam.guessers.push(player);
 				player.socket.join(`${game.id}:${data.to.team}:guesser`)
 				player.socket.join(`${game.id}:*:guesser`)
@@ -199,7 +199,7 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 			case "writer":
 				// Ensure we don't already have a writer
 				if (newTeam.writer) {
-					game.log.debug(`Game cannot have more than 1 ${conf.game.writer_name} on a team.`);
+					game.log.debug(`Game cannot have more than 1 writer on a team.`);
 					socket.emit(`PlayerUpdate`, {
 						status: 403,
 						message: `Someone on that team is already the ${conf.game.writer_name}`,
@@ -217,13 +217,13 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 		// new team
 		switch (data.from.role) {
 			case "guesser":
-				game.log.debug(`${player.name} left the ${conf.game.guesser_name}s of team ${oldTeam.id}`);
+				game.log.debug(`${player.name} left the guessers`);
 				oldTeam.guessers = oldTeam.guessers.filter(x => x.socket !== socket);
 				player.socket.leave(`${game.id}:${data.from.team}:guesser`);
 				player.socket.leave(`${game.id}:*:guesser`);
 				break;
 			case "writer":
-				game.log.debug(`${player.name} stopped being the ${conf.game.writer_name} of team ${oldTeam.id}`);
+				game.log.debug(`${player.name} stopped being a writer`);
 				oldTeam.writer = null;
 				player.socket.leave(`${game.id}:${data.from.team}:writer`);
 				player.socket.leave(`${game.id}:*:writer`);
