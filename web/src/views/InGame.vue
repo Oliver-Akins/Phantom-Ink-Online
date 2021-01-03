@@ -1,10 +1,19 @@
 <template>
 	<div id="GameView" class="maximize">
-		<game-board v-if="isGuesser || objectChosen" />
-		<object-selector v-else />
-		<player-hand />
-		<team-reminder />
-		<discard-hand v-if="isGuesser" />
+		<game-board
+			v-if="isGuesser || objectChosen"
+			@error="$emit(`error`, $event)"
+		/>
+		<object-selector
+			v-else
+			@error="$emit(`error`, $event)"
+		/>
+		<player-hand @error="$emit(`error`, $event)" />
+		<team-reminder @error="$emit(`error`, $event)" />
+		<discard-hand
+			v-if="isGuesser"
+			@error="$emit(`error`, $event)"
+		/>
 		<object-reminder v-else-if="isWriter && objectChosen" />
 	</div>
 </template>
