@@ -220,6 +220,7 @@ input[type="text"] {
 	font-family: var(--fonts);
 	background-color: var(--board-background-alt);
 	color: var(--board-background-alt-text);
+	text-transform: uppercase;
 	border-color: transparent;
 	border-style: solid;
 	border-radius: 7px;
