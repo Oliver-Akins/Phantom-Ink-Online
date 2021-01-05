@@ -63,12 +63,11 @@ export default {
 			 */
 			this.confirmVisible = false;
 
-			let data = {
-				team: this.$store.state.team,
-			};
-
 			console.debug(`Telling server to discard team's hand.`);
-			// TODO -> send data to server
+			this.$socket.client.emit(`NewHand`, {
+				game_code: this.$store.state.game_code,
+				team: this.$store.state.team
+			});
 		},
 	},
 }
