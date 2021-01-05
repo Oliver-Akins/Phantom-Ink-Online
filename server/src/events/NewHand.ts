@@ -6,8 +6,8 @@ export default (io: Server, socket: Socket, data: NewHand) => {
 
 		// Assert game exists
 		if (!games[data.game_code]) {
-			log.debug(`Can't delete game that doesn't exist: ${data.game_code}`);
-			socket.emit(`Error`, {
+			log.debug(`Can't find game with code: ${data.game_code}`);
+			socket.emit(`UpdateHand`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,
 				source: `NewHand`
@@ -30,12 +30,13 @@ export default (io: Server, socket: Socket, data: NewHand) => {
 		team.addCardsToHand(deck.draw(conf.game.hand_size));
 		game.log.silly(`Drew a new hand of cards for team ${data.team}.`);
 		io.to(game.id).emit(`UpdateHand`, {
+			status: 200,
 			mode: `replace`,
 			questions: team.hand,
 		});
 	}
 	catch (err) {
-		socket.emit(`Error`, {
+		socket.emit(`UpdateHand`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,
 			source: `NewHand`,
