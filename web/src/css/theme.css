@@ -1,0 +1,77 @@
+:root {
+
+	/*
+		The fonts and font colours the site will use
+	*/
+	--fonts: "Roboto", "Open Sans", sans-serif;
+	--light-font-colour: #ECE3BB;
+	--dark-font-colour: #000F3D;
+
+	/*
+		The darkest colour in the trio for backgrounds, this is used for the
+		site-wide background and modal content.
+	*/
+	--background1: #001233;
+	--background1-darken: #000c24;
+	--background1-lighten: #001a49;
+	--background1-text: var(--light-font-colour);
+
+	/*
+		The middle colour in the trio for backgrounds.
+		Used for hand background, buttons, regions, etc.
+	*/
+	--background2: #24356E;
+	--background2-darken: #19295e;
+	--background2-lighten: #364a8d;
+	--background2-text: var(--light-font-colour);
+
+	/* The colours used for the lightest shades of the background regions. */
+	--background3: #4A5081;
+	--background3-darken: #454b7e;
+	--background3-lighten: #5a6192;
+	--background3-text: var(--light-font-colour);
+
+	/*
+		The colours for the cards in the hands of the players
+	*/
+	--card-background: #E1D098;
+	--card-text: var(--dark-font-colour);
+	--card-button: #ACA885;
+	--card-button-darken: #88845e;
+	--card-button-lighten: #d1ceaf;
+
+	/*
+		The colours used for the main game board. While playing, the alt colour
+		is used for the text input backgrounds, as well as the question toggle
+		button, then used as the main background of the past questions insert,
+		with the primary background being the text input background.
+
+		The text colours are also used for the SVG eyes, if you change the
+		"--board-background-text" variable, also change the fill value in the
+		/public/assets/eye.svg file to match it
+	*/
+	--board-background: #ACA885;
+	--board-background-alt: #E1D098;
+	--board-background-alt-darken: #cab981;
+	--board-background-alt-lighten: #f1e4b7;
+	--board-background-text: var(--dark-font-colour);
+	--board-background-alt-text: var(--dark-font-colour);
+
+	/* The fill colour of the eyes on the game board */
+	--eye-colour: #000000;
+
+	/* The colours for the modals */
+	--modal-background-blur: #000000a6;
+	--modal-content-background: var(--background1);
+	--modal-content-text: var(--background1-text);
+
+	/* The colours used for the buttons in the modal that are for confirming actions */
+	--confirm-background: #018501;
+	--confirm-background-darken: #006600;
+	--confirm-background-lighten: #00aa00;
+	--confirm-text: white;
+	--cancel-background: #aa0000;
+	--cancel-background-darken: #830101;
+	--cancel-background-lighten: #e71111;
+	--cancel-text: white;
+}

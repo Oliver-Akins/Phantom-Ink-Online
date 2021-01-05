@@ -1,0 +1,83 @@
+[game]
+
+# The hand size for the guessers
+hand_size = 7
+
+# The length of the game codes that are randomly generated to allow others
+code_length = 6
+
+# The names that the server uses for the writer/guessers, these are really only
+# used in error responses.
+writer_name = "Spirit"
+guesser_name = "Medium"
+
+
+[game.cards]
+
+# The type of data we are fetching for using in the cards. Accepted values are:
+#	- "csv"
+#	- "sheets"
+# Any other value will prevent the server from starting.
+type = "csv"
+
+
+# The Google Sheets document ID, this is used to specify the document as a whole,
+# not the specific sheet inside, for that see the "fingerprint" property. This
+# will be ignored if the type is set to "csv"
+key = ''
+
+
+[game.cards.questions]
+# The identifier for the questions cards.
+#	- If "type" is "csv", then this is a filepath relative to the working
+#		directory of the CLI instantiating the server. (or an absolute path)
+#	- If "type" is "sheets", then this is a sheet identifier used by Google
+#		Sheets to indicate which sheet to use when downloading the content.
+fingerprint = ''
+
+# The zero-indexed column number to use when getting the question text.
+column = 0
+
+[game.cards.objects]
+# The identifier for the object cards.
+#	- If "type" is "csv", then this is a filepath relative to the working
+#		directory of the CLI instantiating the server. (or an absolute path)
+#	- If "type" is "sheets", then this is a sheet identifier used by Google
+#		Sheets to indicate which sheet to use when downloading the content.
+fingerprint = ''
+
+
+[webserver]
+# whether or not to enable the integrated webserver.
+enabled = false
+
+# The port the web server should run on
+port = 8080
+
+
+[websocket]
+# The port the websocket server should run on. This must also be duplicated
+# into the `main.js` file within the `web` folder so that the client attempts
+# to connect to the correct port on the server.
+port = 8081
+
+# The hostnames (and protocols) that are allowed to connect to the server. For
+# CORS protection, this should not be set to "*", an array of hostnames is
+# allowed, an example can be seen commented out below:
+# permitted_hosts = [
+#	"http://localhost:8080",
+#	"http://127.0.0.1:8080"
+# ]
+permitted_hosts = "http://localhost:8080"
+
+
+[log]
+# The log level to output to the CLI, this can be one of the following:
+#	- "silly"
+#	- "debug"
+#	- "info"
+#	- "warn"
+#	- "error"
+#	- "trace"
+# any other value will prevent the server from starting at runtime.
+level = "silly"

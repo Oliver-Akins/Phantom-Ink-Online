@@ -1,0 +1,76 @@
+import { Server, Socket } from 'socket.io';
+import { conf, games, log } from '../main';
+
+export default (io: Server, socket: Socket, data: SendCard) => {
+	try {
+
+		// Assert game exists
+		if (!games[data.game_code]) {
+			log.debug(`Can't send a card in a game that doesn't exist: ${data.game_code}`);
+			socket.emit(`UpdateHand`, {
+				status: 404,
+				message: `Game with code ${data.game_code} could not be found`,
+				source: `SendCard`
+			});
+			return;
+		};
+		let game = games[data.game_code];
+		let team = game.teams[data.team - 1];
+		let deck = game.questions;
+
+		// The writer is answering
+		if (data.from === "writer") {
+			game.log.debug(` Writer selected question to answer.`);
+			deck.discard(data.text);
+			team.selectQuestion(data.text);
+
+			socket.emit(`UpdateHand`, {
+				status: 200,
+				mode: "replace",
+				questions: []
+			});
+			return;
+		}
+
+		// The writer is sending the card to the writer
+		else if (data.from === "guesser") {
+			game.log.debug(`Guesser is sending the card to the writer.`);
+
+			// Update the team's hand
+			team.removeCard(data.text);
+			team.addCardsToHand(game.questions.draw(conf.game.hand_size - team.hand.length));
+
+			// send the question text to the writer player
+			io.to(`${game.id}:${team.id}:writer`).emit(`UpdateHand`, {
+				status: 200,
+				mode: "append",
+				questions: [data.text]
+			});
+
+			// Alert all the guessers of the team
+			io.to(`${game.id}:${team.id}:guesser`).emit(`UpdateHand`, {
+				status: 200,
+				mode: "replace",
+				questions: team.hand
+			});
+			return;
+		}
+
+		else {
+			game.log.warn(`Unknown role in the "from" property: ${data.from}`);
+			socket.emit(`UpdateHand`, {
+				status: 400,
+				message: `Unknown role in the "from" property: ${data.from}`,
+				source: `SendCard`
+			});
+			return;
+		};
+	}
+	catch (err) {
+		socket.emit(`UpdateHand`, {
+			status: 500,
+			message: `${err.name}: ${err.message}`,
+			source: `SendCard`,
+		});
+	}
+};

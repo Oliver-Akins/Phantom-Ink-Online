@@ -1,0 +1,115 @@
+/* Transition for modal background appearing/disappearing */
+.fade-enter-active, .fade-leave-active {
+	transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+}
+
+
+
+/* Transition for modal card appearing disappearing */
+.top-slide-enter-active {
+	animation: top-slide-in 1s;
+}
+.top-slide-leave-active { animation: top-slide-out 1s; }
+
+@keyframes top-slide-in {
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@keyframes top-slide-out {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(-100%);
+	}
+}
+
+
+
+/* Transition for past questions expanding in */
+.expand-from-left-enter-active {
+	animation: expand-from-left 1s;
+	transform-origin: left;
+}
+.expand-from-left-leave-active {
+	animation: shrink-to-left 1s;
+	transform-origin: left;
+}
+@keyframes expand-from-left {
+	0% {
+		transform: scaleX(0);
+	}
+	100% {
+		transform: scaleX(1);
+	}
+}
+@keyframes shrink-to-left {
+	0% {
+		transform: scaleX(1);
+	}
+	100% {
+		transform: scaleX(0);
+	}
+}
+
+
+
+/* Transition for modal card appearing disappearing */
+.burst-enter-active {
+	animation: burst-in .5s;
+}
+.burst-leave-active { animation: burst-out .5s; }
+
+@keyframes burst-in {
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes burst-out {
+	0% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(0);
+	}
+}
+
+
+@media only screen and (min-width: 768px) {
+	@keyframes burst-in {
+		0% {
+			transform: scale(0);
+		}
+		50% {
+			transform: scale(1.25);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+
+	@keyframes burst-out {
+		0% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.25);
+		}
+		100% {
+			transform: scale(0);
+		}
+	}
+}
