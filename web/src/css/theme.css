@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+
 :root {
 
 	/*
 		The fonts and font colours the site will use
 	*/
 	--fonts: "Roboto", "Open Sans", sans-serif;
+	--input-fonts: "Roboto Slab", var(--fonts);
 	--light-font-colour: #ECE3BB;
 	--dark-font-colour: #000F3D;
 

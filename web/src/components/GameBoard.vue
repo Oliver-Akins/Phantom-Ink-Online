@@ -217,9 +217,9 @@ h2 {
 }
 
 input[type="text"] {
-	font-family: var(--fonts);
 	background-color: var(--board-background-alt);
 	color: var(--board-background-alt-text);
+	font-family: var(--input-fonts);
 	text-transform: uppercase;
 	border-color: transparent;
 	border-style: solid;
