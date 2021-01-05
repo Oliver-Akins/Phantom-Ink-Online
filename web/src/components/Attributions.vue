@@ -42,7 +42,6 @@ export default {
 		modal: false,
 		tooling: {
 			"Vue.JS (With VueX)": "https://vuejs.org",
-			"VueX-Persist": "https://www.npmjs.com/package/vuex-persist",
 			"Vue-Socket.io": "https://github.com/MetinSeylan/Vue-Socket.io",
 			"Vue-Clipboard2": "https://www.npmjs.com/package/vue-clipboard2",
 			"Toml": "https://www.npmjs.com/package/toml",

@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import VuexPersistence from 'vuex-persist';
 
 Vue.use(Vuex);
 
@@ -118,8 +117,4 @@ export default new Vuex.Store({
 	},
 	modules: {
 	},
-	plugins:
-		process.env.NODE_ENV === `production`
-			? [new VuexPersistence({ key: `ghost-writer-save` }).plugin]
-			: []
 });
