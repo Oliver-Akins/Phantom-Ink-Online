@@ -27,16 +27,24 @@ export class Validate {
 			valid = false;
 		}
 
-		// Assert data in the web server object
-		if (conf.webserver.enabled) {
-			if (!conf.webserver.port) {
-				log.error(`Invalid webserver port value: ${conf.webserver.port}`);
+		if (!conf.websocket.permitted_hosts) {
+			log.error(`Can't have a blank or null websocket.permitted_hosts`);
+			valid = false;
+		};
+
+		if (!conf.datastores) {
+			log.error(`Datastores object must be defined`);
+			valid = false;
+		} else {
+			if (conf.datastores.enabled == null) {
+				log.error(`datastores.enabled must be defined`);
 				valid = false;
 			};
-		};
-		if (!conf.websocket.permitted_hosts) {
-			log.error(`Can't have a blank or null webserver.hostname`);
-			valid = false;
+
+			if (conf.datastores.enabled && conf.datastores.directory?.length > 0) {
+				log.error(`datastores.directory must be a filepath if datastores.enabled is set to true`);
+				valid = false;
+			};
 		};
 
 		// Config is valid
