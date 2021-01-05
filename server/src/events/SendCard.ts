@@ -76,7 +76,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 	catch (err) {
 		socket.emit(`UpdateHand`, {
 			status: 500,
-			message: `${err.name}: ${err.message}`,
+			message: err.message,
 			source: `SendCard`,
 		});
 	}
