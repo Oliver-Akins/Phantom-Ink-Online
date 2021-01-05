@@ -33,7 +33,10 @@ export default (io: Server, socket: Socket, data: DeleteGame) => {
 		// Delete game
 		game.log.debug(`Game deleted.`)
 		delete games[data.game_code];
-		io.to(game.id).emit(`GameDeleted`, { status: 200 });
+		io.to(game.id).emit(`GameDeleted`, {
+			status: 200,
+			message: `Game deleted by the host.`
+		});
 	}
 	catch (err) {
 		socket.emit(`GameDeleted`, {
