@@ -7,10 +7,10 @@ import VueSocketIOExt from 'vue-socket.io-extended';
 
 Vue.config.productionTip = false;
 
-// Get the URI for 
+// Get the URI for dev enfironments
 let websocket_uri = `/`;
 if (process.env.NODE_ENV === `development`) {
-	websocket_uri = `http:${window.location.hostname}:8081`;
+	websocket_uri = `http://${window.location.hostname}:8081`;
 };
 
 Vue.use(clipboard);
