@@ -20,14 +20,22 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 
 		// The writer is answering
 		if (data.from === "writer") {
-			game.log.debug(` Writer selected question to answer.`);
+			game.log.debug(`Writer selected question to answer.`);
+
+			// Draw new cards for team
 			deck.discard(data.text);
+			team.addCardsToHand(game.questions.draw(conf.game.hand_size - team.hand.length));
 			team.selectQuestion(data.text);
 
 			socket.emit(`UpdateHand`, {
 				status: 200,
 				mode: "replace",
 				questions: []
+			});
+			io.to(`${game.id}:${team.id}:guesser`).emit(`UpdateHand`, {
+				status: 200,
+				mode: "replace",
+				questions: team.hand
 			});
 			return;
 		}
@@ -38,7 +46,6 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 
 			// Update the team's hand
 			team.removeCard(data.text);
-			team.addCardsToHand(game.questions.draw(conf.game.hand_size - team.hand.length));
 
 			// send the question text to the writer player
 			io.to(`${game.id}:${team.id}:writer`).emit(`UpdateHand`, {
