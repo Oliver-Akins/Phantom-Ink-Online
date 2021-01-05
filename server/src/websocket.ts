@@ -2,6 +2,7 @@ import { log } from "./main";
 import { Server, Socket } from "socket.io";
 
 import GetHand from "./events/GetHand";
+import NewHand from "./events/NewHand";
 import JoinGame from "./events/JoinGame";
 import SendCard from "./events/SendCard";
 import LeaveGame from "./events/LeaveGame";
@@ -45,6 +46,7 @@ export default async (conf: config) => {
 		socket.on(`ObjectList`, (data: ObjectList) => ObjectList(io, socket, data));
 		socket.on(`SelectObject`, (data: SelectObject) => SelectObject(io, socket, data));
 		socket.on(`GetHand`, (data: GetHand) => GetHand(io, socket, data));
+		socket.on(`NewHand`, (data: NewHand) => NewHand(io, socket, data));
 		socket.on(`SendCard`, (data: SendCard) => SendCard(io, socket, data));
 		socket.on(`UpdateAnswer`, (data: UpdateAnswer) => UpdateAnswer(io, socket, data));
 		socket.on(`GetPastQuestions`, (data: GetPastQuestions) => GetPastQuestions(io, socket, data));
