@@ -29,7 +29,9 @@ interface GameCreated extends response {
 interface DeleteGame {
 	game_code: string;
 }
-interface GameDeleted extends response {}
+interface GameDeleted extends response {
+	message?: string
+}
 
 
 interface LeaveGame {
