@@ -11,6 +11,7 @@ type datastoreObjectCard = string[];
 interface datastoreTeam {
 	questions: datastoreQuestionCard[];
 	hand: datastoreQuestionCard[];
+	answers: string[];
 	id: team;
 }
 
