@@ -107,6 +107,20 @@ export class Game {
 	};
 
 
+	public toJSON() {
+		/**
+		 * Returns a JSON representation of the game.
+		 */
+		let players = this.players.map(p => p.toJSON());
+	};
+
+	public static fromJSON() {
+		/**
+		 * Converts a JSON object into a Game object
+		 */
+	};
+
+
 	public static generateID(length: number): string {
 		/**
 		 * Generates a game code with the given length
