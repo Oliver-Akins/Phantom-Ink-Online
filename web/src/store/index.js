@@ -46,6 +46,10 @@ export default new Vuex.Store({
 		questions: [],
 		game_code: null,
 		players: [],
+		answers: {
+			team_1: [ ``, ``, ``, ``, ``, ``, ``, `` ],
+			team_2: [ ``, ``, ``, ``, ``, ``, ``, `` ],
+		}
 	},
 	getters: {
 		teamName(state) {
@@ -111,6 +115,12 @@ export default new Vuex.Store({
 		},
 		appendToHand(state, questions) {
 			state.questions.push(...questions);
+		},
+		updateAnswer(state, data) {
+			state.answers[`team_${data.team}`].splice(data.answer - 1, 1, data.value)
+		},
+		setAnswers(state, data) {
+			state.answers = Vue.reactive(data);
 		},
 	},
 	actions: {
