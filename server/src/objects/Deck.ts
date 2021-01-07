@@ -68,4 +68,14 @@ export class Deck<T> {
 			discard: this._discard,
 		};
 	};
+
+	public static fromJSON<A>(data: datastoreDeck<A>): Deck<A> {
+		/**
+		 * Converts the JSON representation of a deck into a Deck
+		 */
+		let d = new Deck(data.deck);
+		d._discard = data.discard;
+		d._unknown = data.unknown;
+		return d;
+	};
 };
