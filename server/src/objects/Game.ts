@@ -4,14 +4,14 @@ import { readFile } from "fs";
 import neatCSV from "neat-csv";
 import { Logger } from "tslog";
 import { Player } from "./Player";
-import { games, hibernatedGames } from "../main";
+import { games, hibernatedGames, conf } from "../main";
 
 export class Game {
 	readonly id: string;
 	readonly host: Player;
 	public log: Logger;
 	public ingame: boolean;
-	public teams: [Team, Team];
+	public teams: Team[];
 	public players: Player[];
 	private _questions: Deck<question_deck>;
 	private _objects: Deck<object_deck>;
@@ -19,23 +19,28 @@ export class Game {
 	public object: string;
 
 
-	constructor(conf: config, host: Player) {
-		this.id = Game.generateID(conf.game.code_length);
+	constructor(host: Player, options:any=null) {
 		this.host = host;
 		this.ingame = false;
-		this.players = [];
+		this.players = [host];
+		this.id = options.id || Game.generateID(conf.game.code_length);
 
-		// Get the decks based on what type of data they are.
-		switch (conf.game.cards.type) {
-			case "csv":
-				this.parseDeckCSV(conf);
-				break;
-			case "sheets":
-				this.parseDeckGoogleSheets(conf);
-				break;
+		// If the object is being instantiated from JSON we don't want to do
+		// any of the stuff that requires weird per-game stuff
+		if (!options) {
+
+			// Get the decks based on what type of data they are.
+			switch (conf.game.cards.type) {
+				case "csv":
+					this.parseDeckCSV(conf);
+					break;
+				case "sheets":
+					this.parseDeckGoogleSheets(conf);
+					break;
+			};
+			// Instantiate everything for the teams
+			this.teams = [ new Team(1), new Team(2) ];
 		};
-		// Instantiate everything for the teams
-		this.teams = [ new Team(1), new Team(2) ];
 	};
 
 	get questions() { return this._questions; };
