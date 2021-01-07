@@ -143,7 +143,6 @@ export class Game {
 		game.teams = data.teams.map(t => Team.fromJSON(t));
 
 		// Re-instantiate all the players from the game.
-		game.players.push(host)
 		for (var player of data.players) {
 			if (player.name !== host.name) {
 				player.host = false;
