@@ -18,37 +18,60 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 			)) as datastoreGame;
 			let host = new Player(data.name, socket, true);
 			let game = Game.fromJSON(host, datastore);
-
 			game.log = log.getChildLogger({
 				displayLoggerName: true,
 				name: game.id,
 			});
 
+			// Get the specific information for team
+			let playerData = datastore.players.find(p => p.name === data.name);
+			if (playerData) {
+				host.role = playerData.role;
+				host.team = playerData.team;
+			};
+
+			let hand: string[] = [];
 			if (host.team) {
 				let team = game.teams[host.team - 1];
+				hand = team.hand;
 				switch (host.role) {
 					case "guesser":
 						game.log.silly(`${host.name} is one of the team's guessers`);
 						team.guessers.push(host);
+						socket.join([
+							`${game.id}:*:guesser`,
+							`${game.id}:${team.id}:guesser`
+						]);
 						break;
 					case "writer":
 						game.log.silly(`${host.name} is the team's writer`);
 						team.writer = host;
+						socket.join([
+							`${game.id}:*:writer`,
+							`${game.id}:${team.id}:writer`
+						]);
 						break;
 				};
-				game.log.debug(`Host assigned to team object.`);
+				game.log.debug(`Host assigned to team`);
 			};
 
 			hibernatedGames.splice(hibernatedIndex, 1);
 			games[game.id] = game;
 
 			game.log.info(`Successfully unhibernated`);
-
+			socket.join(game.id);
 			socket.emit(`GameRejoined`, {
 				status: 200,
-				data: {
-					players: game.players.map(p => p.toJSON()),
-
+				ingame: game.ingame,
+				role: host.role,
+				team: host.team,
+				is_host: true,
+				players: game.playerData,
+				chosen_object: game.object,
+				hand: hand,
+				answers: {
+					team_1: game.teams[0].answers,
+					team_2: game.teams[1].answers,
 				},
 			});
 			return;
@@ -79,9 +102,26 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 			if (!sameName.socket?.connected) {
 				sameName.socket = socket;
 				game.log.info(`Player Reconnected to the game (name=${data.name})`);
+
+				// Get the hand of the player's team
+				let hand: string[] = [];
+				if (sameName.team) {
+					hand = game.teams[sameName.team - 1].hand;
+				};
+
 				socket.emit(`GameRejoined`, {
 					status: 200,
-					data: {},
+					ingame: game.ingame,
+					role: sameName.role,
+					team: sameName.team,
+					is_host: sameName.isHost,
+					players: game.playerData,
+					chosen_object: game.object,
+					answers: {
+						team_1: game.teams[0].answers,
+						team_2: game.teams[1].answers,
+					},
+					hand: hand,
 				});
 				return;
 			} else {
