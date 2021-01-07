@@ -1,9 +1,58 @@
-import { games, log } from '../main';
+import { readFileSync } from 'fs';
+import { Game } from '../objects/Game';
 import { Player } from '../objects/Player';
 import { Server, Socket } from 'socket.io';
+import { games, hibernatedGames, log, conf } from '../main';
 
 export default (io: Server, socket: Socket, data: JoinGame) => {
 	try {
+		// Check if the game is hibernated so that we can re-instantiate the
+		// Game object and bring it back to being alive
+		let hibernatedIndex = hibernatedGames.indexOf(data.game_code)
+		if (hibernatedIndex >= 0) {
+			log.info(`Recreating game from datastore.`);
+
+			let datastore = JSON.parse(readFileSync(
+				`${conf.datastores.directory}/${data.game_code}.${conf.datastores.filetype}`,
+				`utf-8`
+			)) as datastoreGame;
+			let host = new Player(data.name, socket, true);
+			let game = Game.fromJSON(host, datastore);
+
+			game.log = log.getChildLogger({
+				displayLoggerName: true,
+				name: game.id,
+			});
+
+			if (host.team) {
+				let team = game.teams[host.team - 1];
+				switch (host.role) {
+					case "guesser":
+						game.log.silly(`${host.name} is one of the team's guessers`);
+						team.guessers.push(host);
+						break;
+					case "writer":
+						game.log.silly(`${host.name} is the team's writer`);
+						team.writer = host;
+						break;
+				};
+				game.log.debug(`Host assigned to team object.`);
+			};
+
+			hibernatedGames.splice(hibernatedIndex, 1);
+			games[game.id] = game;
+
+			game.log.info(`Successfully unhibernated`);
+
+			socket.emit(`GameRejoined`, {
+				status: 200,
+				data: {
+					players: game.players.map(p => p.toJSON()),
+
+				},
+			});
+			return;
+		};
 
 		// Assert game exists
 		if (!games[data.game_code]) {
@@ -18,30 +67,28 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		let game = games[data.game_code];
 
 
-		// Ensure no one has the same name as the player that is joining
+		/*
+		Ensure that if the socket is attempting to reconnect to the game, that
+		the player they are connecting to does not have actively connected
+		socket. This will also function as the main game joining for hibernated
+		games that were reloaded from disk.
+		*/
 		let sameName = game.players.find(x => x.name == data.name);
 		if (sameName != null) {
-			if (!game.ingame) {
-				game.log.info(`Client attempted to connect using name already in use.`);
-				socket.emit(`GameJoined`, {
-					status: 400,
-					message: `A player already has that name in the game.`,
-					source: `JoinGame`
+
+			if (!sameName.socket?.connected) {
+				sameName.socket = socket;
+				game.log.info(`Player Reconnected to the game (name=${data.name})`);
+				socket.emit(`GameRejoined`, {
+					status: 200,
+					data: {},
 				});
 				return;
-			};
-
-			// Player has the same name but is allowed to rejoin if they
-			// disconnect in the middle of the game
-			if (!sameName.socket.connected) {
-				game.log.info(`Player Reconnected to the game (name=${data.name})`);
-				socket.emit(`GameRejoined`, { status: 200 });
-				return;
 			} else {
-				game.log.debug(`${socket.id} attempted to claim ${sameName.socket.id}'s game spot.`);
+				game.log.debug(`${socket.id} attempted to join with a name already in use ${data.name}`);
 				socket.emit(`GameJoined`, {
 					status: 403,
-					message: `Can't connect to an already connected client`,
+					message: `A player already has that name in the game.`,
 					source: `JoinGame`
 				});
 				return;
