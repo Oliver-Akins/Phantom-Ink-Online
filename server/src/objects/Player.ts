@@ -22,8 +22,8 @@ export class Player {
 		};
 	};
 
-	public static fromJSON(data: datastorePlayer, socket: Socket): Player {
-		let player = new this(data.name, socket, data.host);
+	public static fromJSON(data: datastorePlayer): Player {
+		let player = new this(data.name, null, data.host);
 		player.role = data.role;
 		player.team = data.team;
 		return player;
