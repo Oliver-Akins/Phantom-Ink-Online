@@ -23,7 +23,7 @@ export class Game {
 		this.host = host;
 		this.ingame = false;
 		this.players = [host];
-		this.id = options.id || Game.generateID(conf.game.code_length);
+		this.id = options?.id || Game.generateID(conf.game.code_length);
 
 		// If the object is being instantiated from JSON we don't want to do
 		// any of the stuff that requires weird per-game stuff
