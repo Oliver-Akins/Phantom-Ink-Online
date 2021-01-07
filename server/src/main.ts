@@ -38,10 +38,12 @@ if (Validate.config(conf)) {
 
 	// Add event listeners if we want to use the datastore saving game system
 	if (conf.datastores.enabled) {
+		log.info(`Loading list of hibernated games`);
 
 		// Get game IDs from datastore
 		hibernatedGames = readdirSync(conf.datastores.directory)
-			.filter(g => g.endsWith(conf.datastores.filetype));
+			.filter(g => g.endsWith(conf.datastores.filetype))
+			.map(f => f.replace(`\.${conf.datastores.filetype}`, ``));
 
 		process.on(`uncaughtException`, processExit);
 		process.on(`SIGINT`, processExit);
