@@ -15,7 +15,7 @@ export function processExit() {
 		if (activeGame(game)) {
 			game.log.debug(`Saving to datastore`);
 			writeFileSync(
-				`${conf.datastores.directory}/${game.id}.game`,
+				`${conf.datastores.directory}/${game.id}.${conf.datastores.filetype}`,
 				JSON.stringify(game.toJSON())
 			);
 		} else {

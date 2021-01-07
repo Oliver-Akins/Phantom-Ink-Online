@@ -8,6 +8,7 @@ interface config {
 	};
 	datastores: {
 		enabled: boolean;
+		filetype: string;
 		directory: string;
 	};
 	game: {
