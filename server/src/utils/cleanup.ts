@@ -50,7 +50,7 @@ function activeGame(game: Game): boolean {
 	 * stagnant and will be deleted by the cleanup code.
 	 */
 	for (var player of game.players) {
-		if (player.socket.connected) {
+		if (player.socket?.connected) {
 			return true;
 		};
 	};
