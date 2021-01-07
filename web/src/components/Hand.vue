@@ -3,6 +3,9 @@
 		<div class="recentQuestion" v-if="mostRecentQuestion">
 			{{ mostRecentQuestion }}
 		</div>
+		<div class="gameOver" v-else-if="gameOver">
+			<button>Go to Lobby</button>
+		</div>
 		<div class="hand" v-else>
 			<div
 				class="card"
@@ -43,16 +46,16 @@ export default {
 		},
 		buttonLabel() {
 			if (this.isGuesser) {
-				return this.$store.state.guesser_card_button
+				return this.$store.state.guesser_card_button;
 			} else if (this.isWriter) {
-				return this.$store.state.writer_card_button
+				return this.$store.state.writer_card_button;
 			} else {
-				return `Unknown Role`
+				return `Unknown Role`;
 			}
 		},
 		questions() {
 			return this.$store.state.questions;
-		}
+		},
 	},
 	methods: {
 		sendCard(cardIndex) {
@@ -74,7 +77,7 @@ export default {
 			};
 
 			this.$socket.client.emit(`SendCard`, data);
-		}
+		},
 	},
 	mounted() {
 		if (this.isGuesser) {
