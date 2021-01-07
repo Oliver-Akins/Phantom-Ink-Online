@@ -1,7 +1,7 @@
+import { games, log } from '../main';
 import { Game } from '../objects/Game';
 import { Player } from '../objects/Player';
 import { Server, Socket } from 'socket.io';
-import { conf, games, log } from '../main';
 
 export default (io: Server, socket: Socket, data: CreateGame) => {
 	try {
