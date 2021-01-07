@@ -27,19 +27,19 @@ export function processExit() {
 };
 
 
-export async function checkSocketConnections() {
+export async function routineCheck() {
 	/**
 	 * This is the cleanup that occurs whenever a new game has been started
 	 */
-	log.info(`[checkSocketConnections] Checking for games to clean up`)
+	log.info(`[routineCheck] Checking for games to clean up`)
 	for (var gc in games) {
 		let game = games[gc];
 		if (!activeGame(game)) {
-			game.log.debug(`[checkSocketConnections] Deleting game`);
+			game.log.debug(`[routineCheck] Deleting game`);
 			delete games[gc];
 		};
 	};
-	log.info(`[checkSocketConnections] Done cleaning up games`);
+	log.info(`[routineCheck] Done cleaning up games`);
 };
 
 
