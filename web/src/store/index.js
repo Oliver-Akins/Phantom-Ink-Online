@@ -76,6 +76,10 @@ export default new Vuex.Store({
 			state.questions = [];
 			state.game_code = null;
 			state.players = [];
+			state.answers = {
+				team_1: new Array(8).fill(``),
+				team_2: new Array(8).fill(``),
+			};
 		},
 		player(state, data) {
 			if (data.name)
