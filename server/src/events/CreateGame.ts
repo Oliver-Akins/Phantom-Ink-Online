@@ -8,13 +8,12 @@ export default (io: Server, socket: Socket, data: CreateGame) => {
 		let host = new Player(data.name, socket, true);
 
 		// Create the game object to save
-		let game = new Game(conf, host);
+		let game = new Game(host);
 		games[game.id] = game;
-		game.players.push(host);
 		game.log = log.getChildLogger({
 			displayLoggerName: true,
 			name: game.id,
-		})
+		});
 		game.log.info(`New game created (host=${host.name})`);
 
 		socket.join(game.id);
