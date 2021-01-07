@@ -1,10 +1,10 @@
 import { Team } from "./Team";
 import { Deck } from "./Deck";
+import { readFile } from "fs";
 import neatCSV from "neat-csv";
 import { Logger } from "tslog";
-import { games } from "../main";
 import { Player } from "./Player";
-import { readFile } from "fs";
+import { games, hibernatedGames } from "../main";
 
 export class Game {
 	readonly id: string;
@@ -135,7 +135,7 @@ export class Game {
 			for (var i = 0; i < length; i++) {
 				code += `${Math.floor(Math.random() * 9)}`;
 			};
-		} while (games[code]);
+		} while (games[code] || hibernatedGames.includes(code));
 
 		return code;
 	};
