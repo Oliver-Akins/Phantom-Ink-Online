@@ -23,6 +23,8 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 				name: game.id,
 			});
 
+			game.ingame = datastore.ingame;
+
 			// Get the specific information for team
 			let playerData = datastore.players.find(p => p.name === data.name);
 			if (playerData) {
@@ -33,10 +35,10 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 			let hand: string[] = [];
 			if (host.team) {
 				let team = game.teams[host.team - 1];
-				hand = team.hand;
 				switch (host.role) {
 					case "guesser":
 						game.log.silly(`${host.name} is one of the team's guessers`);
+						hand = team.hand;
 						team.guessers.push(host);
 						socket.join([
 							`${game.id}:*:guesser`,
@@ -105,7 +107,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 
 				// Get the hand of the player's team
 				let hand: string[] = [];
-				if (sameName.team) {
+				if (sameName.team && sameName.role == `guesser`) {
 					hand = game.teams[sameName.team - 1].hand;
 				};
 
