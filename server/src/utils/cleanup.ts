@@ -23,6 +23,7 @@ export function processExit() {
 		};
 	};
 	log.info(`Done cleaning up games`);
+	process.exit();
 };
 
 
