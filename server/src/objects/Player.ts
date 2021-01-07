@@ -4,10 +4,10 @@ export class Player {
 	readonly name: string;
 	public team: team|null = null;
 	public role: role|null = null;
-	public socket: Socket;
+	public socket: Socket|null;
 	readonly isHost: boolean;
 
-	constructor(name: string, socket: Socket, isHost=false) {
+	constructor(name: string, socket: Socket|null=null, isHost=false) {
 		this.name = name;
 		this.socket = socket;
 		this.isHost = isHost;
