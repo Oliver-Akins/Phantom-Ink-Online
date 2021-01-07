@@ -56,4 +56,16 @@ export class Deck<T> {
 		this._unknown = this._unknown.filter(x => x != card);
 		this._discard.push(card);
 	};
+
+
+	public toJSON(): datastoreDeck<T> {
+		/**
+		 * Converts this Deck into a JSON-compatible object
+		 */
+		return {
+			deck: this._deck,
+			unknown: this._unknown,
+			discard: this._discard,
+		};
+	};
 };
