@@ -2,6 +2,7 @@ import { games, log } from '../main';
 import { Game } from '../objects/Game';
 import { Player } from '../objects/Player';
 import { Server, Socket } from 'socket.io';
+import { routineCheck } from '../utils/cleanup';
 
 export default (io: Server, socket: Socket, data: CreateGame) => {
 	try {
@@ -22,6 +23,9 @@ export default (io: Server, socket: Socket, data: CreateGame) => {
 			game_code: game.id,
 			players: game.playerData,
 		});
+
+		// Check for any inactive games that are still marked as active
+		routineCheck();
 	}
 	catch (err) {
 		socket.emit(`GameCreated`, {
