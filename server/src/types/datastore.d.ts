@@ -31,4 +31,5 @@ interface datastoreGame {
 	teams: datastoreTeam[];
 	ingame: boolean;
 	object: string;
+	id: string;
 }
