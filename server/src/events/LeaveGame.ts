@@ -64,6 +64,7 @@ export default (io: Server, socket: Socket, data: LeaveGame) => {
 		};
 	}
 	catch (err) {
+		log.prettyError(err);
 		socket.emit(`GameLeft`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,

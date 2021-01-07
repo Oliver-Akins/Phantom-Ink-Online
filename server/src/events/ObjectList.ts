@@ -7,7 +7,7 @@ export default (io: Server, socket: Socket, data: ObjectList) => {
 		// Assert game exists
 		if (!games[data.game_code]) {
 			log.debug(`Can't get objects for game that doesn't exist: ${data.game_code}`);
-			socket.emit(`Error`, {
+			socket.emit(`ObjectList`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,
 				source: `ObjectList`
@@ -22,7 +22,8 @@ export default (io: Server, socket: Socket, data: ObjectList) => {
 		});
 	}
 	catch (err) {
-		socket.emit(`Error`, {
+		log.prettyError(err);
+		socket.emit(`ObjectList`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,
 			source: `ObjectList`,

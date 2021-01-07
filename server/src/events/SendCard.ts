@@ -42,7 +42,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 
 		// The writer is sending the card to the writer
 		else if (data.from === "guesser") {
-			game.log.debug(`Guesser is sending the card to the writer.`);
+			game.log.debug(`Guesser is sending a card to the writer.`);
 
 			// Update the team's hand
 			team.removeCard(data.text);
@@ -74,6 +74,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 		};
 	}
 	catch (err) {
+		log.prettyError(err);
 		socket.emit(`UpdateHand`, {
 			status: 500,
 			message: err.message,

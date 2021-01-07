@@ -28,6 +28,7 @@ export default (io: Server, socket: Socket, data: CreateGame) => {
 		routineCheck();
 	}
 	catch (err) {
+		log.prettyError(err);
 		socket.emit(`GameCreated`, {
 			status: 500,
 			message: err.message,

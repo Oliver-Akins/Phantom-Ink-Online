@@ -35,6 +35,7 @@ export default (io: Server, socket: Socket, data: SelectObject) => {
 		});
 	}
 	catch (err) {
+		log.prettyError(err);
 		socket.emit(`ChosenObject`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,

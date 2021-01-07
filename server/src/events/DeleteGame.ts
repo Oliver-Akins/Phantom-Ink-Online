@@ -39,6 +39,7 @@ export default (io: Server, socket: Socket, data: DeleteGame) => {
 		});
 	}
 	catch (err) {
+		log.prettyError(err);
 		socket.emit(`GameDeleted`, {
 			status: 500,
 			message:  err.message,

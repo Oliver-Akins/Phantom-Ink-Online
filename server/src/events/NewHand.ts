@@ -43,6 +43,7 @@ export default (io: Server, socket: Socket, data: NewHand) => {
 		});
 	}
 	catch (err) {
+		log.prettyError(err);
 		socket.emit(`UpdateHand`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,

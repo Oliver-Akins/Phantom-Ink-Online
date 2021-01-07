@@ -23,6 +23,7 @@ export default (io: Server, socket: Socket, data: GetHand) => {
 		});
 	}
 	catch (err) {
+		log.prettyError(err);
 		socket.emit(`QuestionList`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,

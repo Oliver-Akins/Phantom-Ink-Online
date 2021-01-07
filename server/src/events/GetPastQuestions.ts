@@ -24,6 +24,7 @@ export default (io: Server, socket: Socket, data: GetPastQuestions) => {
 		});
 	}
 	catch (err) {
+		log.prettyError(err);
 		socket.emit(`PastQuestions`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,
