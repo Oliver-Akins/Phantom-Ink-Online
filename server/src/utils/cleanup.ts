@@ -9,18 +9,17 @@ export function processExit() {
 	 * then if they do, we save the game to disk, if not we just delete it
 	 * completely from the system.
 	 */
-	log.info(`Cleaning up games`)
+	log.info(`Cleaning up games`);
 	for (var gc in games) {
 		let game = games[gc];
-		if (activeGame(game)) {
+		if (game.ingame && activeGame(game)) {
 			game.log.debug(`Saving to datastore`);
 			writeFileSync(
 				`${conf.datastores.directory}/${game.id}.${conf.datastores.filetype}`,
 				JSON.stringify(game.toJSON())
 			);
 		} else {
-			game.log.debug(`Deleting game`);
-			delete games[gc];
+			game.log.debug(`Not saving to datastore`);
 		};
 	};
 	log.info(`Done cleaning up games`);
