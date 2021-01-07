@@ -124,7 +124,8 @@ export default new Vuex.Store({
 			state.answers[`team_${data.team}`].splice(data.answer - 1, 1, data.value)
 		},
 		setAnswers(state, data) {
-			state.answers = Vue.reactive(data);
+			state.answers.team_1 = data.team_1;
+			state.answers.team_2 = data.team_2;
 		},
 	},
 	actions: {
