@@ -107,11 +107,22 @@ export class Game {
 	};
 
 
-	public toJSON() {
+	public toJSON(): datastoreGame {
 		/**
 		 * Returns a JSON representation of the game.
 		 */
-		let players = this.players.map(p => p.toJSON());
+		return {
+			players: this.players.map(p => p.toJSON()),
+			teams: this.teams.map(t => t.toJSON()),
+			decks: {
+				questions: this._questions.toJSON(),
+				objects: this._objects.toJSON(),
+			},
+			objectCard: this._objectCard,
+			object: this.object,
+			ingame: this.ingame,
+			id: this.id,
+		};
 	};
 
 	public static fromJSON() {
