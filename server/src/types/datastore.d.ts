@@ -21,11 +21,14 @@ interface datastoreDeck<T> {
 	deck: T[];
 }
 
-interface datastore {
-	questions: datastoreDeck<question_deck>;
-	objects: datastoreDeck<object_deck>;
+interface datastoreGame {
+	decks: {
+		questions: datastoreDeck<question_deck>;
+		objects: datastoreDeck<object_deck>;
+	};
 	objectCard: datastoreObjectCard;
 	players: datastorePlayer[];
+	teams: datastoreTeam[];
 	ingame: boolean;
 	object: string;
 }
