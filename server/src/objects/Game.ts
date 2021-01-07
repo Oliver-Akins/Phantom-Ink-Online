@@ -130,10 +130,31 @@ export class Game {
 		};
 	};
 
-	public static fromJSON() {
+	public static fromJSON(host: Player, data: datastoreGame): Game {
 		/**
-		 * Converts a JSON object into a Game object
+		 * Converts a JSON representation into a Game object
 		 */
+		let game = new this(host, { id: data.id });
+
+		// Re-create the deck objects
+		game._questions = Deck.fromJSON<question_deck>(data.decks.questions);
+		game._objects = Deck.fromJSON<object_deck>(data.decks.objects);
+
+		game.teams = data.teams.map(t => Team.fromJSON(t));
+
+		// Re-instantiate all the players from the game.
+		game.players.push(host)
+		for (var player of data.players) {
+			if (player.name !== host.name) {
+				player.host = false;
+				game.players.push(Player.fromJSON(player));
+			};
+		};
+
+		game._objectCard = data.objectCard;
+		game.object = data.object;
+
+		return game;
 	};
 
 
