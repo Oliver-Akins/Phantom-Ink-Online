@@ -41,7 +41,7 @@ export class Validate {
 				valid = false;
 			};
 
-			if (conf.datastores.enabled && conf.datastores.directory?.length > 0) {
+			if (conf.datastores.enabled && conf.datastores.directory?.length == 0) {
 				log.error(`datastores.directory must be a filepath if datastores.enabled is set to true`);
 				valid = false;
 			};
