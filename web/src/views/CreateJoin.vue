@@ -71,7 +71,7 @@ export default {
 
 			// Save the data in the store
 			this.$store.commit(`playerList`, data.players);
-			this.$store.commit(`game_code`, this.game_code);
+			this.$store.commit(`gameCode`, this.game_code);
 			this.$store.commit(`player`, {
 				name: this.name,
 				host: false,
@@ -89,7 +89,7 @@ export default {
 
 			// Update storage
 			this.$store.commit(`playerList`, data.players);
-			this.$store.commit(`game_code`, data.game_code);
+			this.$store.commit(`gameCode`, data.game_code);
 			this.$store.commit(`player`, {
 				name: this.name,
 				host: true,

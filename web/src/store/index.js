@@ -87,7 +87,7 @@ export default new Vuex.Store({
 			if (data.host)
 				state.is_host = data.host
 		},
-		game_code(state, game_code) {
+		gameCode(state, game_code) {
 			state.game_code = game_code;
 		},
 		view(state, target) {
