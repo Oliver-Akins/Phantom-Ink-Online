@@ -1,14 +1,16 @@
+import { log } from '../main';
 import { Server, Socket } from 'socket.io';
 
 export default (io: Server, socket: Socket, data: any) => {
 	try {
-		socket.emit(`Error`, {
+		socket.emit(``, {
 			status: 501,
 			message: `: Not Implemented Yet`,
 			source: ``,
 		});
 	} catch (err) {
-		socket.emit(`Error`, {
+		log.prettyError(err);
+		socket.emit(``, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,
 			source: ``,
