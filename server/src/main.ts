@@ -45,6 +45,7 @@ if (Validate.config(conf)) {
 			.filter(g => g.endsWith(conf.datastores.filetype))
 			.map(f => f.replace(`\.${conf.datastores.filetype}`, ``));
 
+		log.info(`Found ${hibernatedGames.length} hibernated games`);
 		process.on(`uncaughtException`, processExit);
 		process.on(`SIGINT`, processExit);
 	};
