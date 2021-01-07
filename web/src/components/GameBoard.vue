@@ -105,10 +105,6 @@ export default {
 	},
 	data() {return {
 		visible: false,
-		answers: {
-			team_1: [ ``, ``, ``, ``, ``, ``, ``, `` ],
-			team_2: [ ``, ``, ``, ``, ``, ``, ``, `` ],
-		},
 	}},
 	computed: {
 		teamID() {
@@ -116,6 +112,9 @@ export default {
 		},
 		otherTeamID() {
 			return this.$store.getters.otherTeamName.replace(/\s/g, `-`).toLowerCase();
+		},
+		answers() {
+			return this.$store.state.answer;
 		},
 	},
 	methods: {
@@ -147,7 +146,7 @@ export default {
 			 *     value: string
 			 * }
 			 */
-			this.answers[`team_${data.team}`].splice(data.answer - 1, 1, data.value);
+			this.$store.commit(`UpdateAnswer`, data);
 		},
 	},
 }
