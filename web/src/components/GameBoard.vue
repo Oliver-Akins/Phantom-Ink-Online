@@ -114,7 +114,7 @@ export default {
 			return this.$store.getters.otherTeamName.replace(/\s/g, `-`).toLowerCase();
 		},
 		answers() {
-			return this.$store.state.answer;
+			return this.$store.state.answers;
 		},
 	},
 	methods: {
@@ -146,7 +146,7 @@ export default {
 			 *     value: string
 			 * }
 			 */
-			this.$store.commit(`UpdateAnswer`, data);
+			this.$store.commit(`updateAnswer`, data);
 		},
 	},
 }
