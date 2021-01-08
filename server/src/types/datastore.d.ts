@@ -26,7 +26,7 @@ interface datastoreGame {
 		questions: datastoreDeck<question_deck>;
 		objects: datastoreDeck<object_deck>;
 	};
-	objectCard: datastoreObjectCard;
+	objectCard: datastoreObjectCard|null;
 	players: datastorePlayer[];
 	teams: datastoreTeam[];
 	ingame: boolean;
