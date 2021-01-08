@@ -5,6 +5,7 @@ import GetHand from "./events/GetHand";
 import NewHand from "./events/NewHand";
 import JoinGame from "./events/JoinGame";
 import SendCard from "./events/SendCard";
+import ResetGame from "./events/ResetGame";
 import LeaveGame from "./events/LeaveGame";
 import StartGame from "./events/StartGame";
 import CreateGame from "./events/CreateGame";
@@ -33,6 +34,7 @@ export default async (conf: config) => {
 		// Game Management
 		socket.on(`CreateGame`, (data: CreateGame) => CreateGame(io, socket, data));
 		socket.on(`StartGame`, (data: StartGame) => StartGame(io, socket, data));
+		socket.on(`ResetGame`, (data: ResetGame) => ResetGame(io, socket, data));
 		socket.on(`DeleteGame`, (data: DeleteGame) => DeleteGame(io, socket, data));
 
 

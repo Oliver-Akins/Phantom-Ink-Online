@@ -29,7 +29,9 @@ interface GameCreated extends response {
 interface DeleteGame {
 	game_code: string;
 }
-interface GameDeleted extends response {}
+interface GameDeleted extends response {
+	message?: string
+}
 
 
 interface LeaveGame {
@@ -42,6 +44,11 @@ interface StartGame {
 	game_code: string;
 }
 interface GameStarted extends response {}
+
+interface ResetGame {
+	game_code: string;
+}
+interface GameReset extends response {}
 
 
 interface GetPastQuestions {

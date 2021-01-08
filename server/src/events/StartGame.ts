@@ -7,7 +7,7 @@ export default (io: Server, socket: Socket, data: StartGame) => {
 		// Assert game exists
 		if (!games[data.game_code]) {
 			log.debug(`Could not find a game with ID ${data.game_code} to start`);
-			socket.emit(`GameJoined`, {
+			socket.emit(`GameStarted`, {
 				status: 404,
 				message: `Game with code "${data.game_code}" could not be found`,
 				source: `StartGame`,
@@ -65,6 +65,7 @@ export default (io: Server, socket: Socket, data: StartGame) => {
 		io.to(game.id).emit(`GameStarted`, { status: 200 });
 	}
 	catch (err) {
+		log.prettyError(err);
 		socket.emit(`GameStarted`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,

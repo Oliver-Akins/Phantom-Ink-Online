@@ -10,8 +10,11 @@
 					a model attribute to keep them synced correctly.
 				-->
 				<div
-					class="answer"
 					v-for="answerIndex in 8"
+					:class="[
+						`answer`,
+						answers[`team_${3 - $store.state.team}`][answerIndex-1].toLowerCase() == $store.state.chosen_object+`.` ? `correct`: ``
+					]"
 					:key="`${otherTeamID}-answer-container-${answerIndex}`"
 				>
 					<input
@@ -51,8 +54,11 @@
 					and having them be disabled for all other players
 				-->
 				<div
-					class="answer"
 					v-for="answerIndex in 8"
+					:class="[
+						`answer`,
+						answers[`team_${$store.state.team}`][answerIndex-1].toLowerCase() == $store.state.chosen_object+`.` ? `correct`: ``
+					]"
 					:key="`${teamID}-answer-container-${answerIndex}`"
 				>
 					<input
@@ -105,10 +111,6 @@ export default {
 	},
 	data() {return {
 		visible: false,
-		answers: {
-			team_1: [ ``, ``, ``, ``, ``, ``, ``, `` ],
-			team_2: [ ``, ``, ``, ``, ``, ``, ``, `` ],
-		},
 	}},
 	computed: {
 		teamID() {
@@ -117,8 +119,18 @@ export default {
 		otherTeamID() {
 			return this.$store.getters.otherTeamName.replace(/\s/g, `-`).toLowerCase();
 		},
+		answers() {
+			return this.$store.state.answers;
+		},
 	},
 	methods: {
+		isCorrect(team, answerIndex) {
+			let typedAnswer = this.answers[`team_${team}`][answerIndex - 1].toLowerCase();
+			if (this.$store.state.chosen_object == typedAnswer) {
+				return `correct`;
+			};
+			return ``;
+		},
 		answerInputHandler(answerIndex) {
 			/**
 			 * Sends input data updates to the server when they occur, indicating
@@ -147,7 +159,7 @@ export default {
 			 *     value: string
 			 * }
 			 */
-			this.answers[`team_${data.team}`].splice(data.answer - 1, 1, data.value);
+			this.$store.commit(`updateAnswer`, data);
 		},
 	},
 }
@@ -191,6 +203,10 @@ h2 {
 	position: relative;
 	width: 100%;
 }
+.answer.correct > input {
+	border-color: green !important;
+	border-width: 3px;
+}
 
 .eye-container {
 	position: absolute;
@@ -217,9 +233,10 @@ h2 {
 }
 
 input[type="text"] {
-	font-family: var(--fonts);
 	background-color: var(--board-background-alt);
 	color: var(--board-background-alt-text);
+	font-family: var(--input-fonts);
+	text-transform: uppercase;
 	border-color: transparent;
 	border-style: solid;
 	border-radius: 7px;

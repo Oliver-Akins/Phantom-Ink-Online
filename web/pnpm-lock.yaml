@@ -5,7 +5,6 @@ dependencies:
   vue-clipboard2: 0.3.1
   vue-socket.io-extended: 4.0.5
   vuex: 3.6.0_vue@2.6.12
-  vuex-persist: 3.1.3_vuex@3.6.0
 devDependencies:
   '@vue/cli-plugin-babel': 4.5.9_8ae91920fb9b3c76895c2e8acb765728
   '@vue/cli-plugin-eslint': 4.5.9_6778c0324b153720448c6ab0d5359212
@@ -3243,12 +3242,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-95k0GDqvBjZavkuvzx/YqVLv/6YYa17fz6ILMSf7neqQITCPbnfEnQvEgMPNjH4kgobe7+WIL0yJEHku+H3qtQ==
-  /deepmerge/4.2.2:
-    dev: false
-    engines:
-      node: '>=0.10.0'
-    resolution:
-      integrity: sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg==
   /default-gateway/4.2.0:
     dependencies:
       execa: 1.0.0
@@ -4195,10 +4188,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
-  /flatted/3.1.0:
-    dev: false
-    resolution:
-      integrity: sha512-tW+UkmtNg/jv9CSofAKvgVcO7c2URjhTdW1ZTkcAritblu8tajiYy7YisnIflEwtKssCtOxpnBRoCB7iap0/TA==
   /flush-write-stream/1.1.1:
     dependencies:
       inherits: 2.0.4
@@ -8744,16 +8733,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==
-  /vuex-persist/3.1.3_vuex@3.6.0:
-    dependencies:
-      deepmerge: 4.2.2
-      flatted: 3.1.0
-      vuex: 3.6.0_vue@2.6.12
-    dev: false
-    peerDependencies:
-      vuex: '>=2.5'
-    resolution:
-      integrity: sha512-QWOpP4SxmJDC5Y1+0+Yl/F4n7z27syd1St/oP+IYCGe0X0GFio0Zan6kngZFufdIhJm+5dFGDo3VG5kdkCGeRQ==
   /vuex/3.6.0_vue@2.6.12:
     dependencies:
       vue: 2.6.12
@@ -9161,4 +9140,3 @@ specifiers:
   vue-socket.io-extended: ^4.0.5
   vue-template-compiler: ^2.6.11
   vuex: ^3.4.0
-  vuex-persist: ^3.1.3

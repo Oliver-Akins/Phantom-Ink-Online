@@ -6,9 +6,10 @@ interface config {
 		port: number;
 		permitted_hosts: string | string[];
 	};
-	webserver: {
+	datastores: {
 		enabled: boolean;
-		port: number;
+		filetype: string;
+		directory: string;
 	};
 	game: {
 		hand_size: number;

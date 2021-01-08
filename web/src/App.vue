@@ -95,7 +95,7 @@ export default {
 				this.handleError(data);
 			} else {
 				this.alert = {
-					message: `The game has been ended by the host.`,
+					message: data.message,
 					type: `info`,
 				};
 				this.$store.commit(`resetState`);

@@ -69,4 +69,28 @@ export class Team {
 		};
 		this._answers[answerIndex - 1] = answer;
 	};
+
+
+	public toJSON(): datastoreTeam {
+		/**
+		 * Converts the given object into a JSON representation of the data
+		 */
+		return {
+			questions: this._questions,
+			answers: this._answers,
+			hand: this._hand,
+			id: this.id,
+		};
+	};
+
+	public static fromJSON(data: datastoreTeam): Team {
+		/**
+		 * Converts a team JSON object back into a Team object.
+		 */
+		let t = new Team(data.id);
+		t._questions = data.questions;
+		t._answers = data.answers;
+		t._hand = data.hand;
+		return t;
+	};
 };

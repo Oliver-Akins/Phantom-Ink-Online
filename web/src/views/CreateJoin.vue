@@ -71,7 +71,7 @@ export default {
 
 			// Save the data in the store
 			this.$store.commit(`playerList`, data.players);
-			this.$store.commit(`game_code`, this.game_code);
+			this.$store.commit(`gameCode`, this.game_code);
 			this.$store.commit(`player`, {
 				name: this.name,
 				host: false,
@@ -89,7 +89,7 @@ export default {
 
 			// Update storage
 			this.$store.commit(`playerList`, data.players);
-			this.$store.commit(`game_code`, data.game_code);
+			this.$store.commit(`gameCode`, data.game_code);
 			this.$store.commit(`player`, {
 				name: this.name,
 				host: true,
@@ -97,11 +97,42 @@ export default {
 			this.$store.commit(`view`, `lobby`);
 		},
 		GameRejoined(data) {
+			/**
+			 * data = {
+			 *     status: integer,
+			 *     ingame: boolean,
+			 *     role: role,
+			 *     team: team,
+			 *     is_host: boolean,
+			 *     players: Player[],
+			 *     chosen_object: string,
+			 *     hand: string[],
+			 *     answers: {
+			 *         team_1: string[],
+			 *         team_2: string[],
+			 *     },
+			 * },
+			 */
+			console.log(data)
 			if (!(200 <= data.status && data.status < 300)) {
 				this.$emit(`error`, data);
 				return;
 			};
-			// TODO -> Update all data that is received from the server
+			this.$store.commit(`resetState`);
+			this.$store.commit(`player`, {
+				name: this.name,
+				host: data.is_host,
+				role: data.role,
+				team: data.team,
+			});
+			this.$store.commit(`setObject`, data.chosen_object);
+			this.$store.commit(`view`, data.ingame ? `in-game` : `lobby`);
+			this.$store.commit(`setAnswers`, data.answers);
+			this.$store.commit(`playerList`, data.players);
+			this.$store.commit(`replaceHand`, data.hand);
+
+			history.replaceState(null, ``, `?game=${this.game_code}`);
+			this.$store.commit(`gameCode`, this.game_code);
 		},
 	},
 	mounted() {},

@@ -1,9 +1,83 @@
-import { games, log } from '../main';
+import { readFileSync } from 'fs';
+import { Game } from '../objects/Game';
 import { Player } from '../objects/Player';
 import { Server, Socket } from 'socket.io';
+import { games, hibernatedGames, log, conf } from '../main';
 
 export default (io: Server, socket: Socket, data: JoinGame) => {
 	try {
+		// Check if the game is hibernated so that we can re-instantiate the
+		// Game object and bring it back to being alive
+		let hibernatedIndex = hibernatedGames.indexOf(data.game_code)
+		if (hibernatedIndex >= 0) {
+			log.info(`Recreating game from datastore.`);
+
+			let datastore = JSON.parse(readFileSync(
+				`${conf.datastores.directory}/${data.game_code}.${conf.datastores.filetype}`,
+				`utf-8`
+			)) as datastoreGame;
+			let host = new Player(data.name, socket, true);
+			let game = Game.fromJSON(host, datastore);
+			game.log = log.getChildLogger({
+				displayLoggerName: true,
+				name: game.id,
+			});
+
+			game.ingame = datastore.ingame;
+
+			// Get the specific information for team
+			let playerData = datastore.players.find(p => p.name === data.name);
+			if (playerData) {
+				host.role = playerData.role;
+				host.team = playerData.team;
+			};
+
+			let hand: string[] = [];
+			if (host.team) {
+				let team = game.teams[host.team - 1];
+				switch (host.role) {
+					case "guesser":
+						game.log.silly(`${host.name} is one of the team's guessers`);
+						hand = team.hand;
+						team.guessers.push(host);
+						socket.join([
+							`${game.id}:*:guesser`,
+							`${game.id}:${team.id}:guesser`
+						]);
+						break;
+					case "writer":
+						game.log.silly(`${host.name} is the team's writer`);
+						team.writer = host;
+						socket.join([
+							`${game.id}:*:writer`,
+							`${game.id}:${team.id}:writer`
+						]);
+						break;
+				};
+				game.log.debug(`Host assigned to team`);
+			};
+
+			hibernatedGames.splice(hibernatedIndex, 1);
+			games[game.id] = game;
+
+			game.log.info(`Successfully unhibernated`);
+			socket.join(game.id);
+			socket.emit(`GameRejoined`, {
+				status: 200,
+				ingame: game.ingame,
+				role: host.role,
+				team: host.team,
+				is_host: true,
+				players: game.playerData,
+				chosen_object: game.object,
+				hand: hand,
+				answers: {
+					team_1: game.teams[0].answers,
+					team_2: game.teams[1].answers,
+				},
+			});
+			return;
+		};
 
 		// Assert game exists
 		if (!games[data.game_code]) {
@@ -18,30 +92,45 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		let game = games[data.game_code];
 
 
-		// Ensure no one has the same name as the player that is joining
+		/*
+		Ensure that if the socket is attempting to reconnect to the game, that
+		the player they are connecting to does not have actively connected
+		socket. This will also function as the main game joining for hibernated
+		games that were reloaded from disk.
+		*/
 		let sameName = game.players.find(x => x.name == data.name);
 		if (sameName != null) {
-			if (!game.ingame) {
-				game.log.info(`Client attempted to connect using name already in use.`);
-				socket.emit(`GameJoined`, {
-					status: 400,
-					message: `A player already has that name in the game.`,
-					source: `JoinGame`
+
+			if (!sameName.socket?.connected) {
+				sameName.socket = socket;
+				game.log.info(`Player Reconnected to the game (name=${data.name})`);
+
+				// Get the hand of the player's team
+				let hand: string[] = [];
+				if (sameName.team && sameName.role == `guesser`) {
+					hand = game.teams[sameName.team - 1].hand;
+				};
+
+				socket.emit(`GameRejoined`, {
+					status: 200,
+					ingame: game.ingame,
+					role: sameName.role,
+					team: sameName.team,
+					is_host: sameName.isHost,
+					players: game.playerData,
+					chosen_object: game.object,
+					answers: {
+						team_1: game.teams[0].answers,
+						team_2: game.teams[1].answers,
+					},
+					hand: hand,
 				});
 				return;
-			};
-
-			// Player has the same name but is allowed to rejoin if they
-			// disconnect in the middle of the game
-			if (!sameName.socket.connected) {
-				game.log.info(`Player Reconnected to the game (name=${data.name})`);
-				socket.emit(`GameRejoined`, { status: 200 });
-				return;
 			} else {
-				game.log.debug(`${socket.id} attempted to claim ${sameName.socket.id}'s game spot.`);
+				game.log.debug(`${socket.id} attempted to join with a name already in use ${data.name}`);
 				socket.emit(`GameJoined`, {
 					status: 403,
-					message: `Can't connect to an already connected client`,
+					message: `A player already has that name in the game.`,
 					source: `JoinGame`
 				});
 				return;
@@ -77,6 +166,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		});
 	}
 	catch (err) {
+		log.prettyError(err);
 		socket.emit(`GameJoined`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,

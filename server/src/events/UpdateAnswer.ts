@@ -26,6 +26,7 @@ export default (io: Server, socket: Socket, data: UpdateAnswer) => {
 		});
 	}
 	catch (err) {
+		log.prettyError(err);
 		socket.emit(`UpdateAnswer`, {
 			status: 500,
 			message: `${err.name}: ${err.message}`,

@@ -1,41 +1,46 @@
 import { Team } from "./Team";
 import { Deck } from "./Deck";
+import { readFile } from "fs";
 import neatCSV from "neat-csv";
 import { Logger } from "tslog";
-import { games } from "../main";
 import { Player } from "./Player";
-import { readFile } from "fs";
+import { games, hibernatedGames, conf } from "../main";
 
 export class Game {
 	readonly id: string;
 	readonly host: Player;
 	public log: Logger;
 	public ingame: boolean;
-	public teams: [Team, Team];
+	public teams: Team[];
 	public players: Player[];
 	private _questions: Deck<question_deck>;
 	private _objects: Deck<object_deck>;
-	private _objectCard: string[];
+	private _objectCard: string[]|null;
 	public object: string;
 
 
-	constructor(conf: config, host: Player) {
-		this.id = Game.generateID(conf.game.code_length);
+	constructor(host: Player, options:any=null) {
 		this.host = host;
 		this.ingame = false;
-		this.players = [];
+		this.players = [host];
+		this.id = options?.id || Game.generateID(conf.game.code_length);
 
-		// Get the decks based on what type of data they are.
-		switch (conf.game.cards.type) {
-			case "csv":
-				this.parseDeckCSV(conf);
-				break;
-			case "sheets":
-				this.parseDeckGoogleSheets(conf);
-				break;
+		// If the object is being instantiated from JSON we don't want to do
+		// any of the stuff that requires weird per-game stuff
+		if (!options) {
+
+			// Get the decks based on what type of data they are.
+			switch (conf.game.cards.type) {
+				case "csv":
+					this.parseDeckCSV(conf);
+					break;
+				case "sheets":
+					this.parseDeckGoogleSheets(conf);
+					break;
+			};
+			// Instantiate everything for the teams
+			this.teams = [ new Team(1), new Team(2) ];
 		};
-		// Instantiate everything for the teams
-		this.teams = [ new Team(1), new Team(2) ];
 	};
 
 	get questions() { return this._questions; };
@@ -63,7 +68,7 @@ export class Game {
 	}
 
 
-	private parseDeckCSV(conf: config): any {
+	private parseDeckCSV(conf: config) {
 		/**
 		 * Parses out the CSV files and creates the decks for the game to run on
 		 *
@@ -97,13 +102,69 @@ export class Game {
 		});
 	};
 
-	private parseDeckGoogleSheets(conf: config): void {
+	private parseDeckGoogleSheets(conf: config) {
 		/**
 		 * Fetches and parses the CSV data from Google Sheets instead of local
 		 * CSV files.
 		 *
 		 * @param conf -> The config object
 		 */
+	};
+
+
+	public resetObject() {
+		/**
+		 * Resets the objects card, for restarting the game
+		 */
+		if (this._objectCard) {
+			this._objects.discard(this._objectCard);
+			this._objectCard = null;
+		};
+	};
+
+
+	public toJSON(): datastoreGame {
+		/**
+		 * Returns a JSON representation of the game.
+		 */
+		return {
+			players: this.players.map(p => p.toJSON()),
+			teams: this.teams.map(t => t.toJSON()),
+			decks: {
+				questions: this._questions.toJSON(),
+				objects: this._objects.toJSON(),
+			},
+			objectCard: this._objectCard,
+			object: this.object,
+			ingame: this.ingame,
+			id: this.id,
+		};
+	};
+
+	public static fromJSON(host: Player, data: datastoreGame): Game {
+		/**
+		 * Converts a JSON representation into a Game object
+		 */
+		let game = new this(host, { id: data.id });
+
+		// Re-create the deck objects
+		game._questions = Deck.fromJSON<question_deck>(data.decks.questions);
+		game._objects = Deck.fromJSON<object_deck>(data.decks.objects);
+
+		game.teams = data.teams.map(t => Team.fromJSON(t));
+
+		// Re-instantiate all the players from the game.
+		for (var player of data.players) {
+			if (player.name !== host.name) {
+				player.host = false;
+				game.players.push(Player.fromJSON(player));
+			};
+		};
+
+		game._objectCard = data.objectCard;
+		game.object = data.object;
+
+		return game;
 	};
 
 
@@ -121,7 +182,7 @@ export class Game {
 			for (var i = 0; i < length; i++) {
 				code += `${Math.floor(Math.random() * 9)}`;
 			};
-		} while (games[code]);
+		} while (games[code] || hibernatedGames.includes(code));
 
 		return code;
 	};

@@ -20,8 +20,11 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 
 		// The writer is answering
 		if (data.from === "writer") {
-			game.log.debug(` Writer selected question to answer.`);
+			game.log.debug(`Writer selected question to answer.`);
+
+			// Draw new cards for team
 			deck.discard(data.text);
+			team.addCardsToHand(game.questions.draw(conf.game.hand_size - team.hand.length));
 			team.selectQuestion(data.text);
 
 			socket.emit(`UpdateHand`, {
@@ -29,16 +32,20 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 				mode: "replace",
 				questions: []
 			});
+			io.to(`${game.id}:${team.id}:guesser`).emit(`UpdateHand`, {
+				status: 200,
+				mode: "replace",
+				questions: team.hand
+			});
 			return;
 		}
 
 		// The writer is sending the card to the writer
 		else if (data.from === "guesser") {
-			game.log.debug(`Guesser is sending the card to the writer.`);
+			game.log.debug(`Guesser is sending a card to the writer.`);
 
 			// Update the team's hand
 			team.removeCard(data.text);
-			team.addCardsToHand(game.questions.draw(conf.game.hand_size - team.hand.length));
 
 			// send the question text to the writer player
 			io.to(`${game.id}:${team.id}:writer`).emit(`UpdateHand`, {
@@ -67,9 +74,10 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 		};
 	}
 	catch (err) {
+		log.prettyError(err);
 		socket.emit(`UpdateHand`, {
 			status: 500,
-			message: `${err.name}: ${err.message}`,
+			message: err.message,
 			source: `SendCard`,
 		});
 	}

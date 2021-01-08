@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import VuexPersistence from 'vuex-persist';
 
 Vue.use(Vuex);
 
@@ -11,9 +10,9 @@ export default new Vuex.Store({
 			icon: `sun.svg`,
 			eyes: {
 				1: 0,	2: 0,
-				3: 0,	4: 0,
-				5: 0,	6: 0,
-				7: 0,	8: 0,
+				3: 0,	4: 1,
+				5: 0,	6: 1,
+				7: 1,	8: 0,
 			},
 		},
 		team_2: {
@@ -21,8 +20,8 @@ export default new Vuex.Store({
 			icon: `moon.svg`,
 			eyes: {
 				1: 0,	2: 0,
-				3: 0,	4: 0,
-				5: 0,	6: 0,
+				3: 1,	4: 0,
+				5: 1,	6: 1,
 				7: 0,	8: 0,
 			},
 		},
@@ -47,6 +46,10 @@ export default new Vuex.Store({
 		questions: [],
 		game_code: null,
 		players: [],
+		answers: {
+			team_1: [ ``, ``, ``, ``, ``, ``, ``, `` ],
+			team_2: [ ``, ``, ``, ``, ``, ``, ``, `` ],
+		}
 	},
 	getters: {
 		teamName(state) {
@@ -73,6 +76,10 @@ export default new Vuex.Store({
 			state.questions = [];
 			state.game_code = null;
 			state.players = [];
+			state.answers = {
+				team_1: new Array(8).fill(``),
+				team_2: new Array(8).fill(``),
+			};
 		},
 		player(state, data) {
 			if (data.name)
@@ -84,7 +91,7 @@ export default new Vuex.Store({
 			if (data.host)
 				state.is_host = data.host
 		},
-		game_code(state, game_code) {
+		gameCode(state, game_code) {
 			state.game_code = game_code;
 		},
 		view(state, target) {
@@ -113,13 +120,16 @@ export default new Vuex.Store({
 		appendToHand(state, questions) {
 			state.questions.push(...questions);
 		},
+		updateAnswer(state, data) {
+			state.answers[`team_${data.team}`].splice(data.answer - 1, 1, data.value)
+		},
+		setAnswers(state, data) {
+			state.answers.team_1 = data.team_1;
+			state.answers.team_2 = data.team_2;
+		},
 	},
 	actions: {
 	},
 	modules: {
 	},
-	plugins:
-		process.env.NODE_ENV === `production`
-			? [new VuexPersistence({ key: `ghost-writer-save` }).plugin]
-			: []
 });

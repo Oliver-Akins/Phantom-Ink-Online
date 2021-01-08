@@ -5,6 +5,7 @@ node_modules
 server/server.toml
 server/built/*
 server/dist/*
+server/resources/games
 
 #=============================================================================#
 # The files that were auto-generated into a .gitignore by Vue-cli
