@@ -45,6 +45,11 @@ interface StartGame {
 }
 interface GameStarted extends response {}
 
+interface ResetGame {
+	game_code: string;
+}
+interface GameReset extends response {}
+
 
 interface GetPastQuestions {
 	game_code: string;

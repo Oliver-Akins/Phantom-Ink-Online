@@ -1,7 +1,7 @@
 import { games, log } from '../main';
 import { Server, Socket } from 'socket.io';
 
-export default (io: Server, socket: Socket, data: any) => {
+export default (io: Server, socket: Socket, data: ResetGame) => {
 	try {
 		if (!games[data.game_code]) {
 			log.debug(`Can't find game with code: ${data.game_code}`);
