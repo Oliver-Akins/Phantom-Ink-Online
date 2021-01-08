@@ -58,6 +58,13 @@ export class Deck<T> {
 	};
 
 
+	public reset() {
+		this._deck.push(...this._discard, ...this._unknown);
+		this._discard = [];
+		this._unknown = [];
+	};
+
+
 	public toJSON(): datastoreDeck<T> {
 		/**
 		 * Converts this Deck into a JSON-compatible object
