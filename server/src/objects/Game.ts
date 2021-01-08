@@ -15,7 +15,7 @@ export class Game {
 	public players: Player[];
 	private _questions: Deck<question_deck>;
 	private _objects: Deck<object_deck>;
-	private _objectCard: string[];
+	private _objectCard: string[]|null;
 	public object: string;
 
 
@@ -68,7 +68,7 @@ export class Game {
 	}
 
 
-	private parseDeckCSV(conf: config): any {
+	private parseDeckCSV(conf: config) {
 		/**
 		 * Parses out the CSV files and creates the decks for the game to run on
 		 *
@@ -102,13 +102,24 @@ export class Game {
 		});
 	};
 
-	private parseDeckGoogleSheets(conf: config): void {
+	private parseDeckGoogleSheets(conf: config) {
 		/**
 		 * Fetches and parses the CSV data from Google Sheets instead of local
 		 * CSV files.
 		 *
 		 * @param conf -> The config object
 		 */
+	};
+
+
+	public resetObject() {
+		/**
+		 * Resets the objects card, for restarting the game
+		 */
+		if (this._objectCard) {
+			this._objects.discard(this._objectCard);
+			this._objectCard = null;
+		};
 	};
 
 
