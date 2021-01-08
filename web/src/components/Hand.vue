@@ -1,10 +1,15 @@
 <template>
 	<div id="PlayerHand">
-		<div class="recentQuestion" v-if="mostRecentQuestion">
+		<div class="flex-center" v-if="mostRecentQuestion">
 			{{ mostRecentQuestion }}
 		</div>
-		<div class="gameOver" v-else-if="gameOver">
-			<button>Go to Lobby</button>
+		<div class="flex-center" v-else-if="gameOver">
+			<button
+				class="clickable"
+				@click.stop="endGame"
+			>
+				Go to Lobby
+			</button>
 		</div>
 		<div class="hand" v-else>
 			<div
@@ -56,6 +61,11 @@ export default {
 		questions() {
 			return this.$store.state.questions;
 		},
+		gameOver() {
+			let targetAnswer = this.$store.state.chosen_object.toLowerCase()+`.`;
+			return this.$store.state.answers.team_1.includes(targetAnswer)
+				|| this.$store.state.answers.team_2.includes(targetAnswer);
+		},
 	},
 	methods: {
 		sendCard(cardIndex) {
@@ -77,6 +87,11 @@ export default {
 			};
 
 			this.$socket.client.emit(`SendCard`, data);
+		},
+		endGame() {
+			this.$socket.client.emit(`ResetGame`, {
+				game_code: this.$store.state.game_code
+			});
 		},
 	},
 	mounted() {
@@ -130,7 +145,7 @@ export default {
 	width: 95%;
 }
 
-.recentQuestion {
+.flex-center {
 	justify-content: center;
 	align-items: center;
 	display: flex;
