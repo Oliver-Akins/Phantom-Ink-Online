@@ -25,7 +25,7 @@ repository. (Ex: `sudo ln -s /etc/systemd/system/ghost-writer.service /server/gh
 
 * To restart the server, run `sudo systemctl restart ghost-writer`.
 * To stop the server, run `sudo systemctl stop ghost-writer`.
-* To access the server logs, run `journalctl`
+* To access the server logs, run `sudo journalctl -u ghost-writer`
 
 
 ## Using a detached terminal:
