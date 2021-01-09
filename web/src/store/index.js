@@ -5,6 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
+		survery_link: ``,
+
 		team_1: {
 			name: `Sun`,
 			icon: `sun.svg`,
@@ -31,6 +33,7 @@ export default new Vuex.Store({
 
 		guesser_name: `Medium`,
 		guesser_card_button: `Ask Spirit`,
+
 		eye_icon: `eye.svg`,
 
 		discard_hand_icon: `trash.svg`,
