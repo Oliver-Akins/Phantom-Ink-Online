@@ -49,6 +49,7 @@ if (Validate.config(conf)) {
 		log.info(`Found ${hibernatedGames.length} hibernated games`);
 		process.on(`uncaughtException`, processExit);
 		process.on(`SIGINT`, processExit);
+		process.on(`SIGTERM`, processExit);
 	};
 
 	startWebsocket(conf);
