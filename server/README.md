@@ -41,3 +41,13 @@ this repository.
 8. Run `node dist/main.js` for logging directly to the CLI, or
 `node dist/main.js > output.log` for logging to a file named `output.log`.
 9. Detach your terminal.
+
+
+---
+
+# Configuration:
+All of the configuration for the server is done in the `server.toml` with
+explanations in the file. When a value is changed in the config, you will need
+to restart the server. This is either through systemd
+(`sudo systemctl restart ghost-writer`) or through your preferred terminal
+detacher, by stopping then re-starting the process.
