@@ -25,6 +25,7 @@ export var hibernatedGames: string[] = [];
 export var games: {[index: string]: Game} = {};
 
 export const log: Logger = new Logger({
+	displayDateTime: conf.log.datetime,
 	displayFunctionName: false,
 	displayLoggerName: true,
 	displayFilePath: `hidden`,

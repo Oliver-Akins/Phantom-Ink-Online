@@ -88,3 +88,6 @@ directory = ""
 #	- "trace"
 # any other value will prevent the server from starting at runtime.
 level = "info"
+
+# Whether or not the log should output the date and time information in the log
+datetime = true
