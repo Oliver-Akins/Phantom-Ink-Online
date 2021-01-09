@@ -48,9 +48,9 @@ fingerprint = ''
 
 
 [websocket]
-# The port the websocket server should run on. This must also be duplicated
-# into the `main.js` file within the `web` folder so that the client attempts
-# to connect to the correct port on the server.
+# The port the websocket server should run on. This is the port that you will
+# need to target for the web server's reverse proxy, or the specific URI in the
+# web code itself.
 port = 8081
 
 # The hostnames (and protocols) that are allowed to connect to the server. For
