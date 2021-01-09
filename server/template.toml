@@ -63,6 +63,21 @@ port = 8081
 permitted_hosts = "http://localhost:8080"
 
 
+[datastores]
+
+# Whether or not to save games that are active to the server's hard drive when
+# it crashes for whatever reason. This will also enable loading of those games
+# on server startup and allows game clients to reconnect to the game.
+enabled = false
+
+# The file extension used to save and load the datastore files.
+filetype = "game"
+
+# The filepath pointing to where to save the datastore files to. This can
+# either be a relative or absolute filepath.
+directory = ""
+
+
 [log]
 # The log level to output to the CLI, this can be one of the following:
 #	- "silly"
