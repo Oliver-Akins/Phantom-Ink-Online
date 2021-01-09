@@ -40,20 +40,16 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 						game.log.silly(`${host.name} is one of the team's guessers`);
 						hand = team.hand;
 						team.guessers.push(host);
-						socket.join([
-							`${game.id}:*:guesser`,
-							`${game.id}:${team.id}:guesser`
-						]);
 						break;
 					case "writer":
 						game.log.silly(`${host.name} is the team's writer`);
 						team.writer = host;
-						socket.join([
-							`${game.id}:*:writer`,
-							`${game.id}:${team.id}:writer`
-						]);
 						break;
 				};
+				socket.join([
+					`${game.id}:*:${host.role}`,
+					`${game.id}:${host.team}:${host.role}`
+				]);
 				game.log.debug(`Host assigned to team`);
 			};
 
@@ -103,14 +99,20 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 
 			if (!sameName.socket?.connected) {
 				sameName.socket = socket;
+				let rooms: string[] = [game.id];
 				game.log.info(`Player Reconnected to the game (name=${data.name})`);
 
 				// Get the hand of the player's team
 				let hand: string[] = [];
 				if (sameName.team && sameName.role == `guesser`) {
 					hand = game.teams[sameName.team - 1].hand;
+					rooms.push(
+						`${game.id}:*:${sameName.role}`,
+						`${game.id}:${sameName.team}:${sameName.role}`
+					);
 				};
 
+				socket.join(rooms);
 				socket.emit(`GameRejoined`, {
 					status: 200,
 					ingame: game.ingame,

@@ -1,0 +1,9 @@
+[Unit]
+Description=Ghost Writer websocket server
+
+[Service]
+Type=simple
+WorkingDirectory=/server
+ExecStart=node /server/dist/main.js
+Restart=always
+RestartSec=5

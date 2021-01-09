@@ -48,6 +48,19 @@ export default {
 		},
 	},
 	methods: {},
+	sockets: {
+		ChosenObject(data) {
+			/**
+			 * Sent to all clients so that they can set their store data and in
+			 * turn stay synchronized on what object they are trying to get
+			 * their teammate to guess.
+			 */
+			if (data.status < 200 || 300 <= data.status) {
+				this.$emit(`error`, data);
+			};
+			this.$store.commit(`setObject`, data.choice);
+		},
+	}
 }
 </script>
 

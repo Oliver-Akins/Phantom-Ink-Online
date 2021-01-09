@@ -4,6 +4,16 @@
 			{{ mostRecentQuestion }}
 		</div>
 		<div class="flex-center" v-else-if="gameOver">
+			<a
+				v-if="$store.state.survery_link"
+				:href="$store.state.survey_link"
+				target="_blank"
+				rel="noopener"
+			>
+				<button class="clickable">
+					Complete The Survey
+				</button>
+			</a>
 			<button
 				class="clickable"
 				@click.stop="endGame"
@@ -62,9 +72,12 @@ export default {
 			return this.$store.state.questions;
 		},
 		gameOver() {
-			let targetAnswer = this.$store.state.chosen_object.toLowerCase()+`.`;
-			return this.$store.state.answers.team_1.includes(targetAnswer)
-				|| this.$store.state.answers.team_2.includes(targetAnswer);
+			if (this.$store.state.chosen_object) {
+				let targetAnswer = this.$store.state.chosen_object.toLowerCase()+`.`;
+				return this.$store.state.answers.team_1.includes(targetAnswer)
+					|| this.$store.state.answers.team_2.includes(targetAnswer);
+			};
+			return false;
 		},
 	},
 	methods: {
@@ -128,6 +141,18 @@ export default {
 				default:
 					console.error(`Server returned an unsupported mode: ${data.mode}`);
 			};
+		},
+		GameReset(data) {
+			if (data.status < 200 || 300 <= data.status) {
+				return this.$emit(`error`, data);
+			};
+			this.$store.commit(`setAnswers`, {
+				team_1: new Array(8).fill(``),
+				team_2: new Array(8).fill(``),
+			});
+			this.$store.commit(`replaceHand`, []);
+			this.$store.commit(`setObject`, null);
+			this.$store.commit(`view`, `lobby`);
 		},
 	},
 }

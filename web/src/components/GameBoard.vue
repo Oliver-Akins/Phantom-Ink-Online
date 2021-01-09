@@ -243,9 +243,9 @@ input[type="text"] {
 	border-width: 2px;
 	font-size: larger;
 	outline: none;
-	margin: 7px 0;
 	padding: 7px;
 	width: 90%;
+	margin: 0;
 }
 input[type="text"]:focus {
 	border-color: var(--board-background-text);

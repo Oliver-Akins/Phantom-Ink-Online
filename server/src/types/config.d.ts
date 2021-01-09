@@ -1,6 +1,7 @@
 interface config {
 	log: {
 		level: `silly` | `debug` | `info` | `error` | `warn` | `fatal` | `trace`;
+		datetime: boolean;
 	};
 	websocket: {
 		port: number;
