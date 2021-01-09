@@ -20,11 +20,18 @@ server folder in the Ghost Writer git repository.
 7. Create a symlink named `ghost-writer.service` in `/etc/systemd/system`
 pointing to the service file in the `server` folder of the Ghost Writer Online
 repository. (Ex: `sudo ln -s /server/ghost-writer.service /etc/systemd/system/ghost-writer.service`)
-8. Start the websocket server with `sudo systemctl start ghost-writer`.
-9. Make sure the server is started by running `systemctl status ghost-writer`
+8. Run `whereis node` and copy the absolute file path of the output
+9. Edit the `ghost-writer.service` file to replace change the
+`ExecStart=node dist/main.js` to replace `node` with the file path you copied
+from the previous step
+10. Reload the systemd daemon with `sudo systemd daemon-reload` to make the
+changes to the service file take effect.
+11. Start the websocket server with `sudo systemctl start ghost-writer`
+12. Make sure the server is started by running `systemctl status ghost-writer`
 
-* To restart the server, run `sudo systemctl restart ghost-writer`.
-* To stop the server, run `sudo systemctl stop ghost-writer`.
+* To start the server, run `sudo sustemctl start ghost-writer`
+* To restart the server, run `sudo systemctl restart ghost-writer`
+* To stop the server, run `sudo systemctl stop ghost-writer`
 * To access the server logs, run `sudo journalctl -u ghost-writer`
 
 
