@@ -47,14 +47,6 @@ column = 0
 fingerprint = ''
 
 
-[webserver]
-# whether or not to enable the integrated webserver.
-enabled = false
-
-# The port the web server should run on
-port = 8080
-
-
 [websocket]
 # The port the websocket server should run on. This must also be duplicated
 # into the `main.js` file within the `web` folder so that the client attempts
