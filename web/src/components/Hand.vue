@@ -142,6 +142,18 @@ export default {
 					console.error(`Server returned an unsupported mode: ${data.mode}`);
 			};
 		},
+		GameReset(data) {
+			if (data.status < 200 || 300 <= data.status) {
+				return this.$emit(`error`, data);
+			};
+			this.$store.commit(`setAnswers`, {
+				team_1: new Array(8).fill(``),
+				team_2: new Array(8).fill(``),
+			});
+			this.$store.commit(`replaceHand`, []);
+			this.$store.commit(`setObject`, null);
+			this.$store.commit(`view`, `lobby`);
+		},
 	},
 }
 </script>
