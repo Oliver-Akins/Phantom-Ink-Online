@@ -12,7 +12,16 @@
 		>
 			<h2 class="centre">Attributions:</h2>
 			<p class="centre">
-				Made By: Oliver Akins
+				Ghost Writer is designed and created by
+				<a href="resonym.com" target="_blank" rel="noopener">Resonym</a>
+				<br>
+				Online Prototype Made By: Oliver Akins (Alkali Metal)
+				<br>
+				<a :href="$store.state.survey_link" target="_blank" rel="noopener">
+					<button class="clickable">
+						Complete The Survey
+					</button>
+				</a>
 			</p>
 			<hr>
 			<p>
@@ -75,6 +84,15 @@ export default {
 	align-items: center;
 	display: flex;
 	height: 100%;
+}
+
+button {
+	background-color: var(--background2);
+	color: var(--background2-text);
+	border-radius: 7px;
+	font-size: large;
+	padding: 10px;
+	margin: 5px;
 }
 
 a, a:visited {
