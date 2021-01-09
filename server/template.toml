@@ -87,4 +87,4 @@ directory = ""
 #	- "error"
 #	- "trace"
 # any other value will prevent the server from starting at runtime.
-level = "silly"
+level = "info"
