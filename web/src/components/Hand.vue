@@ -67,9 +67,12 @@ export default {
 			return this.$store.state.questions;
 		},
 		gameOver() {
-			let targetAnswer = this.$store.state.chosen_object.toLowerCase()+`.`;
-			return this.$store.state.answers.team_1.includes(targetAnswer)
-				|| this.$store.state.answers.team_2.includes(targetAnswer);
+			if (this.$store.state.chosen_object) {
+				let targetAnswer = this.$store.state.chosen_object.toLowerCase()+`.`;
+				return this.$store.state.answers.team_1.includes(targetAnswer)
+					|| this.$store.state.answers.team_2.includes(targetAnswer);
+			};
+			return false;
 		},
 	},
 	methods: {
