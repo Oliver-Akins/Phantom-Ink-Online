@@ -17,7 +17,12 @@
 				<br>
 				Online Prototype Made By: Oliver Akins (Alkali Metal)
 				<br>
-				<a :href="$store.state.survey_link" target="_blank" rel="noopener">
+				<a
+					v-if="$store.state.survey_link"
+					:href="$store.state.survey_link"
+					target="_blank"
+					rel="noopener"
+				>
 					<button class="clickable">
 						Complete The Survey
 					</button>

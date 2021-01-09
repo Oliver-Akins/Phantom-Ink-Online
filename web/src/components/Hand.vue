@@ -4,7 +4,12 @@
 			{{ mostRecentQuestion }}
 		</div>
 		<div class="flex-center" v-else-if="gameOver">
-			<a :href="$store.state.survey_link" target="_blank" rel="noopener">
+			<a
+				v-if="$store.state.survery_link"
+				:href="$store.state.survey_link"
+				target="_blank"
+				rel="noopener"
+			>
 				<button class="clickable">
 					Complete The Survey
 				</button>
