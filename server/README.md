@@ -17,7 +17,7 @@ the service file.
 6. Create a symlink named `server` in the server root (`/`) pointing to the
 server folder in the Ghost Writer git repository.
 (Ex: `sudo ln -s ~/Ghost-Writer-Online/server /server`)
-7. Create a symlink named `ghost-writer.service` in `/`
+7. Create a symlink named `ghost-writer.service` in `/etc/systemd/system`
 pointing to the service file in the `server` folder of the Ghost Writer Online
 repository. (Ex: `sudo ln -s /etc/systemd/system/ghost-writer.service /server/ghost-writer.service`)
 8. Start the websocket server with `sudo systemctl start ghost-writer`.
