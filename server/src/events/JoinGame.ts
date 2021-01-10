@@ -16,21 +16,28 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 				`${conf.datastores.directory}/${data.game_code}.${conf.datastores.filetype}`,
 				`utf-8`
 			)) as datastoreGame;
+
+			let playerData = datastore.players.find(p => p.name === data.name);
+
+			// Assert that the name matches someone in the hibernated game
+			if (!playerData) {
+				log.info(`[${data.game_code}] User attempted unhibernate game with an invalid name`);
+				socket.emit(`GameJoined`, {
+					status: 403,
+					message: `Game with code "${data.game_code}" could not be found`,
+					source: `JoinGame`
+				});
+				return;
+			}
+
+			// Instantiate the host's player object
 			let host = new Player(data.name, socket, true);
 			let game = Game.fromJSON(host, datastore);
 			game.log = log.getChildLogger({
 				displayLoggerName: true,
 				name: game.id,
 			});
-
 			game.ingame = datastore.ingame;
-
-			// Get the specific information for team
-			let playerData = datastore.players.find(p => p.name === data.name);
-			if (playerData) {
-				host.role = playerData.role;
-				host.team = playerData.team;
-			};
 
 			let hand: string[] = [];
 			if (host.team) {
