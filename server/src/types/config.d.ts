@@ -17,6 +17,7 @@ interface config {
 		code_length: number;
 		writer_name: string;
 		guesser_name: string;
+		guesser_limit: number;
 		cards: {
 			type: `csv` | `sheets`;
 			key?: string;
