@@ -13,7 +13,8 @@
 					v-for="answerIndex in 8"
 					:class="[
 						`answer`,
-						answers[`team_${3 - $store.state.team}`][answerIndex-1].toLowerCase() == $store.state.chosen_object+`.` ? `correct`: ``
+						answers[`team_${3 - $store.state.team}`][answerIndex-1].toLowerCase() === getObject
+							? `correct`: ``
 					]"
 					:key="`${otherTeamID}-answer-container-${answerIndex}`"
 				>
@@ -57,7 +58,8 @@
 					v-for="answerIndex in 8"
 					:class="[
 						`answer`,
-						answers[`team_${$store.state.team}`][answerIndex-1].toLowerCase() == $store.state.chosen_object+`.` ? `correct`: ``
+						answers[`team_${$store.state.team}`][answerIndex-1].toLowerCase() === getObject
+							? `correct`: ``
 					]"
 					:key="`${teamID}-answer-container-${answerIndex}`"
 				>
@@ -121,6 +123,12 @@ export default {
 		},
 		answers() {
 			return this.$store.state.answers;
+		},
+		getObject() {
+			if (!this.$store.state.chosen_object) {
+				return ``;
+			};
+			return this.$store.state.chosen_object.toLowerCase() + `.`;
 		},
 	},
 	methods: {
