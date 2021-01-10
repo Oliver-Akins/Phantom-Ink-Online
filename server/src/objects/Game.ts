@@ -119,6 +119,7 @@ export class Game {
 		if (this._objectCard) {
 			this._objects.discard(this._objectCard);
 			this._objectCard = null;
+			this.object = ``;
 		};
 	};
 
