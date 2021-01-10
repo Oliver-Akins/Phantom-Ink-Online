@@ -10,8 +10,9 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		// Game object and bring it back to being alive
 		let hibernatedIndex = hibernatedGames.indexOf(data.game_code)
 		if (hibernatedIndex >= 0) {
-			log.info(`Recreating game from datastore.`);
+			log.info(`Attempting to recreate game from datastore.`);
 
+			// Reinstantiate the game using the data from the disk
 			let datastore = JSON.parse(readFileSync(
 				`${conf.datastores.directory}/${data.game_code}.${conf.datastores.filetype}`,
 				`utf-8`
@@ -32,6 +33,10 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 
 			// Instantiate the host's player object
 			let host = new Player(data.name, socket, true);
+			host.role = playerData.role;
+			host.team = playerData.team;
+
+			// Re-instantiate the game object
 			let game = Game.fromJSON(host, datastore);
 			game.log = log.getChildLogger({
 				displayLoggerName: true,
@@ -57,7 +62,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 					`${game.id}:*:${host.role}`,
 					`${game.id}:${host.team}:${host.role}`
 				]);
-				game.log.debug(`Host assigned to team`);
+				game.log.debug(`Host assigned to team object`);
 			};
 
 			hibernatedGames.splice(hibernatedIndex, 1);
