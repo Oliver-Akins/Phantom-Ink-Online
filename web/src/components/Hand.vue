@@ -5,7 +5,7 @@
 		</div>
 		<div class="flex-center" v-else-if="gameOver">
 			<a
-				v-if="$store.state.survery_link"
+				v-if="$store.state.survey_link"
 				:href="$store.state.survey_link"
 				target="_blank"
 				rel="noopener"
