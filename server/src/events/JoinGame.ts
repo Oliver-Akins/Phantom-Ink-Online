@@ -132,7 +132,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 				game.log.debug(`${socket.id} attempted to join with a name already in use ${data.name}`);
 				socket.emit(`GameJoined`, {
 					status: 403,
-					message: `A player already has that name in the game.`,
+					message: `Cannot connect to a game that's in progress.`,
 					source: `JoinGame`
 				});
 				return;
