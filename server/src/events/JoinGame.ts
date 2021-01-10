@@ -94,8 +94,8 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		socket. This will also function as the main game joining for hibernated
 		games that were reloaded from disk.
 		*/
-		let sameName = game.players.find(x => x.name == data.name);
-		if (sameName != null) {
+		let sameName = game.players.find(x => x.name === data.name);
+		if (sameName) {
 
 			if (!sameName.socket?.connected) {
 				sameName.socket = socket;
