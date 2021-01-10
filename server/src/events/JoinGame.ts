@@ -1,7 +1,7 @@
-import { readFileSync } from 'fs';
 import { Game } from '../objects/Game';
 import { Player } from '../objects/Player';
 import { Server, Socket } from 'socket.io';
+import { readFileSync, unlinkSync } from 'fs';
 import { games, hibernatedGames, log, conf } from '../main';
 
 export default (io: Server, socket: Socket, data: JoinGame) => {
@@ -67,6 +67,14 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 
 			hibernatedGames.splice(hibernatedIndex, 1);
 			games[game.id] = game;
+
+			// Try removing the file from the directory
+			try {
+				unlinkSync(`${conf.datastores.directory}/${game.id}.${conf.datastores.filetype}`);
+				game.log.info(`Game datastore deleted`);
+			} catch (err) {
+				game.log.prettyError(err);
+			};
 
 			game.log.info(`Successfully unhibernated`);
 			socket.join(game.id);
