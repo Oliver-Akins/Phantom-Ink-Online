@@ -1,10 +1,11 @@
+import axios from "axios";
 import { Team } from "./Team";
 import { Deck } from "./Deck";
 import { readFile } from "fs";
 import neatCSV from "neat-csv";
 import { Logger } from "tslog";
 import { Player } from "./Player";
-import { games, hibernatedGames, conf } from "../main";
+import { games, hibernatedGames, conf, log } from "../main";
 
 export class Game {
 	readonly id: string;
@@ -32,10 +33,10 @@ export class Game {
 			// Get the decks based on what type of data they are.
 			switch (conf.game.cards.type) {
 				case "csv":
-					this.parseDeckCSV(conf);
+					this.parseDeckCSV();
 					break;
 				case "sheets":
-					this.parseDeckGoogleSheets(conf);
+					this.parseDeckGoogleSheets();
 					break;
 			};
 			// Instantiate everything for the teams
@@ -68,11 +69,10 @@ export class Game {
 	}
 
 
-	private parseDeckCSV(conf: config) {
+	private parseDeckCSV() {
 		/**
-		 * Parses out the CSV files and creates the decks for the game to run on
-		 *
-		 * @param path -> The filepath of the CSV file
+		 * Parses out the CSV files and creates the decks for the game to run
+		 * on.
 		 */
 
 		// parse the questions from the CSV
@@ -102,13 +102,61 @@ export class Game {
 		});
 	};
 
-	private parseDeckGoogleSheets(conf: config) {
+	private parseDeckGoogleSheets() {
 		/**
 		 * Fetches and parses the CSV data from Google Sheets instead of local
 		 * CSV files.
-		 *
-		 * @param conf -> The config object
 		 */
+		let key = conf.game.cards.key as string;
+		let questions_id = conf.game.cards.questions.fingerprint;
+		let objects_id = conf.game.cards.objects.fingerprint;
+
+		// Get the questions deck
+		axios.get(`https://docs.google.com/spreadsheets/d/e/${key}/pub?gid=${questions_id}&single=true&output=csv`)
+		.then(response => {
+			// Ensure not errored
+			if (response.status !== 200) {
+				log.warn(`Error Downloading CSV: ${response.statusText}`);
+				return;
+			};
+
+			// Parse the loaded CSV
+			neatCSV(response.data)
+			.then((data) => {
+				let questions: question_deck[] = [];
+				for (var entry of data) {
+					questions.push(Object.values(entry)[conf.game.cards.questions.column]);
+				};
+				this._questions = new Deck(questions);
+			});
+		})
+		.catch(err => {
+			log.prettyError(err);
+		});
+
+
+		// Get the objects deck
+		axios.get(`https://docs.google.com/spreadsheets/d/e/${key}/pub?gid=${objects_id}&single=true&output=csv`)
+		.then(response => {
+			// Ensure not errored
+			if (response.status !== 200) {
+				log.warn(`Error Downloading CSV: ${response.statusText}`);
+				return;
+			};
+
+			// Parse the downloaded CSV
+			neatCSV(response.data)
+			.then((data) => {
+				let objects: object_deck[] = [];
+				for (var line of data) {
+					objects.push(Object.values(line));
+				};
+				this._objects = new Deck(objects);
+			});
+		})
+		.catch(err => {
+			log.prettyError(err);
+		});
 	};
 
 
