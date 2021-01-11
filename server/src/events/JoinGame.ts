@@ -1,7 +1,7 @@
-import { readFileSync } from 'fs';
 import { Game } from '../objects/Game';
 import { Player } from '../objects/Player';
 import { Server, Socket } from 'socket.io';
+import { readFileSync, unlinkSync } from 'fs';
 import { games, hibernatedGames, log, conf } from '../main';
 
 export default (io: Server, socket: Socket, data: JoinGame) => {
@@ -10,27 +10,39 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		// Game object and bring it back to being alive
 		let hibernatedIndex = hibernatedGames.indexOf(data.game_code)
 		if (hibernatedIndex >= 0) {
-			log.info(`Recreating game from datastore.`);
+			log.info(`Attempting to recreate game from datastore.`);
 
+			// Reinstantiate the game using the data from the disk
 			let datastore = JSON.parse(readFileSync(
 				`${conf.datastores.directory}/${data.game_code}.${conf.datastores.filetype}`,
 				`utf-8`
 			)) as datastoreGame;
+
+			let playerData = datastore.players.find(p => p.name === data.name);
+
+			// Assert that the name matches someone in the hibernated game
+			if (!playerData) {
+				log.info(`[${data.game_code}] User attempted unhibernate game with an invalid name`);
+				socket.emit(`GameJoined`, {
+					status: 403,
+					message: `Game with code "${data.game_code}" could not be found`,
+					source: `JoinGame`
+				});
+				return;
+			}
+
+			// Instantiate the host's player object
 			let host = new Player(data.name, socket, true);
+			host.role = playerData.role;
+			host.team = playerData.team;
+
+			// Re-instantiate the game object
 			let game = Game.fromJSON(host, datastore);
 			game.log = log.getChildLogger({
 				displayLoggerName: true,
 				name: game.id,
 			});
-
 			game.ingame = datastore.ingame;
-
-			// Get the specific information for team
-			let playerData = datastore.players.find(p => p.name === data.name);
-			if (playerData) {
-				host.role = playerData.role;
-				host.team = playerData.team;
-			};
 
 			let hand: string[] = [];
 			if (host.team) {
@@ -50,11 +62,19 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 					`${game.id}:*:${host.role}`,
 					`${game.id}:${host.team}:${host.role}`
 				]);
-				game.log.debug(`Host assigned to team`);
+				game.log.debug(`Host assigned to team object`);
 			};
 
 			hibernatedGames.splice(hibernatedIndex, 1);
 			games[game.id] = game;
+
+			// Try removing the file from the directory
+			try {
+				unlinkSync(`${conf.datastores.directory}/${game.id}.${conf.datastores.filetype}`);
+				game.log.info(`Game datastore deleted`);
+			} catch (err) {
+				game.log.prettyError(err);
+			};
 
 			game.log.info(`Successfully unhibernated`);
 			socket.join(game.id);
@@ -94,8 +114,8 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 		socket. This will also function as the main game joining for hibernated
 		games that were reloaded from disk.
 		*/
-		let sameName = game.players.find(x => x.name == data.name);
-		if (sameName != null) {
+		let sameName = game.players.find(x => x.name === data.name);
+		if (sameName) {
 
 			if (!sameName.socket?.connected) {
 				sameName.socket = socket;
@@ -132,7 +152,7 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 				game.log.debug(`${socket.id} attempted to join with a name already in use ${data.name}`);
 				socket.emit(`GameJoined`, {
 					status: 403,
-					message: `A player already has that name in the game.`,
+					message: `Cannot connect to a game that's in progress.`,
 					source: `JoinGame`
 				});
 				return;

@@ -85,11 +85,11 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 
 		switch (data.to.role) {
 			case "guesser":
-				if (team.guessers.length >= 7) {
-					game.log.debug(`Game cannot have more than 7 guessers`);
+				if (team.guessers.length >= conf.game.guesser_limit) {
+					game.log.debug(`Game cannot have more than ${conf.game.guesser_limit} guessers`);
 					socket.emit(`PlayerUpdate`, {
 						status: 403,
-						message: `A team can't have 8 or more ${conf.game.guesser_name}`,
+						message: `That team already has the maximum number of ${conf.game.guesser_name}s`,
 						source: `UpdatePlayer.Modify`
 					});
 					return;
@@ -128,11 +128,11 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 		let team = game.teams[data.to.team - 1];
 		switch (data.to.role) {
 			case "guesser":
-				if (team.guessers.length >= 7) {
-					game.log.debug(`Game cannot have more than 7 guessers`);
+				if (team.guessers.length >= conf.game.guesser_limit) {
+					game.log.debug(`Game cannot have more than ${conf.game.guesser_limit} guessers`);
 					socket.emit(`PlayerUpdate`, {
 						status: 403,
-						message: `A team can't have 8 or more ${conf.game.guesser_name}`,
+						message: `That team already has the maximum number of ${conf.game.guesser_name}s`,
 						source: `UpdatePlayer.Modify`
 					});
 					return;
@@ -181,11 +181,11 @@ const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
 		switch (data.to.role) {
 			case "guesser":
 				// Ensure we don't get 8 guessers
-				if (newTeam.guessers.length >= 7) {
-					game.log.debug(`Game cannot have 8 or more guessers on a team.`);
+				if (newTeam.guessers.length >= conf.game.guesser_limit) {
+					game.log.debug(`That team already`);
 					socket.emit(`PlayerUpdate`, {
 						status: 403,
-						message: `Cannot have 8 players as ${conf.game.guesser_name}s on a single team.`,
+						message: `That team already has the maximum number of ${conf.game.guesser_name}s`,
 						source: `UpdatePlayer.Modify`
 					});
 					return;

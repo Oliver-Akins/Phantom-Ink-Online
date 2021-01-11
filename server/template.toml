@@ -11,6 +11,8 @@ code_length = 6
 writer_name = "Spirit"
 guesser_name = "Medium"
 
+# The limit of players that are allowed to be guessers on each team.
+guesser_limit = 7
 
 [game.cards]
 

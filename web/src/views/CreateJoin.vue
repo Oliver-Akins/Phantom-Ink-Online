@@ -114,7 +114,7 @@ export default {
 			 * },
 			 */
 			console.log(data)
-			if (!(200 <= data.status && data.status < 300)) {
+			if (data.status < 200 || 300 <= data.status) {
 				this.$emit(`error`, data);
 				return;
 			};

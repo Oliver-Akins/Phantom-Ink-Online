@@ -12,7 +12,7 @@ export class Validate {
 		};
 
 		// Assert data in the game object
-		if (![`csv`].includes(conf.game.cards.type)) {
+		if (![`csv`, `sheets`].includes(conf.game.cards.type)) {
 			log.error(`Unsupported cards type: ${conf.game.cards.type}`);
 			valid = false;
 		};

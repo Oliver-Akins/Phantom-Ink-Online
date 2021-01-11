@@ -13,9 +13,11 @@ export default (io: Server, socket: Socket, data: ResetGame) => {
 			return;
 		};
 		let game = games[data.game_code];
+		game.log.info(`Resetting game`)
 
 		game.questions.reset();
 		game.resetObject();
+		game.ingame = false;
 
 		io.to(game.id).emit(`GameReset`, { status: 200 });
 	} catch (err) {

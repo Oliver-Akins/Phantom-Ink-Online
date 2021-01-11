@@ -5,7 +5,7 @@
 		</div>
 		<div class="flex-center" v-else-if="gameOver">
 			<a
-				v-if="$store.state.survery_link"
+				v-if="$store.state.survey_link"
 				:href="$store.state.survey_link"
 				target="_blank"
 				rel="noopener"
@@ -74,8 +74,13 @@ export default {
 		gameOver() {
 			if (this.$store.state.chosen_object) {
 				let targetAnswer = this.$store.state.chosen_object.toLowerCase()+`.`;
-				return this.$store.state.answers.team_1.includes(targetAnswer)
-					|| this.$store.state.answers.team_2.includes(targetAnswer);
+				for (var team in this.$store.state.answers) {
+					for (var answer of this.$store.state.answers[team]) {
+						if (answer.toLowerCase() === targetAnswer) {
+							return true;
+						};
+					};
+				};
 			};
 			return false;
 		},
