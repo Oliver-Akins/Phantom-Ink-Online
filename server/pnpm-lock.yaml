@@ -2,6 +2,7 @@ dependencies:
   '@types/engine.io': 3.1.4
   '@types/node': 14.14.14
   '@types/socket.io': 2.1.12
+  axios: 0.21.1
   fs: 0.0.1-security
   neat-csv: 6.0.0
   socket.io: 3.0.4
@@ -54,6 +55,12 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-Il80Qs2WjYlJIBNzNkK6KYqlVMTbZLXgHx2oT0pU/fjRHyEp+PEfEPY0R3WCwAGVOtauxh1hOxNgIf5bv7dQpA==
+  /axios/0.21.1:
+    dependencies:
+      follow-redirects: 1.13.1
+    dev: false
+    resolution:
+      integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
   /base64-arraybuffer/0.1.4:
     dev: false
     engines:
@@ -127,6 +134,17 @@ packages:
       node: '>=10.0.0'
     resolution:
       integrity: sha512-Ri+whTNr2PKklxQkfbGjwEo+kCBUM4Qxk4wtLqLrhH+b1up2NFL9g9pjYWiCV/oazwB0rArnvF/ZmZN2ab5Hpg==
+  /follow-redirects/1.13.1:
+    dev: false
+    engines:
+      node: '>=4.0'
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    resolution:
+      integrity: sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==
   /fs/0.0.1-security:
     dev: false
     resolution:
@@ -266,6 +284,7 @@ specifiers:
   '@types/engine.io': ^3.1.4
   '@types/node': ^14.14.14
   '@types/socket.io': ^2.1.12
+  axios: ^0.21.1
   fs: ^0.0.1-security
   neat-csv: ^6.0.0
   socket.io: ^3.0.4

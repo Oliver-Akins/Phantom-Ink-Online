@@ -61,6 +61,7 @@ export default {
 			"Toml": "https://www.npmjs.com/package/toml",
 			"tslog": "https://www.npmjs.com/package/tslog",
 			"Socket.io": "https://socket.io",
+			"Axios": "https://www.npmjs.com/package/axios",
 			"neat-csv": "https://github.com/sindresorhus/neat-csv",
 		}
 	}},
