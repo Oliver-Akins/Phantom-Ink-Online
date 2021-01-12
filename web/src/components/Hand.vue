@@ -73,10 +73,11 @@ export default {
 		},
 		gameOver() {
 			if (this.$store.state.chosen_object) {
-				let targetAnswer = this.$store.state.chosen_object.toLowerCase()+`.`;
+				let answerRegex = new RegExp(`${this.$store.state.chosen_object.toLowerCase()}\\.?`);
+
 				for (var team in this.$store.state.answers) {
 					for (var answer of this.$store.state.answers[team]) {
-						if (answer.toLowerCase() === targetAnswer) {
+						if (answer.toLowerCase().match(answerRegex)) {
 							return true;
 						};
 					};

@@ -6,7 +6,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 
 		// Assert game exists
 		if (!games[data.game_code]) {
-			log.debug(`Can't send a card in a game that doesn't exist: ${data.game_code}`);
+			log.debug(`Can't fing a game with code: ${data.game_code}`);
 			socket.emit(`UpdateHand`, {
 				status: 404,
 				message: `Game with code ${data.game_code} could not be found`,
@@ -20,7 +20,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 
 		// The writer is answering
 		if (data.from === "writer") {
-			game.log.debug(`Writer selected question to answer.`);
+			game.log.debug(`Writer selected question to answer`);
 
 			// Draw new cards for team
 			deck.discard(data.text);
@@ -42,7 +42,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 
 		// The writer is sending the card to the writer
 		else if (data.from === "guesser") {
-			game.log.debug(`Guesser is sending a card to the writer.`);
+			game.log.debug(`Guesser is sending a card to the writer`);
 
 			// Update the team's hand
 			team.removeCard(data.text);

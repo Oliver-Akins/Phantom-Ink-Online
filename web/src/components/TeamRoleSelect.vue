@@ -7,12 +7,31 @@
 		>
 			{{ $store.state.writer_name }}
 		</button>
+		<div class="players">
+			<div
+				class="player"
+				v-for="player in writers"
+				:key="player.name"
+			>
+				{{ player.name }}
+			</div>
+		</div>
+		<hr>
 		<button
 			class="clickable"
 			@click.stop="joinRole(`guesser`)"
 		>
 			{{ $store.state.guesser_name }}
 		</button>
+		<div class="players">
+			<div
+				class="player"
+				v-for="player in guessers"
+				:key="player.name"
+			>
+				{{ player.name }}
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -29,7 +48,17 @@ export default {
 	computed: {
 		teamName() {
 			return this.$store.state[`team_${this.teamID}`].name;
-		}
+		},
+		writers() {
+			return this.$store.state.players.filter(
+				p => p.team === this.teamID && p.role === `writer`
+			);
+		},
+		guessers() {
+			return this.$store.state.players.filter(
+				p => p.team === this.teamID && p.role === `guesser`
+			);
+		},
 	},
 	methods: {
 		joinRole(role) {
@@ -79,6 +108,10 @@ export default {
 	display: flex;
 	margin: 5px;
 	width: 25%;
+}
+
+hr {
+	width: 90%;
 }
 
 button {

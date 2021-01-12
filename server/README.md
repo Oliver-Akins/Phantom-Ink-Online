@@ -2,17 +2,17 @@
 1. `cd` into this `server` directory.
 2. Run `pnpm install` to install all of the required dependencies.
 3. Create a copy of the `template.toml` file, and name it `server.toml`.
-4. Edit the `server.toml` file to adjust the
+4. Edit the `server.toml` file to adjust the server and game settings.
 5. Run `tsc` to compile the TypeScript into Javascript. This should create a
 `dist` directory.
 
 
-## Using systemd to manage the server: (Not currently implemented)
+## Using systemd to manage the server:
 This app comes with a `ghost-writer.service` file which is already set up to
 manage the server, it just requires a little bit of additional setup. If you
 change any of the symlinking in the steps below, it is your responsibility to
 figure it out, I will not guarantee support for people who attempt to modify
-the service file.
+the service file beyond the steps below.
 
 6. Create a symlink named `server` in the server root (`/`) pointing to the
 server folder in the Ghost Writer git repository.

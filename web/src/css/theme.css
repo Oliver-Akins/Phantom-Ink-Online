@@ -73,8 +73,8 @@
 	--confirm-background-darken: #006600;
 	--confirm-background-lighten: #00aa00;
 	--confirm-text: white;
-	--cancel-background: #aa0000;
-	--cancel-background-darken: #830101;
-	--cancel-background-lighten: #e71111;
+	--cancel-background: #c94a4a;
+	--cancel-background-darken: #a54141;
+	--cancel-background-lighten: #fa7d7d;
 	--cancel-text: white;
 }

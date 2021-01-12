@@ -13,7 +13,7 @@
 					v-for="answerIndex in 8"
 					:class="[
 						`answer`,
-						answers[`team_${3 - $store.state.team}`][answerIndex-1].toLowerCase() === getObject
+						answers[`team_${3 - $store.state.team}`][answerIndex-1].toLowerCase().match(getObject)
 							? `correct`: ``
 					]"
 					:key="`${otherTeamID}-answer-container-${answerIndex}`"
@@ -58,7 +58,7 @@
 					v-for="answerIndex in 8"
 					:class="[
 						`answer`,
-						answers[`team_${$store.state.team}`][answerIndex-1].toLowerCase() === getObject
+						answers[`team_${$store.state.team}`][answerIndex-1].toLowerCase().match(getObject)
 							? `correct`: ``
 					]"
 					:key="`${teamID}-answer-container-${answerIndex}`"
@@ -109,7 +109,7 @@ import PastQuestions from './PastQuestions';
 export default {
 	name: `GameBoard`,
 	components: {
-		"past-questions": PastQuestions
+		"past-questions": PastQuestions,
 	},
 	data() {return {
 		visible: false,
@@ -126,9 +126,9 @@ export default {
 		},
 		getObject() {
 			if (!this.$store.state.chosen_object) {
-				return ``;
+				return /\n/;
 			};
-			return this.$store.state.chosen_object.toLowerCase() + `.`;
+			return new RegExp(`${this.$store.state.chosen_object.toLowerCase()}\\.?`);
 		},
 	},
 	methods: {
