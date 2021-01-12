@@ -2,13 +2,10 @@
 	<div id="player_list" class="centre">
 		<h2>Players:</h2>
 		<div
-			v-for="player in $store.state.players"
+			v-for="player in players"
 			:key="player.name"
 		>
 			{{ player.name }}
-			<span v-if="player.role" class="player-role">
-				( {{ teamName(player.team) }} {{ roleName(player.role) }} )
-			</span>
 		</div>
 	</div>
 </template>
@@ -22,7 +19,9 @@ export default {
 			return this.$store.state.is_host;
 		},
 		players() {
-			return this.$store.state.players;
+			return this.$store.state.players.filter(
+				p => p.role == null && p.team == null
+			);
 		},
 		gameCode() {
 			return this.$store.state.game_code;
