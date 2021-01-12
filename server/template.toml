@@ -35,6 +35,9 @@ key = ''
 #		directory of the CLI instantiating the server. (or an absolute path)
 #	- If "type" is "sheets", then this is a sheet identifier used by Google
 #		Sheets to indicate which sheet to use when downloading the content.
+#		In the published URL, this is the sequence of number between the
+#		`gid=` and the `&`, so if the URL has `gid=123456789&`, the fingerprint
+#		would be `123456789`.
 fingerprint = ''
 
 # The zero-indexed column number to use when getting the question text.
@@ -46,6 +49,9 @@ column = 0
 #		directory of the CLI instantiating the server. (or an absolute path)
 #	- If "type" is "sheets", then this is a sheet identifier used by Google
 #		Sheets to indicate which sheet to use when downloading the content.
+#		In the published URL, this is the sequence of number between the
+#		`gid=` and the `&`, so if the URL has `gid=123456789&`, the fingerprint
+#		would be `123456789`.
 fingerprint = ''
 
 
