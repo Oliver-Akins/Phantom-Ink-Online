@@ -1,9 +1,6 @@
 <template>
 	<div id="PlayerHand">
-		<div class="flex-center" v-if="mostRecentQuestion">
-			{{ mostRecentQuestion }}
-		</div>
-		<div class="flex-center" v-else-if="gameOver">
+		<div class="flex-center" v-if="gameOver">
 			<a
 				v-if="$store.state.survey_link"
 				:href="$store.state.survey_link"
@@ -20,6 +17,9 @@
 			>
 				Go to Lobby
 			</button>
+		</div>
+		<div class="flex-center" v-else-if="mostRecentQuestion">
+			{{ mostRecentQuestion }}
 		</div>
 		<div class="hand" v-else>
 			<div

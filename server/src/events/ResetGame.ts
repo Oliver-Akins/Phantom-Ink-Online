@@ -13,8 +13,9 @@ export default (io: Server, socket: Socket, data: ResetGame) => {
 			return;
 		};
 		let game = games[data.game_code];
-		game.log.info(`Resetting game`)
+		game.log.info(`Resetting game`);
 
+		game.teams.forEach(t => t.resetHand());
 		game.questions.reset();
 		game.resetObject();
 		game.ingame = false;
