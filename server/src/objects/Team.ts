@@ -36,6 +36,14 @@ export class Team {
 	};
 
 
+	public resetHand(): void {
+		/**
+		 * Removes all the cards from the guesser's hand
+		 */
+		this._hand = [];
+	}
+
+
 	public removeCard(question: string) {
 		/**
 		 * Removes the given question from the medium's hand
