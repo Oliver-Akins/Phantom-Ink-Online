@@ -85,6 +85,15 @@ export default {
 			};
 			return false;
 		},
+		multipleGuessersOnTeam() {
+			let player_count = 0;
+			for (var player of this.$store.state.players) {
+				if (player.team === this.$store.state.team && this.userRole === player.role) {
+					player_count++;
+				};
+			};
+			return player_count > 1;
+		},
 	},
 	methods: {
 		sendCard(cardIndex) {
