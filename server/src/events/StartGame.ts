@@ -27,8 +27,8 @@ export default (io: Server, socket: Socket, data: StartGame) => {
 		};
 
 		// Ensure the questions deck got populated
-		if (game.questions.size <= 0) {
-			game.log.error(`Questions deck has no cards before the game started.`);
+		if (game.questions?.size <= 0) {
+			game.log.error(`The questions deck has no cards in the deck.`);
 			socket.emit(`GameStarted`, {
 				status: 507,
 				message: `Questions deck failed to parse, try again in a few seconds or start a new game.`,
