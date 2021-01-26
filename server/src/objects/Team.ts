@@ -36,11 +36,13 @@ export class Team {
 	};
 
 
-	public resetHand(): void {
+	public reset(): void {
 		/**
-		 * Removes all the cards from the guesser's hand
+		 * Resets all the per-game data related to this team
 		 */
 		this._hand = [];
+		this._questions = [];
+		this._answers = new Array<string>(8).fill(``);
 	}
 
 
