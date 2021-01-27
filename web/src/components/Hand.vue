@@ -28,6 +28,12 @@
 				:key="`card_${cardIndex}`"
 				@click.self="handleCardClick(cardIndex)"
 			>
+				<span
+					class="card-id"
+					v-if="multipleGuessersOnTeam"
+				>
+					{{ cardIndex }}
+				</span>
 				<p class="card-text centre">
 					{{ questions[cardIndex - 1] }}
 				</p>
@@ -66,7 +72,7 @@ export default {
 				return this.$store.state.writer_card_button;
 			} else {
 				return `Unknown Role`;
-			}
+			};
 		},
 		questions() {
 			return this.$store.state.questions;
@@ -84,6 +90,15 @@ export default {
 				};
 			};
 			return false;
+		},
+		multipleGuessersOnTeam() {
+			let player_count = 0;
+			for (var player of this.$store.state.players) {
+				if (player.team === this.$store.state.team && this.userRole === player.role) {
+					player_count++;
+				};
+			};
+			return player_count > 1;
 		},
 	},
 	methods: {
@@ -201,9 +216,16 @@ export default {
 	flex-direction: column;
 	width: calc(100% / 9);
 	border-radius: 10px;
+	position: relative;
 	padding: 10px;
 	display: flex;
 	height: 80%;
+}
+
+.card-id {
+	position: absolute;
+	left: 5px;
+	top: 5px;
 }
 
 .card-text {

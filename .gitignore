@@ -8,6 +8,8 @@ server/dist/*
 server/resources/*
 *.log
 *.sh
+test.*
+*.ignore*
 
 #=============================================================================#
 # The files that were auto-generated into a .gitignore by Vue-cli

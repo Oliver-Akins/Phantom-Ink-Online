@@ -24,8 +24,13 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 
 			// Draw new cards for team
 			deck.discard(data.text);
-			team.addCardsToHand(game.questions.draw(conf.game.hand_size - team.hand.length));
 			team.selectQuestion(data.text);
+
+			// Get any additional cards needed
+			let needed_cards = conf.game.hand_size - team.hand.length;
+			if (needed_cards > 0) {
+				team.addCardsToHand(game.questions.draw(needed_cards));
+			};
 
 			socket.emit(`UpdateHand`, {
 				status: 200,
