@@ -24,6 +24,7 @@
 		</div>
 		<div class="flex-row">
 			<button
+				class="clickable"
 				@click.stop="randomizeTeams()"
 			>
 				Randomize Teams
