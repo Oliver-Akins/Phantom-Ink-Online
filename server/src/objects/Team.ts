@@ -17,9 +17,7 @@ export class Team {
 	};
 
 
-	/*
-	 * The getters for the various class properties
-	 */
+	/* The getters for the various class properties */
 	get hand(): string[] { return this._hand; };
 	get answers(): string[] { return this._answers; };
 	get questions(): string[] { return this._questions; };
