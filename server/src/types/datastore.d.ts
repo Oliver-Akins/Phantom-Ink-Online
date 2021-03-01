@@ -10,7 +10,7 @@ type datastoreObjectCard = string[];
 
 interface datastoreTeam {
 	questions: datastoreQuestionCard[];
-	hand: datastoreQuestionCard[];
+	hands: team_hands;
 	answers: string[];
 	id: team;
 }

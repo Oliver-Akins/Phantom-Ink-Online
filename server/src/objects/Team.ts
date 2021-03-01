@@ -97,7 +97,7 @@ export class Team {
 		return {
 			questions: this._questions,
 			answers: this._answers,
-			hand: this._hand,
+			hands: this._hand,
 			id: this.id,
 		};
 	};
@@ -109,7 +109,7 @@ export class Team {
 		let t = new Team(data.id);
 		t._questions = data.questions;
 		t._answers = data.answers;
-		t._hand = data.hand;
+		t._hand = data.hands;
 		return t;
 	};
 };
