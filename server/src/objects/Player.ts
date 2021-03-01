@@ -13,6 +13,9 @@ export class Player {
 		this.isHost = isHost;
 	};
 
+	/**
+	 * Converts the Player into a JSON-compatible representation of the player
+	 */
 	public toJSON(): datastorePlayer {
 		return {
 			name: this.name,
@@ -22,6 +25,11 @@ export class Player {
 		};
 	};
 
+	/**
+	 * Converts JSON-compatible player data into a Player object.
+	 * 
+	 * @param data The player data to convert
+	 */
 	public static fromJSON(data: datastorePlayer): Player {
 		let player = new this(data.name, null, data.host);
 		player.role = data.role;
