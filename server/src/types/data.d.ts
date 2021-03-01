@@ -72,6 +72,14 @@ interface GameRejoined extends response {
 }
 
 
+interface RandomizeTeam {
+	game_code: string;
+}
+interface TeamsRandomized extends response {
+	players: player[];
+}
+
+
 interface GetHand {
 	game_code: string;
 	team: team;
