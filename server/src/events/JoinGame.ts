@@ -122,19 +122,24 @@ export default (io: Server, socket: Socket, data: JoinGame) => {
 				let rooms: string[] = [game.id];
 				game.log.info(`Player Reconnected to the game (name=${data.name})`);
 
-				// Get the hand of the player's team if they are a guesser
 				let hand: string[] = [];
-				if (sameName.team && sameName.role == `guesser`) {
-					hand = game.teams[sameName.team - 1].hand;
-				};
 
 				// Ensure that the user has a role before connecting them to
 				// the websocket rooms
-				if (sameName.role) {
+				if (sameName.role && sameName.team) {
 					rooms.push(
 						`${game.id}:*:${sameName.role}`,
 						`${game.id}:${sameName.team}:${sameName.role}`
 					);
+
+					switch (sameName.role) {
+						case "guesser":
+							hand = game.teams[sameName.team - 1].hand;
+							break;
+						case "writer":
+							hand = game.teams[sameName.team - 1].spiritHand;
+							break;
+					};
 				};
 
 				socket.join(rooms);
