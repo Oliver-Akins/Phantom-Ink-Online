@@ -50,7 +50,7 @@ export default (io: Server, socket: Socket, data: SendCard) => {
 			game.log.debug(`Guesser is sending a card to the writer`);
 
 			// Update the team's hand
-			team.removeCard(data.text);
+			team.askSpirit(data.text);
 
 			// send the question text to the writer player
 			io.to(`${game.id}:${team.id}:writer`).emit(`UpdateHand`, {
