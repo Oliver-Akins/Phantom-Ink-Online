@@ -16,21 +16,41 @@ export default (io: Server, socket: Socket, data: RandomizeTeams) => {
 		};
 		let game = games[data.game_code];
 
-		// Randomly assign each player to a team (only on mediums, let players
-		// pick which of them is the spirit)
-		for (var player of game.players) {
-			let new_team: 1|2 = Math.floor(Math.random() * 2) + 1 as 1|2;
-			player.team = new_team;
-			player.role = `guesser`;
-			game.log.debug(`Set ${player.name} to a medium on team ${player.team}`);
-		};
+		let players = [...game.players];
+		// game.log.info(players);
+		let new_team: 1|2 = 1;
+		while (players.length > 0) {
 
-		game.log.info(`Randomized all players`);
-		// Send the new player list to all players
-		io.to(game.id).send(`RandomizedTeams`, {
-			status: 200,
-			players: game.playerData
-		});
+			let player_index = Math.floor(Math.random() * players.length);
+			let player = players[player_index];
+			players.splice(player_index, 1);
+
+			game.log.debug(`Randomized ${player.name} onto team ${new_team}`);
+
+			// Move the socket rooms that the player's socket is in
+			player.socket?.leave(`${game.id}:*:${player.role}`);
+			player.socket?.leave(`${game.id}:${player.team}:${player.role}`);
+			player.socket?.join([
+				`${game.id}:*:guesser`,
+				`${game.id}:${new_team}:guesser`
+			]);
+
+			// Update the player's object
+			player.role = `guesser`;
+			player.team = new_team;
+
+			// Add the next player to the other team
+			new_team = new_team == 1 ? 2 : 1;
+
+			// Alert all connected clients that they need to update the UI
+			io.to(game.id).emit(`PlayerUpdate`, {
+				status: 200,
+				action: `modify`,
+				name: player.name,
+				role: player.role,
+				team: player.team,
+			});
+		};
 	}
 	catch (err) {
 		log.prettyError(err);
