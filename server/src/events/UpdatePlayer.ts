@@ -38,11 +38,15 @@ export default (io: Server, socket: Socket, data: UpdatePlayer) => {
 			message: `${err.name}: ${err.message}`,
 			source: `UpdatePlayer`,
 		});
-	}
+	};
 };
 
 
-const modifyPlayer = (io: Server, socket: Socket, data: UpdatePlayer): void => {
+export const modifyPlayer = (
+	io: Server,
+	socket: Socket,
+	data: UpdatePlayer
+): void => {
 	let game = games[data.game_code];
 	let player = game.players.find(x => x.name === data.name);
 
