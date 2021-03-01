@@ -24,15 +24,21 @@
 		</div>
 		<div class="flex-row">
 			<button
-				@click.stop="exitGame()"
+				@click.stop="randomizeTeams()"
 			>
-				{{ $store.state.is_host ? `Delete` : `Leave`}} Game
+				Randomize Teams
 			</button>
 			<button
 				class="clickable"
 				@click.stop="startGame()"
 			>
 				Click to Start the Game
+			</button>
+			<div class="new-line"></div>
+			<button
+				@click.stop="exitGame()"
+			>
+				{{ $store.state.is_host ? `Delete` : `Leave`}} Game
 			</button>
 		</div>
 	</div>
@@ -60,6 +66,9 @@ export default {
 		},
 		gameCode() {
 			return this.$store.state.game_code;
+		},
+		canRandomize() {
+			return this.$store.state.is_host;
 		},
 	},
 	methods: {
@@ -92,7 +101,12 @@ export default {
 		startGame() {
 			this.$socket.client.emit(`StartGame`, {
 				game_code: this.gameCode
-			})
+			});
+		},
+		randomizeTeams() {
+			this.$socket.client.emit(`RandomizeTeams`, {
+				game_code: this.gameCode
+			});
 		},
 	},
 	sockets: {
@@ -126,6 +140,7 @@ export default {
 	justify-content: center;
 	align-items: stretch;
 	display: flex;
+	flex-wrap: wrap;
 }
 
 button {
@@ -139,4 +154,10 @@ button {
 }
 button:hover { background-color: var(--background2-darken); }
 button:focus { background-color: var(--background2-lighten); }
+
+
+div.new-line {
+	width: 100% !important;
+	height: 0px;
+}
 </style>
