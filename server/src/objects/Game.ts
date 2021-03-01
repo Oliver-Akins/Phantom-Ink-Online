@@ -46,10 +46,10 @@ export class Game {
 
 	get questions() { return this._questions; };
 
+	/**
+	 * Return the objects that the spirits can choose from for the game.
+	 */
 	get objects() {
-		/**
-		 * Return the objects that the spirits can choose from for the game.
-		 */
 		if (!this._objectCard) {
 			this._objectCard = this._objects.draw(1)[0];
 		};
@@ -69,11 +69,11 @@ export class Game {
 	}
 
 
+	/**
+	 * Parses out the CSV files and creates the decks for the game to run
+	 * on.
+	 */
 	private parseDeckCSV() {
-		/**
-		 * Parses out the CSV files and creates the decks for the game to run
-		 * on.
-		 */
 
 		// parse the questions from the CSV
 		readFile(conf.game.cards.questions.fingerprint, `utf-8`, (err, filebuffer) => {
@@ -102,11 +102,11 @@ export class Game {
 		});
 	};
 
+	/**
+	 * Fetches and parses the CSV data from Google Sheets instead of local
+	 * CSV files.
+	 */
 	private parseDeckGoogleSheets() {
-		/**
-		 * Fetches and parses the CSV data from Google Sheets instead of local
-		 * CSV files.
-		 */
 		let key = conf.game.cards.key as string;
 		let questions_id = conf.game.cards.questions.fingerprint;
 		let objects_id = conf.game.cards.objects.fingerprint;
@@ -160,10 +160,10 @@ export class Game {
 	};
 
 
+	/**
+	 * Resets the objects card, for restarting the game
+	 */
 	public resetObject() {
-		/**
-		 * Resets the objects card, for restarting the game
-		 */
 		if (this._objectCard) {
 			this._objects.discard(this._objectCard);
 			this._objectCard = null;
@@ -172,10 +172,10 @@ export class Game {
 	};
 
 
+	/**
+	 * Returns a JSON representation of the game.
+	 */
 	public toJSON(): datastoreGame {
-		/**
-		 * Returns a JSON representation of the game.
-		 */
 		return {
 			players: this.players.map(p => p.toJSON()),
 			teams: this.teams.map(t => t.toJSON()),
@@ -190,10 +190,10 @@ export class Game {
 		};
 	};
 
+	/**
+	 * Converts a JSON representation into a Game object
+	 */
 	public static fromJSON(host: Player, data: datastoreGame): Game {
-		/**
-		 * Converts a JSON representation into a Game object
-		 */
 		let game = new this(host, { id: data.id });
 
 		// Re-create the deck objects
@@ -217,12 +217,12 @@ export class Game {
 	};
 
 
+	/**
+	 * Generates a game code with the given length
+	 *
+	 * @param length The length of the code we want to generate
+	 */
 	public static generateID(length: number): string {
-		/**
-		 * Generates a game code with the given length
-		 *
-		 * @param length -> The length of the code we want to generate
-		 */
 		let code: string;
 
 		// Generate a code until we don't have a collision

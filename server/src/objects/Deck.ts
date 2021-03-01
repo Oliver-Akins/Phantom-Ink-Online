@@ -14,14 +14,14 @@ export class Deck<T> {
 	get size(): number { return this._deck.length; }
 
 
+	/**
+	 * Draws X cards from the deck
+	 *
+	 * @param quantity The number of cards to draw
+	 * @throws Error If quantity is <= 0
+	 * @throws Error If quantity > size
+	 */
 	public draw(quantity: number): T[] {
-		/**
-		 * Draws X cards from the deck
-		 *
-		 * @param quantity -> The number of cards to draw
-		 * @throws Error -> If quantity is <= 0
-		 * @throws Error -> If quantity > size
-		 */
 		if (quantity <= 0) {
 			throw new Error(`Cannot get ${quantity} cards.`);
 		} else if (quantity > this.size) {
@@ -47,12 +47,12 @@ export class Deck<T> {
 	};
 
 
+	/**
+	 * Adds the specific card to the discard pile
+	 *
+	 * @param card The card to add to the discard pile
+	 */
 	public discard(card: T) {
-		/**
-		 * Adds the specific card to the discard pile
-		 *
-		 * @param card -> The card to add to the discard pile
-		 */
 		this._unknown = this._unknown.filter(x => x != card);
 		this._discard.push(card);
 	};
@@ -65,10 +65,10 @@ export class Deck<T> {
 	};
 
 
+	/**
+	 * Converts this Deck into a JSON-compatible object
+	 */
 	public toJSON(): datastoreDeck<T> {
-		/**
-		 * Converts this Deck into a JSON-compatible object
-		 */
 		return {
 			deck: this._deck,
 			unknown: this._unknown,
@@ -76,10 +76,10 @@ export class Deck<T> {
 		};
 	};
 
+	/**
+	 * Converts the JSON representation of a deck into a Deck
+	 */
 	public static fromJSON<A>(data: datastoreDeck<A>): Deck<A> {
-		/**
-		 * Converts the JSON representation of a deck into a Deck
-		 */
 		let d = new Deck(data.deck);
 		d._discard = data.discard;
 		d._unknown = data.unknown;
