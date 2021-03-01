@@ -62,7 +62,7 @@ export class Team {
 	 *
 	 * @param question The question that is being asked
 	 */
-	public askSpiritQuestion(question: string) {
+	public askSpirit(question: string) {
 		this._hand.writer.push(question);
 		this.removeCard(question);
 	};
