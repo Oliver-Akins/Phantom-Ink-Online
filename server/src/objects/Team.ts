@@ -4,7 +4,7 @@ export class Team {
 	readonly id: team;
 	public guessers: Player[];
 	public writer: Player | null;
-	private _hand: string[];
+	private _hand: team_hands;
 	private _questions: string[];
 	private _answers: string[];
 
@@ -12,7 +12,10 @@ export class Team {
 		this.id = id;
 		this._answers = new Array<string>(8).fill(``);
 		this._questions = [];
-		this._hand = [];
+		this._hand = {
+			guesser: [],
+			writer: []
+		};
 		this.guessers = [];
 	};
 
