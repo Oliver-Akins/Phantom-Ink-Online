@@ -15,6 +15,7 @@ import UpdatePlayer from "./events/UpdatePlayer";
 import SelectObject from "./events/SelectObject";
 import UpdateAnswer from "./events/UpdateAnswer";
 import GetPastQuestions from "./events/GetPastQuestions";
+import RandomizeTeams from "./events/RandomizeTeams";
 
 
 export default async (conf: config) => {
@@ -42,6 +43,7 @@ export default async (conf: config) => {
 		socket.on(`JoinGame`, (data: JoinGame) => JoinGame(io, socket, data));
 		socket.on(`UpdatePlayer`, (data: UpdatePlayer) => UpdatePlayer(io, socket, data));
 		socket.on(`LeaveGame`, (data: LeaveGame) => LeaveGame(io, socket, data));
+		socket.on(`RandomizeTeams`, (data: RandomizeTeams) => RandomizeTeams(io, socket, data));
 
 
 		// Game Mechanisms
