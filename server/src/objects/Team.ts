@@ -49,7 +49,16 @@ export class Team {
 	 * @param question The card text to remove from the hand.
 	 */
 	public removeCard(question: string) {
-		this._hand = this._hand.filter(x => x != question);
+
+
+	/**
+	 * Asks the spirit a question, removing it from the medium's hands
+	 *
+	 * @param question The question that is being asked
+	 */
+	public askSpiritQuestion(question: string) {
+		this._hand.writer.push(question);
+		this.removeCard(question);
 	};
 
 
