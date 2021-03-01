@@ -21,7 +21,8 @@ export class Team {
 
 
 	/* The getters for the various class properties */
-	get hand(): string[] { return this._hand; };
+	get hand(): string[] { return this._hand.guesser; };
+	get spiritHand(): string[] { return this._hand.writer };
 	get answers(): string[] { return this._answers; };
 	get questions(): string[] { return this._questions; };
 
@@ -32,7 +33,7 @@ export class Team {
 	 * @param questions The array of question text to add the medium's hand.
 	 */
 	public addCardsToHand(questions: string[]): void {
-		this._hand.push(...questions);
+		this._hand.guesser.push(...questions);
 	};
 
 
@@ -40,18 +41,20 @@ export class Team {
 	 * Resets all the per-game data related to this team
 	 */
 	public reset(): void {
-		this._hand = [];
+		this._hand.guesser = [];
 		this._questions = [];
 		this._answers = new Array<string>(8).fill(``);
 	}
 
 
 	/**
-	 * Removes the given question from the medium's hand
+	 * Removes a card from the medium's hand
 	 *
-	 * @param question The card text to remove from the hand.
+	 * @param question The card to remove
 	 */
 	public removeCard(question: string) {
+		this._hand.guesser = this._hand.guesser.filter(x => x != question);
+	};
 
 
 	/**
@@ -72,6 +75,7 @@ export class Team {
 	 */
 	public selectQuestion(question: string) {
 		this._questions.push(question);
+		this._hand.writer = [];
 	};
 
 
