@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import * as conf from "../config";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		survey_link: ``,
+		survey_link: conf.survey_url,
 
 		team_1: {
 			name: `Sun`,

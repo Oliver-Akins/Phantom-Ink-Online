@@ -1,4 +1,11 @@
 /**
+ * The survey that will be offered to players to fill out after finishing a
+ * game so that they can give feedback.
+ */
+export const survey_url = ``;
+
+
+/**
  * The URI that socket IO tries to connect to for websocket communication when
  * built for production serving.
  */
