@@ -1,42 +1,26 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import * as conf from "../config";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		survey_link: ``,
+		survey_link: conf.survey_url,
 
-		team_1: {
-			name: `Sun`,
-			icon: `sun.svg`,
-			eyes: {
-				1: 0,	2: 0,
-				3: 0,	4: 1,
-				5: 0,	6: 1,
-				7: 1,	8: 0,
-			},
-		},
-		team_2: {
-			name: `Moon`,
-			icon: `moon.svg`,
-			eyes: {
-				1: 0,	2: 0,
-				3: 1,	4: 0,
-				5: 1,	6: 1,
-				7: 0,	8: 0,
-			},
-		},
-		writer_name: `Spirit`,
+		team_1: conf.team_settings[0],
+		team_2: conf.team_settings[1],
+
+		writer_name: conf.writer_name,
 		writer_card_button: `Answer Question`,
 		writer_object_choose_button: `Choose Object`,
 
-		guesser_name: `Medium`,
+		guesser_name: conf.guesser_name,
 		guesser_card_button: `Ask Spirit`,
 
-		eye_icon: `eye.svg`,
+		eye_icon: conf.eye_icon,
 
-		discard_hand_icon: `trash.svg`,
+		discard_hand_icon: conf.discard_hand_icon,
 
 //===========================================================================//
 		// DO NOT EDIT ANYTHING BELOW THIS COMMENT

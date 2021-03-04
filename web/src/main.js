@@ -4,17 +4,14 @@ import store from './store';
 import io from 'socket.io-client';
 import clipboard from "vue-clipboard2";
 import VueSocketIOExt from 'vue-socket.io-extended';
+import {websocket_uri, dev_websocket_uri} from "./config";
 
 Vue.config.productionTip = false;
 
-// Get the URI for dev enfironments
-let websocket_uri = `/`;
-if (process.env.NODE_ENV === `development`) {
-	websocket_uri = `http://${window.location.hostname}:8081`;
-};
-
 Vue.use(clipboard);
-Vue.use(VueSocketIOExt, io(websocket_uri));
+Vue.use(VueSocketIOExt, io(
+	process.env.NODE_ENV === `development` ? websocket_uri : dev_websocket_uri
+));
 
 new Vue({
 	store,

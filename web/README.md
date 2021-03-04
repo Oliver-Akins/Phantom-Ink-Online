@@ -16,7 +16,7 @@ from that directory.
 6. In the webserver of your choice, you must also setup an
 `example.com/socket.io` route that reverse proxies the websocket connection
 through to the Node.js server. If you do not want to set up this proxy, you can
-bypass it by changing the URI in the `serc/main.js` file to have a specific URL and port.
+bypass it by changing the URI in the `src/main.js` file to have a specific URL and port.
 
 Example: Change
 ```js

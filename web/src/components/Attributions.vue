@@ -4,7 +4,7 @@
 			class="bottom-bar clickable"
 			@click.stop="modal = true"
 		>
-			Made By: Oliver Akins (Alkali Metal)
+			Made By: Oliver Akins
 		</div>
 		<ModalAnimation
 			:show="modal"
@@ -15,7 +15,7 @@
 				Ghost Writer is designed and created by
 				<a href="https://resonym.com" target="_blank" rel="noopener">Resonym</a>
 				<br>
-				Online Prototype Made By: Oliver Akins (Alkali Metal)
+				Online Prototype Made By: Oliver Akins
 				<br>
 				<a
 					v-if="$store.state.survey_link"
@@ -27,18 +27,6 @@
 						Complete The Survey
 					</button>
 				</a>
-			</p>
-			<hr>
-			<p>
-				Tooling:
-				<ul>
-					<li
-						v-for="(link, name) in tooling"
-						:key="name"
-					>
-						<a :href="link">{{ name }}</a>
-					</li>
-				</ul>
 			</p>
 		</ModalAnimation>
 	</div>
@@ -54,16 +42,6 @@ export default {
 	},
 	data() {return {
 		modal: false,
-		tooling: {
-			"Vue.JS (With VueX)": "https://vuejs.org",
-			"Vue-Socket.io": "https://github.com/MetinSeylan/Vue-Socket.io",
-			"Vue-Clipboard2": "https://www.npmjs.com/package/vue-clipboard2",
-			"Toml": "https://www.npmjs.com/package/toml",
-			"tslog": "https://www.npmjs.com/package/tslog",
-			"Socket.io": "https://socket.io",
-			"Axios": "https://www.npmjs.com/package/axios",
-			"neat-csv": "https://github.com/sindresorhus/neat-csv",
-		}
 	}},
 	computed: {},
 	methods: {},
