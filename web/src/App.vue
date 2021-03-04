@@ -32,7 +32,7 @@
 			<p class="centre">
 				To use this site you must be using a laptop, desktop, or iPad.
 				If you are on one of those devices and you still see this message,
-				please contact "oliver {at} akins.me" with the following information:
+				please contact "ghostwriter{at}resonym.com" with the following information:
 				<br><br>
 				{{ userAgent }}
 			</p>
