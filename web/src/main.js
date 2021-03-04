@@ -10,7 +10,7 @@ Vue.config.productionTip = false;
 
 Vue.use(clipboard);
 Vue.use(VueSocketIOExt, io(
-	process.env.NODE_ENV === `development` ? websocket_uri : dev_websocket_uri
+	process.env.NODE_ENV === `development` ? dev_websocket_uri : websocket_uri
 ));
 
 new Vue({
