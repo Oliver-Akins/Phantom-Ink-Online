@@ -57,6 +57,13 @@ export const guesser_name = `Medium`;
 export const eye_icon = `eye.svg`;
 
 /**
+ * The icon that is used for the discard hand button that mediums see in the
+ * lower right hand corner of the screen.
+ */
+export const discard_hand_icon = `trash.svg`;
+
+
+/**
  * The URI that socket IO tries to connect to for websocket communication when
  * built for production serving.
  */

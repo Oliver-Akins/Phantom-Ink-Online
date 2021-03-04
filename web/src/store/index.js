@@ -20,7 +20,7 @@ export default new Vuex.Store({
 
 		eye_icon: conf.eye_icon,
 
-		discard_hand_icon: `trash.svg`,
+		discard_hand_icon: conf.discard_hand_icon,
 
 //===========================================================================//
 		// DO NOT EDIT ANYTHING BELOW THIS COMMENT
