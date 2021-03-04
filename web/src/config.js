@@ -37,7 +37,19 @@ export const team_settings = [
 			7: 0,	8: 0,
 		}
 	}
-]
+];
+
+
+/**
+ * The name that is displayed for the players that answer the questions.
+ */
+export const writer_name = `Spirit`;
+
+/**
+ * The name that is displayed for the players that are trying to guess the
+ * object.
+ */
+export const guesser_name = `Medium`;
 
 
 /**

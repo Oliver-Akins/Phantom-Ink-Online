@@ -10,12 +10,12 @@ export default new Vuex.Store({
 
 		team_1: conf.team_settings[0],
 		team_2: conf.team_settings[1],
-		
-		writer_name: `Spirit`,
+
+		writer_name: conf.writer_name,
 		writer_card_button: `Answer Question`,
 		writer_object_choose_button: `Choose Object`,
 
-		guesser_name: `Medium`,
+		guesser_name: conf.guesser_name,
 		guesser_card_button: `Ask Spirit`,
 
 		eye_icon: `eye.svg`,
