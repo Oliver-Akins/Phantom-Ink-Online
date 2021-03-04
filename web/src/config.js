@@ -8,4 +8,4 @@ export const websocket_uri = `/`;
  * The websocket URI that Socket.IO tries to connect to when live-serving the
  * site via webpack.
  */
-export const dev_websocket_uri = 8081;
+export const dev_websocket_uri = `http://${window.location.hostname}:8081`;
