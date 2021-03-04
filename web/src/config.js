@@ -51,6 +51,10 @@ export const writer_name = `Spirit`;
  */
 export const guesser_name = `Medium`;
 
+/**
+ * The icon name for the Eye displayed on the main board.
+ */
+export const eye_icon = `eye.svg`;
 
 /**
  * The URI that socket IO tries to connect to for websocket communication when

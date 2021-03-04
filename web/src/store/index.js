@@ -18,7 +18,7 @@ export default new Vuex.Store({
 		guesser_name: conf.guesser_name,
 		guesser_card_button: `Ask Spirit`,
 
-		eye_icon: `eye.svg`,
+		eye_icon: conf.eye_icon,
 
 		discard_hand_icon: `trash.svg`,
 
