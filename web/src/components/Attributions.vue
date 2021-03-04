@@ -4,7 +4,7 @@
 			class="bottom-bar clickable"
 			@click.stop="modal = true"
 		>
-			Made By: Oliver Akins (Alkali Metal)
+			Made By: Oliver Akins
 		</div>
 		<ModalAnimation
 			:show="modal"
@@ -15,7 +15,7 @@
 				Ghost Writer is designed and created by
 				<a href="https://resonym.com" target="_blank" rel="noopener">Resonym</a>
 				<br>
-				Online Prototype Made By: Oliver Akins (Alkali Metal)
+				Online Prototype Made By: Oliver Akins
 				<br>
 				<a
 					v-if="$store.state.survey_link"
