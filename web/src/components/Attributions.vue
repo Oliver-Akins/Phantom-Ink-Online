@@ -28,18 +28,6 @@
 					</button>
 				</a>
 			</p>
-			<hr>
-			<p>
-				Tooling:
-				<ul>
-					<li
-						v-for="(link, name) in tooling"
-						:key="name"
-					>
-						<a :href="link">{{ name }}</a>
-					</li>
-				</ul>
-			</p>
 		</ModalAnimation>
 	</div>
 </template>
@@ -54,16 +42,6 @@ export default {
 	},
 	data() {return {
 		modal: false,
-		tooling: {
-			"Vue.JS (With VueX)": "https://vuejs.org",
-			"Vue-Socket.io": "https://github.com/MetinSeylan/Vue-Socket.io",
-			"Vue-Clipboard2": "https://www.npmjs.com/package/vue-clipboard2",
-			"Toml": "https://www.npmjs.com/package/toml",
-			"tslog": "https://www.npmjs.com/package/tslog",
-			"Socket.io": "https://socket.io",
-			"Axios": "https://www.npmjs.com/package/axios",
-			"neat-csv": "https://github.com/sindresorhus/neat-csv",
-		}
 	}},
 	computed: {},
 	methods: {},
