@@ -72,7 +72,7 @@ interface GameRejoined extends response {
 }
 
 
-interface RandomizeTeam {
+interface RandomizeTeams {
 	game_code: string;
 }
 interface TeamsRandomized extends response {
