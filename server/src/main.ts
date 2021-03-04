@@ -5,6 +5,7 @@ import startWebsocket from "./websocket";
 import { Validate } from "./utils/validate";
 import { processExit } from "./utils/cleanup";
 import { readdirSync, readFileSync } from "fs";
+// import { DiscordTransport } from "./utils/DiscordTransport";
 
 export const conf: config = toml.parse(readFileSync(`server.toml`, `utf-8`));
 
@@ -33,6 +34,8 @@ export const log: Logger = new Logger({
 	minLevel: conf.log.level,
 	name: `GLOBAL`,
 });
+
+// log.attachTransport(new DiscordTransport, "info");
 
 // Ensure the config valid
 if (Validate.config(conf)) {
