@@ -44,6 +44,9 @@ export default (io: Server, socket: Socket, data: RandomizeTeams) => {
 			player.role = `guesser`;
 			player.team = new_team;
 
+			// Update the team object
+			game.teams[new_team - 1].guessers.push(player);
+
 			// Add the next player to the other team
 			new_team = new_team == 1 ? 2 : 1;
 
