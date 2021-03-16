@@ -16,6 +16,11 @@ export default (io: Server, socket: Socket, data: RandomizeTeams) => {
 		};
 		let game = games[data.game_code];
 
+		// Remove all players from all teams
+		for (var team of game.teams) {
+			team.removePlayers();
+		};
+
 		let players = [...game.players];
 		// game.log.info(players);
 		let new_team: 1|2 = 1;
