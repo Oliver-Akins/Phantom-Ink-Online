@@ -1,5 +1,16 @@
 <template>
 	<div id="app" class="maximize">
+		<transition name="top-slide">
+			<div
+				id="disconnect-error"
+				v-if="$socket.disconnected"
+			>
+				No connection to the game server.
+				<br>
+				If you are in the middle of a game, reload the website and you
+				can reconnect to the game by using the EXACT same name.
+			</div>
+		</transition>
 		<div v-if="!isMobile" class="maximize">
 			<transition name="top-slide">
 				<div
@@ -124,6 +135,21 @@ html, body {
 	width: 100vw;
 	padding: 0;
 	margin: 0;
+}
+
+#disconnect-error {
+	background-color: red;
+	justify-content: center;
+	font-weight: bolder;
+	text-align: center;
+	position: fixed;
+	display: flex;
+	color: black;
+	padding: 10px;
+	width: 100vw;
+	z-index: 50;
+	left: 0;
+	top: 0;
 }
 
 .alert-bar {
