@@ -3,7 +3,7 @@
 		<transition name="top-slide">
 			<div
 				id="disconnect-error"
-				v-if="$socket.disconnected"
+				v-if="$socket.disconnected && ready"
 			>
 				No connection to the game server.
 				<br>
@@ -70,6 +70,7 @@ export default {
 			message: null,
 			type: null,
 		},
+		ready: false,
 	}},
 	computed: {
 		gameState() {
@@ -118,6 +119,11 @@ export default {
 				}, 2000)
 			};
 		},
+	},
+	mounted() {
+		setTimeout(() => {
+			this.ready = true;
+		}, 1000);
 	},
 }
 </script>
