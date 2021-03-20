@@ -1,5 +1,8 @@
 <template>
-	<div id="GameBoard">
+	<div
+		id="GameBoard"
+		:class="teamClass"
+	>
 		<div id="other-team-answers" class="team-container">
 			<div class="answer-container maximize">
 				<!--
@@ -129,6 +132,14 @@ export default {
 			};
 			return new RegExp(`${this.$store.state.chosen_object.toLowerCase()}\\.?`);
 		},
+		teamClass() {
+			if (this.teamID == `sun`) {
+				return `sun`;
+			} else if (this.teamID == `moon`) {
+				return `moon`;
+			};
+			return ``;
+		},
 	},
 	methods: {
 		isCorrect(team, answerIndex) {
@@ -177,19 +188,31 @@ export default {
 @import "../css/style.css";
 
 #GameBoard {
-	background-color: var(--board-background);
 	color: var(--board-background-text);
 	justify-content: space-evenly;
 	padding-bottom: 10px;
 	flex-direction: row;
 	position: relative;
+	padding-top: 40px;
 	margin: 15px auto;
 	display: flex;
 	width: 95%;
 }
 
+#GameBoard.sun {
+	background: var(--board-background-sun), var(--board-background);
+}
+#GameBoard.moon {
+	background: var(--board-background-moon), var(--board-background);
+}
+
 h2 {
 	margin: 12px 0;
+}
+
+#other-team-answers .answer {
+	justify-content: flex-end;
+	display: flex;
 }
 
 .team-container {
@@ -248,7 +271,7 @@ input[type="text"] {
 	font-size: larger;
 	outline: none;
 	padding: 7px;
-	width: 90%;
+	width: 80%;
 	margin: 0;
 }
 input[type="text"]:focus {
@@ -266,7 +289,7 @@ input[type="text"].other-team-answer {
 	border-radius: 25px;
 	position: absolute;
 	padding: 10px;
-	right: 15px;
+	right: 110px;
 	top: 15px;
 }
 #past-questions-toggle:hover { background-color: var(--past-questions-button-hover); }

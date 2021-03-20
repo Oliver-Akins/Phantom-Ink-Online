@@ -54,6 +54,8 @@
 		is used for the text input backgrounds.
 	*/
 	--board-background: var(--background1);
+	--board-background-sun: top/100% no-repeat url("/assets/gameboard-background-sun.jpg");
+	--board-background-moon: top/100% no-repeat url("/assets/gameboard-background-moon.jpg");
 	--board-background-alt: var(--background3);
 	--board-background-alt-darken: var(--background3-darken);
 	--board-background-alt-lighten: var(--background3-lighten);
