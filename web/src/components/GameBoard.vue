@@ -182,7 +182,6 @@ export default {
 	justify-content: space-evenly;
 	padding-bottom: 10px;
 	flex-direction: row;
-	border-radius: 20px;
 	position: relative;
 	margin: 15px auto;
 	display: flex;
@@ -245,7 +244,6 @@ input[type="text"] {
 	text-transform: uppercase;
 	border-color: transparent;
 	border-style: solid;
-	border-radius: 7px;
 	border-width: 2px;
 	font-size: larger;
 	outline: none;
