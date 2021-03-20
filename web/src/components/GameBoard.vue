@@ -1,7 +1,7 @@
 <template>
 	<div id="GameBoard">
 		<div id="other-team-answers" class="team-container">
-			<div class="answer-container">
+			<div class="answer-container maximize">
 				<!--
 					Repeats to create the number of team answers that we need,
 					these text inputs are always disabled for the player as these
@@ -46,7 +46,7 @@
 			</div>
 		</div>
 		<div id="team-answers" class="team-container">
-			<div class="answer-container">
+			<div class="answer-container maximize">
 				<!--
 					This repeats to create the volume oftext inputs that we need,
 					only allowing the text inputs to be used by the spirit players
@@ -194,8 +194,7 @@ h2 {
 }
 
 .team-container {
-	grid-template-rows: 50px 1fr;
-	display: grid;
+	height: 100%;
 	width: 45%;
 }
 
