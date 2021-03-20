@@ -62,7 +62,6 @@ export default {
 #PastQuestions  {
 	background-color: var(--board-background-alt);
 	color: var(--board-background-alt-text);
-	border-radius: 20px 0 0 20px;
 	height: calc(100% - 10px);
 	flex-direction: column;
 	padding-bottom: 10px;
@@ -89,6 +88,7 @@ export default {
 	justify-content: center;
 	align-items: center;
 	border-radius: 7px;
+	text-align: center;
 	display: flex;
 	margin: 5px;
 	width: 40%;

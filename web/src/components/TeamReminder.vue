@@ -75,7 +75,7 @@ export default {
 @import "../css/style.css";
 
 #TeamReminder > .container {
-	background-color: var(--background3);
+	background-color: var(--team-reminder-background);
 	border-radius: 0 100% 0 0;
 	height: var(--size);
 	width: var(--size);

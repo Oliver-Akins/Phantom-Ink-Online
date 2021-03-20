@@ -7,58 +7,76 @@
 	*/
 	--fonts: "Roboto", "Open Sans", sans-serif;
 	--input-fonts: "Roboto Slab", var(--fonts);
-	--light-font-colour: #ECE3BB;
-	--dark-font-colour: #000F3D;
+	--light-font-colour: #dac8b0;
+	--dark-font-colour: #000f3d;
+
+	/* The full-site background used for the game view area only */
+	--game-view-background: 100%/100% repeat url("/assets/wood-grain.jpg");
 
 	/*
 		The darkest colour in the trio for backgrounds, this is used for the
 		site-wide background and modal content.
 	*/
-	--background1: #001233;
-	--background1-darken: #000c24;
-	--background1-lighten: #001a49;
+	--background1: #111113;
+	--background1-darken: #09090a;
+	--background1-lighten: #1c1c1f;
 	--background1-text: var(--light-font-colour);
 
 	/*
 		The middle colour in the trio for backgrounds.
 		Used for hand background, buttons, regions, etc.
 	*/
-	--background2: #24356E;
-	--background2-darken: #19295e;
-	--background2-lighten: #364a8d;
+	--background2: #4f5156;
+	--background2-darken: #3d3e42;
+	--background2-lighten: #676a70;
 	--background2-text: var(--light-font-colour);
 
 	/* The colours used for the lightest shades of the background regions. */
-	--background3: #4A5081;
-	--background3-darken: #454b7e;
-	--background3-lighten: #5a6192;
-	--background3-text: var(--light-font-colour);
+	--background3: #e5d9ba;
+	--background3-darken: #bbae8f;
+	--background3-lighten: #fff4d7;
+	--background3-text: var(--dark-font-colour);
+
+	/* Hand colours */
+	--hand-background: rgba(255, 255, 255, 0.2);
 
 	/*
 		The colours for the cards in the hands of the players
 	*/
-	--card-background: #E1D098;
-	--card-text: var(--dark-font-colour);
-	--card-button: #ACA885;
-	--card-button-darken: #88845e;
-	--card-button-lighten: #d1ceaf;
+	--card-background: var(--background1);
+	--card-text: var(--light-font-colour);
+	--card-button: var(--background3);
+	--card-button-darken: var(--background3-darken);
+	--card-button-lighten: var(--background3-lighten);
 
 	/*
 		The colours used for the main game board. While playing, the alt colour
-		is used for the text input backgrounds, as well as the question toggle
-		button, then used as the main background of the past questions insert,
-		with the primary background being the text input background.
-
-		The text colours are also used for the SVG eyes, if you change the
-		"--board-background-text" variable, also change the fill value in the
-		/public/assets/eye.svg file to match it
+		is used for the text input backgrounds.
 	*/
-	--board-background: #ACA885;
-	--board-background-alt: #E1D098;
-	--board-background-alt-darken: #cab981;
-	--board-background-alt-lighten: #f1e4b7;
-	--board-background-text: var(--dark-font-colour);
-	--board-background-alt-text: var(--dark-font-colour);
+	--board-background: var(--background1);
+	--board-background-sun: top/100% no-repeat url("/assets/gameboard-background-sun.jpg");
+	--board-background-moon: top/100% no-repeat url("/assets/gameboard-background-moon.jpg");
+	--board-background-alt: var(--background3);
+	--board-background-alt-darken: var(--background3-darken);
+	--board-background-alt-lighten: var(--background3-lighten);
+	--board-background-text: var(--background1-text);
+	--board-background-alt-text: var(--background3-text);
+
+	/* The colours for the object cards that the spirits pick from */
+	--object-card-background: var(--background3);
+	--object-card-text: var(--background3-text);
+	--object-button-default: var(--background2);
+	--object-button-hover: var(--background2-lighten);
+	--object-button-focus: var(--background2-darken);
+	--object-button-text: var(--background2-text);
+
+	/* Colours used for the past questions insert and button */
+	--past-questions-button-default: var(--background3);
+	--past-questions-button-hover: var(--background3-lighten);
+	--past-questions-button-focus: var(--background3-darken);
+	--past-questions-background: var(--background3);
+	--past-questions-field: var(--background1);
+
 
 	/* The fill colour of the eyes on the game board */
 	--eye-colour: #000000;
@@ -77,4 +95,10 @@
 	--cancel-background-darken: #a54141;
 	--cancel-background-lighten: #fa7d7d;
 	--cancel-text: white;
+
+	/* Corner buttons */
+	--trash-button-background: var(--background2);
+	--team-reminder-background: var(--background2);
+	--object-reminder-background: var(--background2);
+	--object-reminder-text: var(--background2-text);
 }

@@ -69,6 +69,7 @@ export default {
 @import "../css/style.css";
 
 #GameView {
+	background: var(--game-view-background);
 	grid-template-rows: 70% 1fr 50px;
 	display: grid;
 }

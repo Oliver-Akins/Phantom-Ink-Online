@@ -1,8 +1,10 @@
 <template>
-	<div id="GameBoard">
+	<div
+		id="GameBoard"
+		:class="teamClass"
+	>
 		<div id="other-team-answers" class="team-container">
-			<h2 class="centre">{{ $store.getters.otherTeamName }} Answers</h2>
-			<div class="answer-container">
+			<div class="answer-container maximize">
 				<!--
 					Repeats to create the number of team answers that we need,
 					these text inputs are always disabled for the player as these
@@ -47,8 +49,7 @@
 			</div>
 		</div>
 		<div id="team-answers" class="team-container">
-			<h2 class="centre">{{ $store.getters.teamName }} Answers</h2>
-			<div class="answer-container">
+			<div class="answer-container maximize">
 				<!--
 					This repeats to create the volume oftext inputs that we need,
 					only allowing the text inputs to be used by the spirit players
@@ -92,7 +93,8 @@
 			</div>
 		</div>
 		<button
-			class="past-questions-toggle clickable"
+			id="past-questions-toggle"
+			class="clickable"
 			@click.self="visible = !visible"
 		>
 			{{ visible ? `Hide` : `Show` }} Past Questions
@@ -129,6 +131,14 @@ export default {
 				return /\n/;
 			};
 			return new RegExp(`${this.$store.state.chosen_object.toLowerCase()}\\.?`);
+		},
+		teamClass() {
+			if (this.teamID == `sun`) {
+				return `sun`;
+			} else if (this.teamID == `moon`) {
+				return `moon`;
+			};
+			return ``;
 		},
 	},
 	methods: {
@@ -178,16 +188,22 @@ export default {
 @import "../css/style.css";
 
 #GameBoard {
-	background-color: var(--board-background);
 	color: var(--board-background-text);
 	justify-content: space-evenly;
 	padding-bottom: 10px;
 	flex-direction: row;
-	border-radius: 20px;
 	position: relative;
+	padding-top: 40px;
 	margin: 15px auto;
 	display: flex;
 	width: 95%;
+}
+
+#GameBoard.sun {
+	background: var(--board-background-sun), var(--board-background);
+}
+#GameBoard.moon {
+	background: var(--board-background-moon), var(--board-background);
 }
 
 h2 {
@@ -195,45 +211,48 @@ h2 {
 }
 
 .team-container {
-	grid-template-rows: 50px 1fr;
-	display: grid;
+	height: 100%;
 	width: 45%;
 }
 
 .answer-container {
 	justify-content: space-evenly;
 	flex-direction: column;
-	align-items: center;
 	display: flex;
+}
+#other-team-answers .answer-container {
+	align-items: flex-end;
 }
 
 .answer {
 	position: relative;
-	width: 100%;
+	width: 90%;
 }
 .answer.correct > input {
 	border-color: green !important;
 	border-width: 3px;
 }
 
+#other-team-answers .answer {
+	margin-right: 20px;
+}
+
 .eye-container {
 	position: absolute;
-	width: 70px;
+	height: 100%;
 	z-index: 1;
 }
 .team {
-	right: -40px;
-	top: 25%;
+	right: -53px;
+	top: 0;
 }
 .other-team {
-	text-align: right;
-	left: -50px;
-	top: 25%;
+	left: -35px;
+	top: 0;
 }
 
 .eye {
-	height: 25px;
-	vertical-align: bottom;
+	height: 100%;
 }
 
 .eye-multiplier {
@@ -247,32 +266,31 @@ input[type="text"] {
 	text-transform: uppercase;
 	border-color: transparent;
 	border-style: solid;
-	border-radius: 7px;
 	border-width: 2px;
 	font-size: larger;
 	outline: none;
 	padding: 7px;
-	width: 90%;
+	width: 100%;
 	margin: 0;
 }
 input[type="text"]:focus {
 	border-color: var(--board-background-text);
 }
-input[type="text"].team-answer {
+/* input[type="text"].team-answer {
 	padding-right: 5%;
 }
 input[type="text"].other-team-answer {
 	padding-left: 5%;
-}
+} */
 
-button {
-	background-color: var(--board-background-alt);
-	border-radius: 0 20px 0 7px;
+#past-questions-toggle {
+	background-color: var(--past-questions-button-default);
+	border-radius: 25px;
 	position: absolute;
 	padding: 10px;
-	right: 0;
-	top: 0;
+	right: 110px;
+	top: 15px;
 }
-button:hover { background-color: var(--board-background-alt-darken); }
-button:focus { background-color: var(--board-background-alt-lighten); }
+#past-questions-toggle:hover { background-color: var(--past-questions-button-hover); }
+#past-questions-toggle:focus { background-color: var(--past-questions-button-focus); }
 </style>

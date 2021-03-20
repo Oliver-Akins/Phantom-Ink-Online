@@ -80,22 +80,30 @@ export default {
 	padding-bottom: 10px;
 	flex-direction: row;
 	border-radius: 20px;
+	align-items: center;
 	margin: 15px auto;
-	flex-wrap: wrap;
 	display: flex;
 	width: 95%;
 }
 
 .object {
-	background-color: var(--board-background-alt);
-	color: var(--board-background-alt-text);
+	background-color: var(--object-card-background);
+	color: var(--object-card-text);
 	justify-content: center;
 	flex-direction: column;
 	border-radius: 10px;
 	display: flex;
 	padding: 15px;
+	flex-grow: 1;
 	margin: 10px;
-	width: 40%;
+	height: 50%;
+}
+
+#ObjectBoard :first-child {
+	margin-left: 20px;
+}
+#ObjectBoard :last-child {
+	margin-right: 20px;
 }
 
 .text {
@@ -106,12 +114,13 @@ export default {
 }
 
 button {
-	background: var(--card-button);
+	background: var(--object-button-default);
+	color: var(--object-button-text);
 	border-radius: 7px;
 	font-size: larger;
 	padding: 7px;
 	margin: 10px;
 }
-button:hover { background-color: var(--card-button-darken); }
-button:focus { background-color: var(--board-background-alt-lighten); }
+button:hover { background: var(--object-button-hover); }
+button:focus { background: var(--object-button-focus); }
 </style>
