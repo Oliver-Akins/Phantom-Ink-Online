@@ -38,27 +38,6 @@ export class Team {
 
 
 	/**
-	 * Removes all players from the team.
-	 */
-	public removePlayers() {
-
-		// Reset the writer
-		if (this.writer) {
-			this.writer.team = null;
-			this.writer.role = null;
-			this.writer = null;
-		};
-
-		// Reset all the guessers
-		for (var player of this.guessers) {
-			player.team = null;
-			player.role = null;
-		}
-		this.guessers = [];
-	};
-
-
-	/**
 	 * Resets all the per-game data related to this team
 	 */
 	public reset(): void {
