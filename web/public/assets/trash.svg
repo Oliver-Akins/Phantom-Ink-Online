@@ -1,8 +1,1 @@
-<svg width="72" height="72" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-reactroot="">
-<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1" stroke="#ede9c3" fill="none" d="M16.13 22H7.87C7.37 22 6.95 21.63 6.88 21.14L5 8H19L17.12 21.14C17.05 21.63 16.63 22 16.13 22Z"></path>
-<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1" stroke="#ede9c3" d="M3.5 8H20.5"></path>
-<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1" stroke="#ede9c3" d="M10 12V18"></path>
-<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1" stroke="#ede9c3" d="M14 12V18"></path>
-<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1" stroke="#ede9c3" fill="none" d="M16 5H8L9.7 2.45C9.89 2.17 10.2 2 10.54 2H13.47C13.8 2 14.12 2.17 14.3 2.45L16 5Z"></path>
-<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1" stroke="#ede9c3" d="M3 5H21"></path>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38.64 51.32"><defs><style>.cls-1{fill:#eaddbc;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_5" data-name="Layer 5"><rect class="cls-1" y="4.96" width="38.64" height="3.4" rx="0.59"/><path class="cls-1" d="M22.32,4.37c-.35,0-1-.69-1-1.05a2,2,0,0,0-4.08,0c0,.36-.47.94-.83.94S16,3.68,16,3.32a3.32,3.32,0,0,1,6.64,0C22.64,3.68,22.68,4.37,22.32,4.37Z"/><path class="cls-1" d="M35.75,9.4H2.89a1,1,0,0,0-1.11,1l3.86,40a1.06,1.06,0,0,0,1.11.91H31.89A1.06,1.06,0,0,0,33,50.41l3.86-40A1,1,0,0,0,35.75,9.4ZM8.32,22.14c-.24-2.51-.64-7,0-7S9.63,19.45,10,22c.84,6.39,2,25,2,25S8.93,28.55,8.32,22.14Zm11,25.18s-.95-18.7-.83-25.19c0-2.54.16-7,.83-7s.78,4.5.83,7C20.27,28.62,19.32,47.32,19.32,47.32Zm11-25.18c-.61,6.41-3.65,24.78-3.65,24.78s1.17-18.58,2-25c.33-2.5.95-6.94,1.61-6.86S30.56,19.63,30.32,22.14Z"/></g></g></svg>
