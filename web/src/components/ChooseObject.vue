@@ -99,6 +99,13 @@ export default {
 	height: 50%;
 }
 
+#ObjectBoard :first-child {
+	margin-left: 20px;
+}
+#ObjectBoard :last-child {
+	margin-right: 20px;
+}
+
 .text {
 	justify-content: center;
 	align-items: center;
