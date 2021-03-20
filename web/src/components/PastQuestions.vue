@@ -88,6 +88,7 @@ export default {
 	justify-content: center;
 	align-items: center;
 	border-radius: 7px;
+	text-align: center;
 	display: flex;
 	margin: 5px;
 	width: 40%;
