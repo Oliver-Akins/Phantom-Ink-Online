@@ -26,8 +26,8 @@ export default {
 @import "../css/style.css";
 
 #ObjectReminder {
-	background-color: var(--background3);
-	color: var(--background3-text);
+	background-color: var(--object-reminder-background);
+	color: var(--object-reminder-text);
 	border-radius: 100% 0 0 0;
 	height: var(--size);
 	width: var(--size);

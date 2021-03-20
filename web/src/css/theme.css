@@ -93,8 +93,9 @@
 	--cancel-background-lighten: #fa7d7d;
 	--cancel-text: white;
 
-	/* Trash button */
+	/* Corner buttons */
 	--trash-button-background: var(--background2);
 	--team-reminder-background: var(--background2);
 	--object-reminder-background: var(--background2);
+	--object-reminder-text: var(--background2-text);
 }

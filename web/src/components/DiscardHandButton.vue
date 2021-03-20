@@ -91,7 +91,7 @@ button {
 }
 
 .discard-hand {
-	background-color: var(--background3);
+	background-color: var(--trash-button-background);
 	border-radius: 100% 0 0 0;
 	position: relative;
 	border-style: none;
