@@ -1,7 +1,6 @@
 <template>
 	<div id="GameBoard">
 		<div id="other-team-answers" class="team-container">
-			<h2 class="centre">{{ $store.getters.otherTeamName }} Answers</h2>
 			<div class="answer-container">
 				<!--
 					Repeats to create the number of team answers that we need,
@@ -47,7 +46,6 @@
 			</div>
 		</div>
 		<div id="team-answers" class="team-container">
-			<h2 class="centre">{{ $store.getters.teamName }} Answers</h2>
 			<div class="answer-container">
 				<!--
 					This repeats to create the volume oftext inputs that we need,
