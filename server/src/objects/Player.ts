@@ -27,7 +27,7 @@ export class Player {
 
 	/**
 	 * Converts JSON-compatible player data into a Player object.
-	 * 
+	 *
 	 * @param data The player data to convert
 	 */
 	public static fromJSON(data: datastorePlayer): Player {
