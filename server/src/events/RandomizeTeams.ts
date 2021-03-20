@@ -18,7 +18,8 @@ export default (io: Server, socket: Socket, data: RandomizeTeams) => {
 
 		// Remove all players from all teams
 		for (var team of game.teams) {
-			team.removePlayers();
+			team.guessers = [];
+			team.writer = null;
 		};
 
 		let players = [...game.players];
