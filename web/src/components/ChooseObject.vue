@@ -87,8 +87,8 @@ export default {
 }
 
 .object {
-	background-color: var(--board-background-alt);
-	color: var(--board-background-alt-text);
+	background-color: var(--object-card-background);
+	color: var(--object-card-text);
 	justify-content: center;
 	flex-direction: column;
 	border-radius: 10px;
@@ -106,12 +106,13 @@ export default {
 }
 
 button {
-	background: var(--card-button);
+	background: var(--object-button-default);
+	color: var(--object-button-text);
 	border-radius: 7px;
 	font-size: larger;
 	padding: 7px;
 	margin: 10px;
 }
-button:hover { background-color: var(--card-button-darken); }
-button:focus { background-color: var(--board-background-alt-lighten); }
+button:hover { background: var(--object-button-hover); }
+button:focus { background: var(--object-button-focus); }
 </style>

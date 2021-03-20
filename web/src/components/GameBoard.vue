@@ -92,7 +92,8 @@
 			</div>
 		</div>
 		<button
-			class="past-questions-toggle clickable"
+			id="past-questions-toggle"
+			class="clickable"
 			@click.self="visible = !visible"
 		>
 			{{ visible ? `Hide` : `Show` }} Past Questions
@@ -265,14 +266,14 @@ input[type="text"].other-team-answer {
 	padding-left: 5%;
 }
 
-button {
-	background-color: var(--board-background-alt);
+#past-questions-toggle {
+	background-color: var(--past-questions-button-default);
 	border-radius: 0 20px 0 7px;
 	position: absolute;
 	padding: 10px;
 	right: 0;
 	top: 0;
 }
-button:hover { background-color: var(--board-background-alt-darken); }
-button:focus { background-color: var(--board-background-alt-lighten); }
+#past-questions-toggle:hover { background-color: var(--past-questions-button-hover); }
+#past-questions-toggle:focus { background-color: var(--past-questions-button-focus); }
 </style>
