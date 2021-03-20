@@ -210,11 +210,6 @@ h2 {
 	margin: 12px 0;
 }
 
-#other-team-answers .answer {
-	justify-content: flex-end;
-	display: flex;
-}
-
 .team-container {
 	height: 100%;
 	width: 45%;
@@ -223,37 +218,41 @@ h2 {
 .answer-container {
 	justify-content: space-evenly;
 	flex-direction: column;
-	align-items: center;
 	display: flex;
+}
+#other-team-answers .answer-container {
+	align-items: flex-end;
 }
 
 .answer {
 	position: relative;
-	width: 100%;
+	width: 90%;
 }
 .answer.correct > input {
 	border-color: green !important;
 	border-width: 3px;
 }
 
+#other-team-answers .answer {
+	margin-right: 20px;
+}
+
 .eye-container {
 	position: absolute;
-	width: 70px;
+	height: 100%;
 	z-index: 1;
 }
 .team {
-	right: -40px;
-	top: 25%;
+	right: -53px;
+	top: 0;
 }
 .other-team {
-	text-align: right;
-	left: -50px;
-	top: 25%;
+	left: -35px;
+	top: 0;
 }
 
 .eye {
-	height: 25px;
-	vertical-align: bottom;
+	height: 100%;
 }
 
 .eye-multiplier {
@@ -271,18 +270,18 @@ input[type="text"] {
 	font-size: larger;
 	outline: none;
 	padding: 7px;
-	width: 80%;
+	width: 100%;
 	margin: 0;
 }
 input[type="text"]:focus {
 	border-color: var(--board-background-text);
 }
-input[type="text"].team-answer {
+/* input[type="text"].team-answer {
 	padding-right: 5%;
 }
 input[type="text"].other-team-answer {
 	padding-left: 5%;
-}
+} */
 
 #past-questions-toggle {
 	background-color: var(--past-questions-button-default);
