@@ -37,6 +37,7 @@
 			</button>
 			<div class="new-line"></div>
 			<button
+				class="clickable"
 				@click.stop="exitGame()"
 			>
 				{{ $store.state.is_host ? `Delete` : `Leave`}} Game
