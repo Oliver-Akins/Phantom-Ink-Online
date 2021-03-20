@@ -102,9 +102,9 @@ button {
 
 .icon {
 	position: absolute;
-	bottom: 15px;
-	right: 15px;
-	width: 60px;
+	bottom: 20px;
+	right: 20px;
+	width: 50px;
 }
 
 .buttons {
