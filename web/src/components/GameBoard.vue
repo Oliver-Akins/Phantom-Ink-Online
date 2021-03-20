@@ -265,11 +265,11 @@ input[type="text"].other-team-answer {
 
 #past-questions-toggle {
 	background-color: var(--past-questions-button-default);
-	border-radius: 0 20px 0 7px;
+	border-radius: 25px;
 	position: absolute;
 	padding: 10px;
-	right: 0;
-	top: 0;
+	right: 15px;
+	top: 15px;
 }
 #past-questions-toggle:hover { background-color: var(--past-questions-button-hover); }
 #past-questions-toggle:focus { background-color: var(--past-questions-button-focus); }
