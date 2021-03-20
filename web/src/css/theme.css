@@ -11,7 +11,7 @@
 	--dark-font-colour: #000f3d;
 
 	/* The full-site background used for the game view area only */
-	--game-view-background: #29170c;
+	--game-view-background: 100%/100% repeat url("/assets/wood-grain.jpg");
 
 	/*
 		The darkest colour in the trio for backgrounds, this is used for the
