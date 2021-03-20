@@ -184,8 +184,7 @@ export default {
 @import "../css/style.css";
 
 #PlayerHand {
-	background-color: var(--background2);
-	border-radius: 20px;
+	background-color: var(--hand-background);
 	margin: 0 auto;
 	padding: 0px;
 	width: 95%;

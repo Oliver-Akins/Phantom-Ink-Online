@@ -37,6 +37,9 @@
 	--background3-lighten: #fff4d7;
 	--background3-text: var(--dark-font-colour);
 
+	/* Hand colours */
+	--hand-background: rgba(255, 255, 255, 0.2);
+
 	/*
 		The colours for the cards in the hands of the players
 	*/
@@ -65,9 +68,7 @@
 	--object-button-focus: var(--background2-darken);
 	--object-button-text: var(--background2-text);
 
-	/*
-		Colours used for the past questions insert and button
-	*/
+	/* Colours used for the past questions insert and button */
 	--past-questions-button-default: var(--background3);
 	--past-questions-button-hover: var(--background3-lighten);
 	--past-questions-button-focus: var(--background3-darken);
