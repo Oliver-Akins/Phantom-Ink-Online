@@ -241,7 +241,7 @@ export default {
 }
 
 button {
-	border-radius: 7px;
+	border-radius: 30px;
 	font-size: larger;
 	padding: 7px;
 	margin: 5px;
