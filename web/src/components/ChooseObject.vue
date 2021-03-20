@@ -80,8 +80,8 @@ export default {
 	padding-bottom: 10px;
 	flex-direction: row;
 	border-radius: 20px;
+	align-items: center;
 	margin: 15px auto;
-	flex-wrap: wrap;
 	display: flex;
 	width: 95%;
 }
@@ -94,8 +94,9 @@ export default {
 	border-radius: 10px;
 	display: flex;
 	padding: 15px;
+	flex-grow: 1;
 	margin: 10px;
-	width: 40%;
+	height: 50%;
 }
 
 .text {
