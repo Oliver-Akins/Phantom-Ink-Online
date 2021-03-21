@@ -1,6 +1,14 @@
 <template>
 	<div id="GameLobby" class="maximize view">
-		<h1 class="centre">Ghost Writer Online</h1>
+		<div class="centre" id="logo-header">
+			<a href="http://playghostwriter.com" target="_blank" rel="noopener">
+				<img
+					src="/assets/ghost_writer_logo.png"
+					alt="Ghost Writer Logo"
+					height="150px"
+				>
+			</a>
+		</div>
 		<div class="flex-row">
 			<button
 				class="clickable"
@@ -136,6 +144,10 @@ export default {
 	flex-direction: column;
 	align-items: stretch;
 	display: flex;
+}
+
+#logo-header {
+	margin-top: 5vh;
 }
 
 .flex-row {
