@@ -28,6 +28,12 @@
 					</button>
 				</a>
 			</p>
+			<hr>
+			<p>
+				<a href="https://www.freepik.com/vectors/background">
+					Background vector created by vectorpouch - www.freepik.com
+				</a>
+			</p>
 		</ModalAnimation>
 	</div>
 </template>
