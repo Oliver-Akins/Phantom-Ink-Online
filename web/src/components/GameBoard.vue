@@ -99,6 +99,18 @@
 		>
 			{{ visible ? `Hide` : `Show` }} Past Questions
 		</button>
+		<a
+			href="https://playghostwriter.com"
+			target="_blank"
+			id="game-logo-link"
+		>
+			<img
+				id="game-logo"
+				src="/assets/ghost_writer_logo.png"
+				alt="Ghost Writer Logo"
+				rel="noopener"
+			>
+		</a>
 		<transition name="expand-from-left">
 			<past-questions v-if="visible" @error="$emit(`error`, $event)" />
 		</transition>
@@ -204,6 +216,16 @@ export default {
 }
 #GameBoard.moon {
 	background: var(--board-background-moon), var(--board-background);
+}
+
+#game-logo-link {
+	position: absolute;
+	z-index: 1;
+	top: 7px;
+	height: 10%
+}
+#game-logo {
+	height: 100%;
 }
 
 h2 {

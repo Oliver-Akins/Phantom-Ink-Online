@@ -1,6 +1,14 @@
 <template>
 	<div id="CreateJoinGame" class="maximize view">
-		<h1>Ghost Writer Online</h1>
+		<div class="centre" id="logo-header">
+			<a href="http://playghostwriter.com" target="_blank" rel="noopener">
+				<img
+					src="/assets/ghost_writer_logo.png"
+					alt="Ghost Writer Logo"
+					height="200"
+				>
+			</a>
+		</div>
 		<button
 			@click.stop="createGame()"
 		>Create Game</button>
@@ -147,6 +155,10 @@ export default {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+#logo-header {
+	margin-top: 10vh;
 }
 
 button {

@@ -39,6 +39,7 @@
 
 	/* Hand colours */
 	--hand-background: rgba(255, 255, 255, 0.2);
+	--hand-text: var(--dark-font-colour);
 
 	/*
 		The colours for the cards in the hands of the players
