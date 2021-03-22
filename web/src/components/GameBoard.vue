@@ -108,6 +108,7 @@
 				id="game-logo"
 				src="/assets/ghost_writer_logo.png"
 				alt="Ghost Writer Logo"
+				rel="noopener"
 			>
 		</a>
 		<transition name="expand-from-left">
