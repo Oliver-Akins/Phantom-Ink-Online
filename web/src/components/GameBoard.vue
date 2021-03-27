@@ -298,12 +298,9 @@ input[type="text"] {
 input[type="text"]:focus {
 	border-color: var(--board-background-text);
 }
-/* input[type="text"].team-answer {
-	padding-right: 5%;
-}
 input[type="text"].other-team-answer {
-	padding-left: 5%;
-} */
+	padding-left: 35px;
+}
 
 #past-questions-toggle {
 	background-color: var(--past-questions-button-default);
