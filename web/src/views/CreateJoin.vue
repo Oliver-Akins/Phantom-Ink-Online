@@ -10,9 +10,11 @@
 			</a>
 		</div>
 		<button
+			class="clickable"
 			@click.stop="createGame()"
 		>Create Game</button>
 		<button
+			class="clickable"
 			@click.stop="joinGame()"
 		>Join Game</button>
 	</div>
