@@ -45,7 +45,7 @@
 				If you are on one of those devices and you still see this message,
 				please contact "ghostwriter{at}resonym.com" with the following information:
 				<br><br>
-				{{ userAgent }}
+				{{ $store.getters.userAgent }}
 			</p>
 		</div>
 	</div>
@@ -76,14 +76,8 @@ export default {
 		gameState() {
 			return this.$store.state.view;
 		},
-		userAgent() {
-			if (navigator == null) {
-				return "Navigator Undefined";
-			};
-			return navigator.userAgent;
-		},
 		isMobile () {
-			return this.userAgent.match(/(Navigator Undefined)|iPhone|iPod|Android/) != null;
+			return this.$store.getters.userAgent.match(/(Navigator Undefined)|iPhone|iPod|Android/) != null;
 		},
 	},
 	methods: {

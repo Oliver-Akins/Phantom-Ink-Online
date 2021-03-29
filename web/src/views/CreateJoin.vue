@@ -9,6 +9,23 @@
 				>
 			</a>
 		</div>
+		<div
+			v-if="$store.getters.isFirefox"
+		>
+			<div
+				id="firefox-warning"
+				class="error-message"
+			>
+				<p class="centre">
+					<strong>WARNING:</strong>
+					<br>
+					It appears as though you are using the Firefox web browser,
+					please note that Firefox is not recommended for use with
+					this site. Especially while streaming. This is to have the
+					site look as good as possible.
+				</p>
+			</div>
+		</div>
 		<button
 			class="clickable"
 			@click.stop="createGame()"
@@ -174,4 +191,13 @@ button {
 }
 button:hover { background-color: var(--background2-darken); }
 button:focus { background-color: var(--background2-lighten); }
+
+.error-message {
+	border-color: #F00;
+	border-style: solid;
+	border-radius: 5px;
+	border-width: 2px;
+	margin: 0 auto;
+	width: 70%
+}
 </style>

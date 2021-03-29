@@ -51,6 +51,15 @@ export default new Vuex.Store({
 			};
 			return ``;
 		},
+		userAgent() {
+			if (navigator == null) {
+				return "Navigator Undefined";
+			};
+			return navigator.userAgent;
+		},
+		isFirefox(state, getters) {
+			return getters.userAgent.match(/(Navigator Undefined)|Firefox/g) != null;
+		},
 	},
 	mutations: {
 		resetState(state) {
