@@ -95,7 +95,11 @@ export class Game {
 			.then((data) => {
 				let objects: object_deck[] = [];
 				for (var line of data) {
-					objects.push(Object.values(line));
+					objects.push(
+						Object.values(line).map(
+							object_string => object_string.trim()
+						)
+					);
 				};
 				this._objects = new Deck(objects);
 			})
