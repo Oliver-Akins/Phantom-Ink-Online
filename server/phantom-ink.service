@@ -1,5 +1,5 @@
 [Unit]
-Description=Ghost Writer websocket server
+Description=Phantom Ink websocket server
 
 [Service]
 Type=simple

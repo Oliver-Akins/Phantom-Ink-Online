@@ -8,31 +8,31 @@
 
 
 ## Using systemd to manage the server:
-This app comes with a `ghost-writer.service` file which is already set up to
+This app comes with a `phantom-ink.service` file which is already set up to
 manage the server, it just requires a little bit of additional setup. If you
 change any of the symlinking in the steps below, it is your responsibility to
 figure it out, I will not guarantee support for people who attempt to modify
 the service file beyond the steps below.
 
 6. Create a symlink named `server` in the server root (`/`) pointing to the
-server folder in the Ghost Writer git repository.
-(Ex: `sudo ln -s ~/Ghost-Writer-Online/server /server`)
-7. Create a symlink named `ghost-writer.service` in `/etc/systemd/system`
-pointing to the service file in the `server` folder of the Ghost Writer Online
-repository. (Ex: `sudo ln -s /server/ghost-writer.service /etc/systemd/system/ghost-writer.service`)
+server folder in the Phantom Ink git repository.
+(Ex: `sudo ln -s ~/Phantom-Ink-Online/server /server`)
+7. Create a symlink named `phantom-ink.service` in `/etc/systemd/system`
+pointing to the service file in the `server` folder of the Phantom Ink Online
+repository. (Ex: `sudo ln -s /server/phantom-ink.service /etc/systemd/system/phantom-ink.service`)
 8. Run `whereis node` and copy the absolute file path of the output
-9. Edit the `ghost-writer.service` file to replace change the
+9. Edit the `phantom-ink.service` file to replace change the
 `ExecStart=node dist/main.js` to replace `node` with the file path you copied
 from the previous step
 10. Reload the systemd daemon with `sudo systemd daemon-reload` to make the
 changes to the service file take effect.
-11. Start the websocket server with `sudo systemctl start ghost-writer`
-12. Make sure the server is started by running `systemctl status ghost-writer`
+11. Start the websocket server with `sudo systemctl start phantom-ink`
+12. Make sure the server is started by running `systemctl status phantom-ink`
 
-* To start the server, run `sudo sustemctl start ghost-writer`
-* To restart the server, run `sudo systemctl restart ghost-writer`
-* To stop the server, run `sudo systemctl stop ghost-writer`
-* To access the server logs, run `sudo journalctl -u ghost-writer`
+* To start the server, run `sudo sustemctl start phantom-ink`
+* To restart the server, run `sudo systemctl restart phantom-ink`
+* To stop the server, run `sudo systemctl stop phantom-ink`
+* To access the server logs, run `sudo journalctl -u phantom-ink`
 
 
 ## Using a detached terminal:
@@ -55,5 +55,5 @@ this repository.
 All of the configuration for the server is done in the `server.toml` with
 explanations in the file. When a value is changed in the config, you will need
 to restart the server. This is either through systemd
-(`sudo systemctl restart ghost-writer`) or through your preferred terminal
+(`sudo systemctl restart phantom-ink`) or through your preferred terminal
 detacher, by stopping then re-starting the process.
