@@ -39,7 +39,7 @@
 			v-else
 			class="device-error"
 		>
-			<h1 class="centre">Ghost Writer Online</h1>
+			<h1 class="centre">Phantom Ink Online</h1>
 			<p class="centre">
 				To use this site you must be using a laptop, desktop, or iPad.
 				If you are on one of those devices and you still see this message,

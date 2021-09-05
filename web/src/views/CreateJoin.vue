@@ -1,10 +1,10 @@
 <template>
 	<div id="CreateJoinGame" class="maximize view">
 		<div class="centre" id="logo-header">
-			<a href="http://playghostwriter.com" target="_blank" rel="noopener">
+			<a href="http://phantominkgame.com/" target="_blank" rel="noopener">
 				<img
-					src="/assets/ghost_writer_logo.png"
-					alt="Ghost Writer Logo"
+					src="/assets/phantom_ink_logo.png"
+					alt="Phantom Ink Logo"
 					height="200"
 				>
 			</a>

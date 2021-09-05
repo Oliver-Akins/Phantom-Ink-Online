@@ -100,14 +100,14 @@
 			{{ visible ? `Hide` : `Show` }} Past Questions
 		</button>
 		<a
-			href="https://playghostwriter.com"
+			href="http://phantominkgame.com/"
 			target="_blank"
 			id="game-logo-link"
 		>
 			<img
 				id="game-logo"
-				src="/assets/ghost_writer_logo.png"
-				alt="Ghost Writer Logo"
+				src="/assets/phantom_ink_logo.png"
+				alt="Phantom Ink Logo"
 				rel="noopener"
 			>
 		</a>

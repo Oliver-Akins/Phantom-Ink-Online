@@ -12,7 +12,7 @@
 		>
 			<h2 class="centre">Attributions:</h2>
 			<p class="centre">
-				Ghost Writer is designed and created by
+				Phantom Ink is designed and created by
 				<a href="https://resonym.com" target="_blank" rel="noopener">Resonym</a>
 				<br>
 				Online Prototype Made By: Oliver Akins
